@@ -1,8 +1,11 @@
 import 'package:chat_app/constants.dart';
+import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:flutter/material.dart';
 
 class CustomProceedButton extends StatelessWidget {
-  const CustomProceedButton({Key? key}) : super(key: key);
+  final String buttonText;
+
+  CustomProceedButton(this.buttonText);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class CustomProceedButton extends StatelessWidget {
       height: 60,
       alignment: Alignment.center,
       child: Text(
-        'Log in',
+        buttonText,
         style: Theme.of(context).textTheme.bodyText1?.copyWith(
               fontSize: 20,
             ),

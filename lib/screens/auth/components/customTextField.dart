@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String fieldName;
-  CustomTextField(this.fieldName);
+  final String helperText;
+  CustomTextField(this.fieldName,this.helperText);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +26,7 @@ class CustomTextField extends StatelessWidget {
               .bodyText1
               ?.copyWith(fontSize: 15, height: 1.5),
           decoration: InputDecoration(
-            hintText: 'Enter your ${fieldName.toLowerCase()}',
+            hintText: helperText,
             hintStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
                   color: kDarkSecondaryColor.withAlpha(200),
                 ),

@@ -38,9 +38,9 @@ class LoginScreenBody extends StatelessWidget {
               ),
             ),
           ),
-          CustomTextField('Email'),
+          CustomTextField('Email','Enter your email'),
           SizedBox(height: 20),
-          CustomTextField('Password'),
+          CustomTextField('Password','Enter your password'),
           Padding(
             padding: EdgeInsets.only(left: 10, top: 5),
             child: Text.rich(
@@ -49,7 +49,7 @@ class LoginScreenBody extends StatelessWidget {
             ),
           ),
           SizedBox(height: 25),
-          CustomProceedButton(), // Login Button Here
+          CustomProceedButton('Log In'), // Login Button Here
           SizedBox(height: 10),
           Center(
             child: Text.rich(

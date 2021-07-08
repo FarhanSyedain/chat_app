@@ -1,10 +1,24 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'customProceedButton.dart';
 import 'socialMediaLoginButton.dart';
 import 'customTextField.dart';
 
-class RegisterScreenBody extends StatelessWidget {
+class RegisterScreenBody extends StatefulWidget {
+  @override
+  _RegisterScreenBodyState createState() => _RegisterScreenBodyState();
+}
+
+class _RegisterScreenBodyState extends State<RegisterScreenBody> {
+  var withPhoneNumber = false;
+
+  void changeRegisterField() {
+    setState(() {
+      withPhoneNumber = !withPhoneNumber;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,12 +39,18 @@ class RegisterScreenBody extends StatelessWidget {
               SocialMediaLoginButton('Github'),
             ],
           ),
-          SizedBox(height: 20),
+       
+
           Center(
             child: Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.all(25),
               child: Text.rich(
-                TextSpan(text: 'Use phone number instead.'),
+                TextSpan(
+                    text: withPhoneNumber
+                        ? 'Use email instead'
+                        : 'Use phone number instead.',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = changeRegisterField),
                 style: Theme.of(context)
                     .textTheme
                     .subtitle2
@@ -38,22 +58,31 @@ class RegisterScreenBody extends StatelessWidget {
               ),
             ),
           ),
-          CustomTextField('Name'),
-          SizedBox(height: 20),
 
-          CustomTextField('Email'),
-          SizedBox(height: 20),
-          CustomTextField('Password'),
-  
-          SizedBox(height: 25),
-          CustomProceedButton(), // Login Button Here
+      
+          withPhoneNumber
+              ? CustomTextField('Phone Number', 'Enter your phone number')
+              : Column(
+                  children: [
+                    CustomTextField('Email', 'Enter your email'),
+                    SizedBox(height: 20),
+                    CustomTextField('Password', 'Set a passowrd'),
+                    SizedBox(height: 20),
+                    CustomTextField(
+                        'Confirm Password', 'Confirm your password'),
+                  ],
+                ),
+
+          SizedBox(height: 35),
+
+          CustomProceedButton(withPhoneNumber ? 'Generate Otp' : 'Sign Up'), // Login Button Here
           SizedBox(height: 10),
           Center(
             child: Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Sign Up',
+                    text: 'Sign In',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
