@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'customProceedButton.dart';
@@ -57,6 +58,7 @@ class LoginScreenBody extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: 'Sign up',
+                    recognizer: TapGestureRecognizer()..onTap = () => Navigator.of(context).pushReplacementNamed('/register'),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],

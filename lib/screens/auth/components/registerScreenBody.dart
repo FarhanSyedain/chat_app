@@ -39,7 +39,6 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
               SocialMediaLoginButton('Github'),
             ],
           ),
-       
 
           Center(
             child: Padding(
@@ -59,7 +58,6 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
             ),
           ),
 
-      
           withPhoneNumber
               ? CustomTextField('Phone Number', 'Enter your phone number')
               : Column(
@@ -75,7 +73,9 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
 
           SizedBox(height: 35),
 
-          CustomProceedButton(withPhoneNumber ? 'Generate Otp' : 'Sign Up'), // Login Button Here
+          CustomProceedButton(withPhoneNumber
+              ? 'Generate Otp'
+              : 'Sign Up'), // Login Button Here
           SizedBox(height: 10),
           Center(
             child: Text.rich(
@@ -84,6 +84,10 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   TextSpan(
                     text: 'Sign In',
                     style: Theme.of(context).textTheme.bodyText1,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).pushReplacementNamed('/login');
+                      },
                   ),
                 ],
                 text: 'Already have an account?   ',
