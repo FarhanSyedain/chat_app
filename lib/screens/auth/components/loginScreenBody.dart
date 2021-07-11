@@ -5,7 +5,20 @@ import 'customProceedButton.dart';
 import 'customTextField.dart';
 import 'socialMediaLoginButton.dart';
 
-class LoginScreenBody extends StatelessWidget {
+class LoginScreenBody extends StatefulWidget {
+  @override
+  _LoginScreenBodyState createState() => _LoginScreenBodyState();
+}
+
+class _LoginScreenBodyState extends State<LoginScreenBody> {
+  var withPhoneNumber = false;
+
+  void changeLoginField() {
+    setState(() {
+      withPhoneNumber = !withPhoneNumber;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +44,12 @@ class LoginScreenBody extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 10),
               child: Text.rich(
-                TextSpan(text: 'Use phone number instead.'),
+                TextSpan(
+                  recognizer: TapGestureRecognizer()..onTap = changeLoginField,
+                  text: withPhoneNumber
+                      ? 'Use phone number instead.'
+                      : 'Use email instead',
+                ),
                 style: Theme.of(context)
                     .textTheme
                     .subtitle2
@@ -39,16 +57,35 @@ class LoginScreenBody extends StatelessWidget {
               ),
             ),
           ),
-          CustomTextField('Email','Enter your email'),
-          SizedBox(height: 20),
-          CustomTextField('Password','Enter your password'),
-          Padding(
-            padding: EdgeInsets.only(left: 10, top: 5),
-            child: Text.rich(
-              TextSpan(text: 'Forgot Password?'),
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
+          SizedBox(
+            height: 5,
           ),
+          withPhoneNumber
+              ? Column(
+                  children: [
+                    CustomTextField(
+                      'Email',
+                      'Enter your email',
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextField(
+                      'Password',
+                      'Enter your password',
+                    ),
+                  ],
+                )
+              : CustomTextField(
+                  'Phone Number',
+                  'Enter your mobile number',
+                ),
+          if (withPhoneNumber)
+            Padding(
+              padding: EdgeInsets.only(left: 10, top: 5),
+              child: Text.rich(
+                TextSpan(text: 'Forgot Password?'),
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+            ),
           SizedBox(height: 25),
           CustomProceedButton('Log In'), // Login Button Here
           SizedBox(height: 10),
@@ -58,7 +95,9 @@ class LoginScreenBody extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: 'Sign up',
-                    recognizer: TapGestureRecognizer()..onTap = () => Navigator.of(context).pushReplacementNamed('/register'),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => Navigator.of(context)
+                          .pushReplacementNamed('/register'),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
