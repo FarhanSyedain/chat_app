@@ -1,5 +1,6 @@
 import 'package:chat_app/screens/auth/login.dart';
 import 'package:chat_app/screens/auth/register.dart';
+import 'package:chat_app/screens/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'constants.dart';
