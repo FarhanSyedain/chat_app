@@ -22,6 +22,10 @@ class Main extends StatelessWidget {
       home: Home(),
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
+      },
     );
   }
 }
