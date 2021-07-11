@@ -1,5 +1,4 @@
 import 'package:chat_app/constants.dart';
-import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:flutter/material.dart';
 
 class CustomProceedButton extends StatelessWidget {

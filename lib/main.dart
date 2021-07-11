@@ -22,6 +22,7 @@ class Main extends StatelessWidget {
       home: Home(),
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
+      // todo: Theming
       routes: {
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
@@ -33,6 +34,6 @@ class Main extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return RegisterScreen();
+    return WelcomeScreen();
   }
 }
