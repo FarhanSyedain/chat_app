@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'customProceedButton.dart';
+import 'package:chat_app/screens/auth/components/customProceedButton.dart';
+
 import 'socialMediaLoginButton.dart';
 import 'customTextField.dart';
 
