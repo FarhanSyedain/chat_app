@@ -1,4 +1,3 @@
-import 'package:chat_app/constants.dart';
 import 'package:chat_app/screens/auth/components/customProceedButton.dart';
 
 import 'package:chat_app/screens/auth/register.dart';
@@ -14,13 +13,19 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  
   @override
-  final isDarkMode = ThemeMode.system == ThemeMode.dark;
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
+    var titleStyle = TextStyle(
+      fontSize: 20,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    );
     return Container(
       child: IntroductionScreen(
-        color: isDarkMode ? kDarkBackgroundColor: kDarkBackgroundColor,
+        globalBackgroundColor: isDarkMode ? Colors.black : Colors.white,
+
         done: CustomProceedButton(
           "Sign up",
         ), // todo: put CustomProceedButton here
@@ -35,6 +40,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         pages: [
           PageViewModel(
             decoration: PageDecoration(
+              titleTextStyle: titleStyle,
+              pageColor: isDarkMode ? Colors.black : Colors.white,
               imagePadding: EdgeInsets.only(top: 50),
             ),
             title: "Welcome to Spark",
@@ -45,6 +52,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
           PageViewModel(
             decoration: PageDecoration(
+              titleTextStyle: titleStyle,
+              pageColor: isDarkMode ? Colors.black : Colors.white,
               imagePadding: EdgeInsets.only(top: 50),
             ),
             title: "Hybrid Voice Texting",
@@ -56,6 +65,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
           PageViewModel(
             decoration: PageDecoration(
+              titleTextStyle: titleStyle,
+              pageColor: isDarkMode ? Colors.black : Colors.white,
               imagePadding: EdgeInsets.only(top: 50),
             ),
             image: SvgPicture.asset('assets/vectors/getStarted.svg'),
