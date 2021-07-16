@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/customAppbar.dart';
+import '../../components/customAppbar.dart';
 import 'components/registerScreenBody.dart';
 
 class RegisterScreen extends StatelessWidget {
