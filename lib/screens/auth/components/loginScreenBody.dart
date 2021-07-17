@@ -1,4 +1,6 @@
-import 'package:chat_app/screens/auth/components/customProceedButton.dart';
+import 'package:chat_app/components/customProceedButton.dart';
+import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,7 @@ class LoginScreenBody extends StatefulWidget {
 
 class _LoginScreenBodyState extends State<LoginScreenBody> {
   var withPhoneNumber = false;
+  final _formKey = GlobalKey<FormState>();
 
   void changeLoginField() {
     setState(() {
@@ -60,34 +63,67 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
           SizedBox(
             height: 5,
           ),
-          withPhoneNumber
-              ? Column(
-                  children: [
-                    CustomTextField(
-                      'Email',
-                      'Enter your email',
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                withPhoneNumber
+                    ? Column(
+                        children: [
+                          CustomTextField(
+                            'Email',
+                            'Enter your email',
+                            (value) {
+                              if (value == null) {
+                                return 'Enter an email';
+                              }
+                              if (!validateEmail(value)) {
+                                return 'Enter a valid email adress';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            'Password',
+                            'Enter your password',
+                            (value) {
+                              return null;
+                            },
+                          ),
+                        ],
+                      )
+                    : CustomTextField(
+                        'Phone Number',
+                        'Enter your mobile number',
+                        (value) {
+                          return null;
+                        },
+                      ),
+                if (withPhoneNumber)
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, top: 5),
+                    child: Text.rich(
+                      TextSpan(text: 'Forgot Password?'),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
-                    SizedBox(height: 20),
-                    CustomTextField(
-                      'Password',
-                      'Enter your password',
-                    ),
-                  ],
-                )
-              : CustomTextField(
-                  'Phone Number',
-                  'Enter your mobile number',
-                ),
-          if (withPhoneNumber)
-            Padding(
-              padding: EdgeInsets.only(left: 10, top: 5),
-              child: Text.rich(
-                TextSpan(text: 'Forgot Password?'),
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
+                  ),
+              ],
             ),
+          ),
           SizedBox(height: 25),
-          CustomProceedButton('Log In'), // Login Button Here
+          GestureDetector(
+            child: CustomProceedButton('Log In'),
+            onTap: () {
+              final isValid = _formKey.currentState?.validate();
+              if (isValid == null) {
+return;
+              }
+              if (isValid) {
+                //createU
+              }
+            },
+          ), // Login Button Here
           SizedBox(height: 10),
           Center(
             child: Text.rich(

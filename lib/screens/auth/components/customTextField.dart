@@ -4,7 +4,15 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String fieldName;
   final String helperText;
-  CustomTextField(this.fieldName,this.helperText);
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
+
+  CustomTextField(
+    this.fieldName,
+    this.helperText,
+    this.validator, {
+    this.controller,
+  });
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,7 +28,9 @@ class CustomTextField extends StatelessWidget {
         SizedBox(
           height: 5,
         ),
-        TextField(
+        TextFormField(
+          controller: controller == null ? null : controller,
+          validator: validator,
           style: Theme.of(context)
               .textTheme
               .bodyText1

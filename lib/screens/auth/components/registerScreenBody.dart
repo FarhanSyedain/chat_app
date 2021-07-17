@@ -1,7 +1,9 @@
+import 'package:chat_app/utilities/emailRegexValidator.dart';
+import 'package:chat_app/utilities/passwordValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'package:chat_app/screens/auth/components/customProceedButton.dart';
+import 'package:chat_app/components/customProceedButton.dart';
 
 import 'socialMediaLoginButton.dart';
 import 'customTextField.dart';
@@ -13,6 +15,8 @@ class RegisterScreenBody extends StatefulWidget {
 
 class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   var withPhoneNumber = false;
+  final passwordTextFieldControler = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   void changeRegisterField() {
     setState(() {
@@ -60,18 +64,53 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
               ),
             ),
 
-            withPhoneNumber
-                ? CustomTextField('Phone Number', 'Enter your phone number')
-                : Column(
-                    children: [
-                      CustomTextField('Email', 'Enter your email'),
-                      SizedBox(height: 20),
-                      CustomTextField('Password', 'Set a passowrd'),
-                      SizedBox(height: 20),
-                      CustomTextField(
-                          'Confirm Password', 'Confirm your password'),
-                    ],
-                  ),
+            Form(
+              key: _formKey,
+              child: withPhoneNumber
+                  ? CustomTextField('Phone Number', 'Enter your phone number',
+                      (value) {
+                      if (value == null) {
+                        return 'Enter a phone number';
+                      }
+                      return null;
+                    })
+                  : Column(
+                      children: [
+                        CustomTextField(
+                          'Email',
+                          'Enter your email',
+                          (value) {
+                            if (value == null) {
+                              return 'Enter an email';
+                            }
+                            if (!validateEmail(value)) {
+                              return 'Enter a valid email';
+                            }
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        CustomTextField('Password', 'Set a passowrd', (value) {
+                          if (value == null) {
+                            return 'Enter a password';
+                          }
+                          if (!validatePassword(value)) {
+                            return 'Password must be atleast 6 charecters';
+                          }
+                        }),
+                        SizedBox(height: 20),
+                        CustomTextField(
+                          'Confirm Password',
+                          'Confirm your password',
+                          (value) {
+                            final password = passwordTextFieldControler.text;
+                            if (password != value) {
+                              return 'Passwords don\'t match';
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+            ),
 
             SizedBox(height: 35),
 
