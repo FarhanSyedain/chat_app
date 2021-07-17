@@ -1,4 +1,4 @@
-import 'package:chat_app/screens/auth/components/customProceedButton.dart';
+import 'package:chat_app/components/customProceedButton.dart';
 
 import 'package:chat_app/screens/auth/register.dart';
 import 'package:flutter/material.dart';
