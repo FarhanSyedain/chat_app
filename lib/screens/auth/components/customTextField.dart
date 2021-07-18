@@ -36,6 +36,20 @@ class CustomTextField extends StatelessWidget {
               .bodyText1
               ?.copyWith(fontSize: 15, height: 1.5),
           decoration: InputDecoration(
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).cardColor.withAlpha(200),
+                width: 3,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            errorBorder:OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).cardColor.withAlpha(200),
+                width: 3,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
             hintText: helperText,
             hintStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
                   color: kDarkSecondaryColor.withAlpha(200),
