@@ -28,6 +28,7 @@ dependencies:
   introduction_screen: ^2.1.0
   firebase_auth: ^2.0.0
   cloud_firestore: ^2.0.0
+  provider: ^5.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,6 +47,7 @@ flutter:
     - assets/vectors/people.svg
     - assets/vectors/voice.svg
     - assets/vectors/getStarted.svg
+    - assets/vectors/emailSent.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
