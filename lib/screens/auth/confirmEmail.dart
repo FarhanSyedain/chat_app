@@ -17,6 +17,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   @override
   void initState() {
     _user?.sendEmailVerification();
+    print('Sent');
     timer = Timer.periodic(
       Duration(seconds: 5),
       (_) {
@@ -32,14 +33,11 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   }
 
   Future<void> checkIfVerified() async {
-    print('One');
-    await _user?.reload();
-  print('twp');
+    final user = FirebaseAuth.instance.currentUser;
+    await user?.reload();
 
-    final emailVerified = _user?.emailVerified;
-    print('email verifeid $emailVerified');
+    final emailVerified = user?.emailVerified;
     if (emailVerified == null) {
-      print('this is a message');
       return;
       //Stupid null saftey
     }

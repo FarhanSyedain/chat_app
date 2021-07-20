@@ -1,9 +1,11 @@
+import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:chat_app/utilities/passwordValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:provider/provider.dart';
 
 import 'socialMediaLoginButton.dart';
 import 'customTextField.dart';
@@ -14,8 +16,11 @@ class RegisterScreenBody extends StatefulWidget {
 }
 
 class _RegisterScreenBodyState extends State<RegisterScreenBody> {
+  var emailAlreadyInUse = false;
+
   var withPhoneNumber = false;
   final passwordTextFieldControler = TextEditingController();
+  final emailTextFieldControler = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   void changeRegisterField() {
@@ -51,11 +56,12 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                 padding: EdgeInsets.all(25),
                 child: Text.rich(
                   TextSpan(
-                      text: withPhoneNumber
-                          ? 'Use email instead'
-                          : 'Use phone number instead.',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = changeRegisterField),
+                    text: withPhoneNumber
+                        ? 'Use email instead'
+                        : 'Use phone number instead.',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = changeRegisterField,
+                  ),
                   style: Theme.of(context)
                       .textTheme
                       .subtitle2
@@ -87,22 +93,32 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                               return 'Enter a valid email';
                             }
                           },
+                          controller: emailTextFieldControler,
+                          errorMessage: !emailAlreadyInUse
+                              ? null
+                              : "This email is already in use!",
                         ),
                         SizedBox(height: 20),
-                        CustomTextField('Password', 'Set a passowrd', (value) {
-                          if (value == null) {
-                            return 'Enter a password';
-                          }
-                          if (!validatePassword(value)) {
-                            return 'Password must be atleast 6 charecters';
-                          }
-                        }),
+                        CustomTextField(
+                          'Password',
+                          'Set a passowrd',
+                          (value) {
+                            if (value == null) {
+                              return 'Enter a password';
+                            }
+                            if (!validatePassword(value)) {
+                              return 'Password must be atleast 6 charecters';
+                            }
+                          },
+                          controller: passwordTextFieldControler,
+                        ),
                         SizedBox(height: 20),
                         CustomTextField(
                           'Confirm Password',
                           'Confirm your password',
                           (value) {
                             final password = passwordTextFieldControler.text;
+
                             if (password != value) {
                               return 'Passwords don\'t match';
                             }
@@ -111,12 +127,27 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       ],
                     ),
             ),
-
             SizedBox(height: 35),
-
-            CustomProceedButton(withPhoneNumber
-                ? 'Generate Otp'
-                : 'Sign Up'), // Login Button Here
+            GestureDetector(
+              onTap: () {
+                final isValid = _formKey.currentState?.validate();
+                if (isValid == null) {
+                  return;
+                }
+                if (isValid) {
+                  !withPhoneNumber
+                      ? signUpWithEmail(
+                          context,
+                          emailTextFieldControler.text,
+                          passwordTextFieldControler.text,
+                        )
+                      : print(withPhoneNumber);
+                }
+              },
+              child: CustomProceedButton(
+                withPhoneNumber ? 'Generate Otp' : 'Sign Up',
+              ),
+            ), // Login Button Here
             SizedBox(height: 10),
             Center(
               child: Text.rich(
@@ -140,5 +171,26 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
         ),
       ),
     );
+  }
+
+  Future<void> signUpWithEmail(
+    BuildContext context,
+    String email,
+    String password,
+  ) async {
+    String response = await context.read<AuthService>().registerUser(
+          email,
+          password,
+        );
+    if (response == '') {
+      //User successfully registerd
+      Navigator.pushNamed(context, '/verifyEmail');
+    } else {
+      if (response == 'email-already-in-use') {
+        setState(() {
+          emailAlreadyInUse = true;
+        });
+      }
+    }
   }
 }
