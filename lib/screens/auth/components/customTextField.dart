@@ -6,12 +6,14 @@ class CustomTextField extends StatelessWidget {
   final String helperText;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  final String? errorMessage;
 
   CustomTextField(
     this.fieldName,
     this.helperText,
     this.validator, {
     this.controller,
+    this.errorMessage,
   });
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class CustomTextField extends StatelessWidget {
               .bodyText1
               ?.copyWith(fontSize: 15, height: 1.5),
           decoration: InputDecoration(
+            errorText: errorMessage == null ? null : errorMessage,
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Theme.of(context).cardColor.withAlpha(200),
@@ -43,7 +46,7 @@ class CustomTextField extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(15),
             ),
-            errorBorder:OutlineInputBorder(
+            errorBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Theme.of(context).cardColor.withAlpha(200),
                 width: 3,
