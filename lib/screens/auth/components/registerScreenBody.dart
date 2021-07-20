@@ -17,7 +17,7 @@ class RegisterScreenBody extends StatefulWidget {
 
 class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   var emailAlreadyInUse = false;
-
+  var loading = false;
   var withPhoneNumber = false;
   final passwordTextFieldControler = TextEditingController();
   final emailTextFieldControler = TextEditingController();
@@ -97,6 +97,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                           errorMessage: !emailAlreadyInUse
                               ? null
                               : "This email is already in use!",
+                          disabled: loading,
                         ),
                         SizedBox(height: 20),
                         CustomTextField(
@@ -111,6 +112,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                             }
                           },
                           controller: passwordTextFieldControler,
+                          disabled: loading,
                         ),
                         SizedBox(height: 20),
                         CustomTextField(
@@ -123,31 +125,34 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                               return 'Passwords don\'t match';
                             }
                           },
+                          disabled: loading,
                         ),
                       ],
                     ),
             ),
             SizedBox(height: 35),
-            GestureDetector(
-              onTap: () {
-                final isValid = _formKey.currentState?.validate();
-                if (isValid == null) {
-                  return;
-                }
-                if (isValid) {
-                  !withPhoneNumber
-                      ? signUpWithEmail(
-                          context,
-                          emailTextFieldControler.text,
-                          passwordTextFieldControler.text,
-                        )
-                      : print(withPhoneNumber);
-                }
-              },
-              child: CustomProceedButton(
-                withPhoneNumber ? 'Generate Otp' : 'Sign Up',
-              ),
-            ), // Login Button Here
+            loading
+                ? CustomProceedButton('Signin in..')
+                : GestureDetector(
+                    onTap: () {
+                      final isValid = _formKey.currentState?.validate();
+                      if (isValid == null) {
+                        return;
+                      }
+                      if (isValid) {
+                        !withPhoneNumber
+                            ? signUpWithEmail(
+                                context,
+                                emailTextFieldControler.text,
+                                passwordTextFieldControler.text,
+                              )
+                            : print(withPhoneNumber);
+                      }
+                    },
+                    child: CustomProceedButton(
+                      withPhoneNumber ? 'Generate Otp' : 'Sign Up',
+                    ),
+                  ), // Login Button Here
             SizedBox(height: 10),
             Center(
               child: Text.rich(
@@ -174,14 +179,16 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   }
 
   Future<void> signUpWithEmail(
-    BuildContext context,
-    String email,
-    String password,
-  ) async {
-    String response = await context.read<AuthService>().registerUser(
-          email,
-          password,
-        );
+      BuildContext context, String email, String password) async {
+    setState(() {
+      emailAlreadyInUse = false;
+      loading = true;
+    });
+    String response =
+        await context.read<AuthService>().registerUser(email, password);
+    setState(() {
+      loading = false;
+    });
     if (response == '') {
       //User successfully registerd
       Navigator.pushNamed(context, '/verifyEmail');

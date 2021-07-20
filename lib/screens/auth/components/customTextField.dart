@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final String? errorMessage;
+  final bool disabled;
 
   CustomTextField(
     this.fieldName,
@@ -14,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.validator, {
     this.controller,
     this.errorMessage,
+    this.disabled = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,14 @@ class CustomTextField extends StatelessWidget {
               .bodyText1
               ?.copyWith(fontSize: 15, height: 1.5),
           decoration: InputDecoration(
+            enabled: !disabled,
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).cardColor.withAlpha(200),
+                width: 3,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
             errorText: errorMessage == null ? null : errorMessage,
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(
