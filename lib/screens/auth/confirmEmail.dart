@@ -17,7 +17,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   @override
   void initState() {
     _user?.sendEmailVerification();
-    print('Sent');
     timer = Timer.periodic(
       Duration(seconds: 5),
       (_) {
@@ -25,7 +24,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
       },
     );
     super.initState();
-
   }
 
   Future<void> sign() async {
@@ -42,7 +40,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
       //Stupid null saftey
     }
     if (emailVerified) {
-      print('Email verified');
       timer.cancel();
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -50,6 +47,11 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
         (route) => false,
       );
     }
+  }
+
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
