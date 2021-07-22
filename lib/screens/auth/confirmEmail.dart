@@ -58,7 +58,10 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: buildAppBar(context, 'Verify Email'),
+      appBar: buildAppBar(context, title: 'Verify Email', back: () {
+        FirebaseAuth.instance.signOut();
+        Navigator.pop(context);
+      }),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(

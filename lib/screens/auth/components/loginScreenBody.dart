@@ -1,5 +1,4 @@
 import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,8 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                 padding: EdgeInsets.only(left: 10),
                 child: Text.rich(
                   TextSpan(
-                    recognizer: TapGestureRecognizer()..onTap = changeLoginField,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = changeLoginField,
                     text: withPhoneNumber
                         ? 'Use phone number instead.'
                         : 'Use email instead',
