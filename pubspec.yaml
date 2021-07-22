@@ -48,6 +48,8 @@ flutter:
     - assets/vectors/voice.svg
     - assets/vectors/getStarted.svg
     - assets/vectors/emailSent.svg
+    - assets/dummy/profilePicture.jpg
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
