@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-PreferredSize buildAppBar(context, title) => PreferredSize(
+PreferredSize buildAppBar(context, title, {showBackButton = true}) =>
+    PreferredSize(
       preferredSize: Size.fromHeight(70),
       child: AppBar(
         backwardsCompatibility: false,
@@ -10,11 +11,14 @@ PreferredSize buildAppBar(context, title) => PreferredSize(
           statusBarColor: Colors.black,
         ),
         backgroundColor: Theme.of(context).backgroundColor,
-        leading: IconButton(
-          padding: EdgeInsets.only(top: 20),
-          icon: Icon(Icons.arrow_back_ios_outlined),
-          onPressed: () {},
-        ),
+        leading: showBackButton
+            ? IconButton(
+                padding: EdgeInsets.only(top: 20),
+                icon: Icon(Icons.arrow_back_ios_outlined),
+                onPressed: () {},
+              )
+            : null,
+        // centerTitle: showBackButton ? false : true,
         elevation: 0,
         title: Padding(
           padding: EdgeInsets.only(top: 20),
