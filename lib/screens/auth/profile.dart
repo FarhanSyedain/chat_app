@@ -9,7 +9,7 @@ class ProfilePageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: buildAppBar(context, 'Profile'),
+      appBar: buildAppBar(context, title: 'Profile'),
       body: SingleChildScrollView(
         child: Container(
           child: Column(

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-PreferredSize buildAppBar(context, title, {showBackButton = true}) =>
+PreferredSize buildAppBar(
+  context, {
+  String? title,
+  void Function()? back,
+  showBackButton = true,
+}) =>
     PreferredSize(
       preferredSize: Size.fromHeight(70),
       child: AppBar(
@@ -20,12 +25,14 @@ PreferredSize buildAppBar(context, title, {showBackButton = true}) =>
             : null,
         // centerTitle: showBackButton ? false : true,
         elevation: 0,
-        title: Padding(
-          padding: EdgeInsets.only(top: 20),
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.headline1,
-          ),
-        ),
+        title: title != null
+            ? Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              )
+            : null,
       ),
     );
