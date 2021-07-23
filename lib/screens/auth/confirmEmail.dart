@@ -14,6 +14,8 @@ class ConfirmEmailScreen extends StatefulWidget {
 class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   final _user = FirebaseAuth.instance.currentUser;
   var timer;
+  String? emailAdress = '';
+
   @override
   void initState() {
     _user?.sendEmailVerification();
@@ -23,6 +25,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
         checkIfVerified();
       },
     );
+    emailAdress = _user?.email;
     super.initState();
   }
 
@@ -85,7 +88,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
             ),
             Center(
               child: Text(
-                'We\'ve sent you a verification link on your email. Please open the link to complete the setup of your account',
+                'We\'ve sent you a verification link on your email $emailAdress. Please open the link to complete the setup of your account',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
