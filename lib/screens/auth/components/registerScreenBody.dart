@@ -191,7 +191,11 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     });
     if (response == '') {
       //User successfully registerd
-      Navigator.pushNamed(context, '/verifyEmail');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/verifyEmail',
+        (r) => false,
+      );
     } else {
       if (response == 'email-already-in-use') {
         setState(() {
