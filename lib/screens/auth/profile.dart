@@ -4,7 +4,14 @@ import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePageScreen extends StatelessWidget {
+class ProfilePageScreen extends StatefulWidget {
+  @override
+  _ProfilePageScreenState createState() => _ProfilePageScreenState();
+}
+
+class _ProfilePageScreenState extends State<ProfilePageScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,45 +63,65 @@ class ProfilePageScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(15),
                 child: Column(
                   children: [
-                    CustomTextField(
-                      'Name',
-                      'Enter your name',
-                      null,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    // Todo : Add a multiline option for CustomTextField and impliment that on bio
-                    CustomTextField(
-                      'Bio',
-                      'Say something about yourself',
-                      null,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    CustomProceedButton('Update Profile'),
-                    //Todo : Make this thing only avalible when redirected from register screen
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'Skip',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontWeight: FontWeight.w600,
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            'Frist name',
+                            'Enter your first name',
+                            (value) {
+                              if (value == null) {
+                                return 'Please enter a name';
+                              }
+                              if (value.trim().length == 0) {
+                                return 'Please enter a name';
+                              }
+                              if (value.trim().length > 20) {
+                                return 'Enter a name less that 20 charecters';
+                              }
+                            },
                           ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => print(
-                                'Stop being lazy and add logic here man.'),
-                        ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CustomTextField(
+                            'Last name',
+                            'Enter your last name (optional)',
+                            null,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          // Todo : Add a multiline option for CustomTextField and impliment that on bio
+                          CustomTextField(
+                            'Bio',
+                            'Say something about yourself (optional)',
+                            null,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                        ],
                       ),
-                    )
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        final valid = _formKey.currentState?.validate();
+                        if (valid == null) {
+                          return;
+                        }
+                        if (valid) {
+                          print('Good');
+                        }
+                      },
+                      child: CustomProceedButton(
+                        'Set Up Profile',
+                      ),
+                    ),
                   ],
                 ),
               )
