@@ -45,6 +45,7 @@ class Main extends StatelessWidget {
           '/register': (context) => RegisterScreen(),
           '/home': (context) => Container(),
           '/verifyEmail': (context) => ConfirmEmailScreen(),
+          '/wrapper': (context) => Wrapper(),
         },
       ),
     );
