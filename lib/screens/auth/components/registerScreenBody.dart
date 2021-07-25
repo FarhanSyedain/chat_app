@@ -46,7 +46,10 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SocialMediaLoginButton('Google'),
+                GestureDetector(
+                  child: SocialMediaLoginButton('Google'),
+                  onTap: signInWithGoogle,
+                ),
                 SocialMediaLoginButton('GitHub'),
               ],
             ),
@@ -177,6 +180,20 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> signInWithGoogle() async {
+    context.read<AuthService>().signInWithGoogle().then(
+      (value) {
+        if (value) {
+          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        } else {
+          print('There was an error while trying to log in');
+        }
+      },
+    ).catchError(
+      (_) {},
     );
   }
 
