@@ -91,6 +91,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                               (value) {
                                 return null;
                               },
+                              isPassword: true,
                             ),
                           ],
                         )

@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? errorMessage;
   final bool disabled;
+  final bool isPassword;
 
   CustomTextField(
     this.fieldName,
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.errorMessage,
     this.disabled = false,
+    this.isPassword = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class CustomTextField extends StatelessWidget {
         TextFormField(
           controller: controller == null ? null : controller,
           validator: validator,
+          obscureText: isPassword,
           style: Theme.of(context)
               .textTheme
               .bodyText1

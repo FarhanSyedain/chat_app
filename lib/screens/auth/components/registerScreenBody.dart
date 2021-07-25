@@ -113,6 +113,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                           },
                           controller: passwordTextFieldControler,
                           disabled: loading,
+                          isPassword: true,
                         ),
                         SizedBox(height: 20),
                         CustomTextField(
@@ -126,6 +127,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                             }
                           },
                           disabled: loading,
+                          isPassword: true,
                         ),
                       ],
                     ),
