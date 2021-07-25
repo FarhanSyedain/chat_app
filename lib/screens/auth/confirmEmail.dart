@@ -67,6 +67,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
 
   void dispose() {
     timer.cancel();
+    timeLeftTimer?.cancel();
     super.dispose();
   }
 
