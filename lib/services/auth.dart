@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,28 +32,42 @@ class AuthService {
   }
 
   Future<bool> signInWithGoogle() async {
-    // Trigger the authentication flow
     try {
       await GoogleSignIn().signOut();
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-      // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
-      // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
 
-      // Once signed in, return the UserCredential
-
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       return false;
     }
+    return true;
+  }
 
+  Future<bool> signInWithTwitter() async {
+    try {
+      final TwitterLogin twitterLogin = new TwitterLogin(
+        consumerKey: '6hUY3Q6y59swYd78P6ejdIYaW',
+        consumerSecret: 'f2u73Xo0Ip2RMAukBJl8P8adeLrYXED80p58vSQBB8Tr8GGUxs',
+      );
+      final TwitterLoginResult loginResult = await twitterLogin.authorize();
+      final TwitterSession twitterSession = loginResult.session;
+      final twitterAuthCredential = TwitterAuthProvider.credential(
+        accessToken: twitterSession.token,
+        secret: twitterSession.secret,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
+    } on FirebaseAuthException catch (e) {
+      return false;
+    }
     return true;
   }
 }

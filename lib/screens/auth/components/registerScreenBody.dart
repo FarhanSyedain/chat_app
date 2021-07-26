@@ -50,7 +50,10 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   child: SocialMediaLoginButton('Google'),
                   onTap: signInWithGoogle,
                 ),
-                SocialMediaLoginButton('GitHub'),
+                GestureDetector(
+                  child: SocialMediaLoginButton('Twitter'),
+                  onTap: () => signWithTwitter(),
+                ),
               ],
             ),
 
@@ -194,6 +197,22 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
       },
     ).catchError(
       (_) {},
+    );
+  }
+
+  Future<void> signWithTwitter() async {
+    context.read<AuthService>().signInWithTwitter().then(
+      (value) {
+        if (value) {
+          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        } else {
+          print('There was an error while trying to log in');
+        }
+      },
+    ).catchError(
+      (_) {
+        print(_);
+      },
     );
   }
 
