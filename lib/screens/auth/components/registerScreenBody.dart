@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
 import 'socialMediaLoginButton.dart';
@@ -22,6 +23,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   final passwordTextFieldControler = TextEditingController();
   final emailTextFieldControler = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool showSpiner = false;
 
   void changeRegisterField() {
     setState(() {
@@ -31,178 +33,175 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, bottom: 30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 40),
-            Text(
-              'Sign up with any of the below options.',
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  child: SocialMediaLoginButton('Google'),
-                  onTap: signInWithGoogle,
-                ),
-                GestureDetector(
-                  child: SocialMediaLoginButton('Twitter'),
-                  onTap: () => signWithTwitter(),
-                ),
-              ],
-            ),
-
-            Center(
-              child: Padding(
-                padding: EdgeInsets.all(25),
-                child: Text.rich(
-                  TextSpan(
-                    text: withPhoneNumber
-                        ? 'Use email instead'
-                        : 'Use phone number instead.',
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = changeRegisterField,
-                  ),
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2
-                      ?.copyWith(fontSize: 14),
-                ),
-              ),
-            ),
-
-            Form(
-              key: _formKey,
-              child: withPhoneNumber
-                  ? CustomTextField('Phone Number', 'Enter your phone number',
-                      (value) {
-                      if (value == null) {
-                        return 'Enter a phone number';
-                      }
-                      return null;
-                    })
-                  : Column(
-                      children: [
-                        CustomTextField(
-                          'Email',
-                          'Enter your email',
-                          (value) {
-                            if (value == null) {
-                              return 'Enter an email';
-                            }
-                            if (!validateEmail(value)) {
-                              return 'Enter a valid email';
-                            }
-                          },
-                          controller: emailTextFieldControler,
-                          errorMessage: !emailAlreadyInUse
-                              ? null
-                              : "This email is already in use!",
-                          disabled: loading,
-                        ),
-                        SizedBox(height: 20),
-                        CustomTextField(
-                          'Password',
-                          'Set a passowrd',
-                          (value) {
-                            if (value == null) {
-                              return 'Enter a password';
-                            }
-                            if (!validatePassword(value)) {
-                              return 'Password must be atleast 6 charecters';
-                            }
-                          },
-                          controller: passwordTextFieldControler,
-                          disabled: loading,
-                          isPassword: true,
-                        ),
-                        SizedBox(height: 20),
-                        CustomTextField(
-                          'Confirm Password',
-                          'Confirm your password',
-                          (value) {
-                            final password = passwordTextFieldControler.text;
-
-                            if (password != value) {
-                              return 'Passwords don\'t match';
-                            }
-                          },
-                          disabled: loading,
-                          isPassword: true,
-                        ),
-                      ],
-                    ),
-            ),
-            SizedBox(height: 35),
-            loading
-                ? CustomProceedButton('Signin in..')
-                : GestureDetector(
-                    onTap: () {
-                      final isValid = _formKey.currentState?.validate();
-                      if (isValid == null) {
-                        return;
-                      }
-                      if (isValid) {
-                        !withPhoneNumber
-                            ? signUpWithEmail(
-                                context,
-                                emailTextFieldControler.text,
-                                passwordTextFieldControler.text,
-                              )
-                            : print(withPhoneNumber);
-                      }
-                    },
-                    child: CustomProceedButton(
-                      withPhoneNumber ? 'Generate Otp' : 'Sign Up',
-                    ),
-                  ), // Login Button Here
-            SizedBox(height: 10),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Sign In',
-                      style: Theme.of(context).textTheme.bodyText1,
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.of(context).pushReplacementNamed('/login');
-                        },
-                    ),
-                  ],
-                  text: 'Already have an account?   ',
-                ),
+    return LoadingOverlay(
+      isLoading: showSpiner,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 30.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 40),
+              Text(
+                'Sign up with any of the below options.',
                 style: Theme.of(context).textTheme.bodyText2,
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    child: SocialMediaLoginButton('Google'),
+                    onTap: signInWithGoogle,
+                  ),
+                  GestureDetector(
+                    child: SocialMediaLoginButton('Twitter'),
+                    onTap: () => signWithTwitter(),
+                  ),
+                ],
+              ),
+
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.all(25),
+                  child: Text.rich(
+                    TextSpan(
+                      text: withPhoneNumber
+                          ? 'Use email instead'
+                          : 'Use phone number instead.',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = changeRegisterField,
+                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2
+                        ?.copyWith(fontSize: 14),
+                  ),
+                ),
+              ),
+
+              Form(
+                key: _formKey,
+                child: withPhoneNumber
+                    ? CustomTextField('Phone Number', 'Enter your phone number',
+                        (value) {
+                        if (value == null) {
+                          return 'Enter a phone number';
+                        }
+                        return null;
+                      })
+                    : Column(
+                        children: [
+                          CustomTextField(
+                            'Email',
+                            'Enter your email',
+                            (value) {
+                              if (value == null) {
+                                return 'Enter an email';
+                              }
+                              if (!validateEmail(value)) {
+                                return 'Enter a valid email';
+                              }
+                            },
+                            controller: emailTextFieldControler,
+                            errorMessage: !emailAlreadyInUse
+                                ? null
+                                : "This email is already in use!",
+                            disabled: loading,
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            'Password',
+                            'Set a passowrd',
+                            (value) {
+                              if (value == null) {
+                                return 'Enter a password';
+                              }
+                              if (!validatePassword(value)) {
+                                return 'Password must be atleast 6 charecters';
+                              }
+                            },
+                            controller: passwordTextFieldControler,
+                            disabled: loading,
+                            isPassword: true,
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextField(
+                            'Confirm Password',
+                            'Confirm your password',
+                            (value) {
+                              final password = passwordTextFieldControler.text;
+
+                              if (password != value) {
+                                return 'Passwords don\'t match';
+                              }
+                            },
+                            disabled: loading,
+                            isPassword: true,
+                          ),
+                        ],
+                      ),
+              ),
+              SizedBox(height: 35),
+              loading
+                  ? CustomProceedButton('Signin in..')
+                  : GestureDetector(
+                      onTap: () {
+                        final isValid = _formKey.currentState?.validate();
+                        if (isValid == null) {
+                          return;
+                        }
+                        if (isValid) {
+                          !withPhoneNumber
+                              ? signUpWithEmail(
+                                  context,
+                                  emailTextFieldControler.text,
+                                  passwordTextFieldControler.text,
+                                )
+                              : print(withPhoneNumber);
+                        }
+                      },
+                      child: CustomProceedButton(
+                        withPhoneNumber ? 'Generate Otp' : 'Sign Up',
+                      ),
+                    ), // Login Button Here
+              SizedBox(height: 10),
+              Center(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Sign In',
+                        style: Theme.of(context).textTheme.bodyText1,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.of(context)
+                                .pushReplacementNamed('/login');
+                          },
+                      ),
+                    ],
+                    text: 'Already have an account?   ',
+                  ),
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Future<void> signInWithGoogle() async {
+    setState(() {
+      showSpiner = true;
+    });
+
     context.read<AuthService>().signInWithGoogle().then(
       (value) {
-        if (value) {
-          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-        } else {
-          print('There was an error while trying to log in');
-        }
-      },
-    ).catchError(
-      (_) {},
-    );
-  }
-
-  Future<void> signWithTwitter() async {
-    context.read<AuthService>().signInWithTwitter().then(
-      (value) {
+        setState(() {
+          showSpiner = false;
+        });
         if (value) {
           Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
         } else {
@@ -211,6 +210,33 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
       },
     ).catchError(
       (_) {
+        setState(() {
+          showSpiner = false;
+        });
+      },
+    );
+  }
+
+  Future<void> signWithTwitter() async {
+    setState(() {
+      showSpiner = true;
+    });
+    context.read<AuthService>().signInWithTwitter().then(
+      (value) {
+        setState(() {
+          showSpiner = false;
+        });
+        if (value) {
+          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        } else {
+          print('There was an error while trying to log in');
+        }
+      },
+    ).catchError(
+      (_) {
+        setState(() {
+          showSpiner = false;
+        });
         print(_);
       },
     );
