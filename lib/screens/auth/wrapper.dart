@@ -15,7 +15,11 @@ class Wrapper extends StatelessWidget {
     if (_user == null) {
       return WelcomeScreen();
     }
-    final emailVerified = _user.emailVerified;
+    bool emailVerified = _user.emailVerified;
+    final _provider = _user.providerData[0].providerId;
+    if (_provider != 'password') {
+      emailVerified = true;
+    }
     return emailVerified
         ? Container(
             child: TextButton(
