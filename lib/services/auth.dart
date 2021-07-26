@@ -45,13 +45,13 @@ class AuthService {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       return false;
     }
     return true;
   }
 
-  Future<bool> signInWithTwitter() async {
+  Future<FirebaseAuthException?> signInWithTwitter() async {
     try {
       final TwitterLogin twitterLogin = new TwitterLogin(
         consumerKey: '6hUY3Q6y59swYd78P6ejdIYaW',
@@ -66,8 +66,10 @@ class AuthService {
 
       await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
     } on FirebaseAuthException catch (e) {
-      return false;
+      print(e.code);
+
+      return e;
     }
-    return true;
+    return null;
   }
 }
