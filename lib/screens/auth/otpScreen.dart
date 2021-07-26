@@ -1,11 +1,11 @@
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/constants.dart';
-import 'package:chat_app/screens/auth/components/customTextField.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/otp_field_style.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:form_field_validator/form_field_validator.dart';
-import 'package:pinput/pin_put/pin_put.dart';
 
 class OTPScreen extends StatefulWidget {
   @override
@@ -48,12 +48,12 @@ class _OTPScreenState extends State<OTPScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SvgPicture.asset(
-                    'assets/vectors/otpScreen.svg',
+                    'assets/vectors/phoneAuth.svg',
                     height: MediaQuery.of(context).size.height / 3,
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Enter OTP',
+                    'Verify OTP',
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
@@ -68,7 +68,18 @@ class _OTPScreenState extends State<OTPScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 30),
-                  CustomTextField('OTP', 'Enter the otp', (v) {}),
+                  OTPTextField(
+                    length: 6,
+                    width: MediaQuery.of(context).size.width - 40,
+                    fieldWidth: 40,
+                    style: TextStyle(fontSize: 17),
+                    otpFieldStyle: OtpFieldStyle(borderColor: Colors.grey,enabledBorderColor: Colors.grey),
+                    textFieldAlignment: MainAxisAlignment.spaceAround,
+                    fieldStyle: FieldStyle.underline,
+                    onCompleted: (pin) {
+                      print("Completed: " + pin);
+                    },
+                  ),
                   SizedBox(
                     height: 30,
                   ),
