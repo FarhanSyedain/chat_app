@@ -12,14 +12,7 @@ class LoginScreenBody extends StatefulWidget {
 }
 
 class _LoginScreenBodyState extends State<LoginScreenBody> {
-  var withPhoneNumber = false;
   final _formKey = GlobalKey<FormState>();
-
-  void changeLoginField() {
-    setState(() {
-      withPhoneNumber = !withPhoneNumber;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +41,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                 padding: EdgeInsets.only(left: 10),
                 child: Text.rich(
                   TextSpan(
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = changeLoginField,
-                    text: withPhoneNumber
-                        ? 'Use phone number instead.'
-                        : 'Use email instead',
+                    text: 'Use phone number instead.',
                   ),
                   style: Theme.of(context)
                       .textTheme
@@ -68,48 +57,39 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
               key: _formKey,
               child: Column(
                 children: [
-                  withPhoneNumber
-                      ? Column(
-                          children: [
-                            CustomTextField(
-                              'Email',
-                              'Enter your email',
-                              (value) {
-                                if (value == null) {
-                                  return 'Enter an email';
-                                }
-                                if (!validateEmail(value)) {
-                                  return 'Enter a valid email adress';
-                                }
-                                return null;
-                              },
-                            ),
-                            SizedBox(height: 20),
-                            CustomTextField(
-                              'Password',
-                              'Enter your password',
-                              (value) {
-                                return null;
-                              },
-                              isPassword: true,
-                            ),
-                          ],
-                        )
-                      : CustomTextField(
-                          'Phone Number',
-                          'Enter your mobile number',
-                          (value) {
-                            return null;
-                          },
-                        ),
-                  if (withPhoneNumber)
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, top: 5),
-                      child: Text.rich(
-                        TextSpan(text: 'Forgot Password?'),
-                        style: Theme.of(context).textTheme.subtitle2,
+                  Column(
+                    children: [
+                      CustomTextField(
+                        'Email',
+                        'Enter your email',
+                        (value) {
+                          if (value == null) {
+                            return 'Enter an email';
+                          }
+                          if (!validateEmail(value)) {
+                            return 'Enter a valid email adress';
+                          }
+                          return null;
+                        },
                       ),
+                      SizedBox(height: 20),
+                      CustomTextField(
+                        'Password',
+                        'Enter your password',
+                        (value) {
+                          return null;
+                        },
+                        isPassword: true,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, top: 5),
+                    child: Text.rich(
+                      TextSpan(text: 'Forgot Password?'),
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
+                  ),
                 ],
               ),
             ),

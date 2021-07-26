@@ -22,17 +22,10 @@ class RegisterScreenBody extends StatefulWidget {
 class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   var emailAlreadyInUse = false;
   var loading = false;
-  var withPhoneNumber = false;
   final passwordTextFieldControler = TextEditingController();
   final emailTextFieldControler = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool showSpiner = false;
-
-  void changeRegisterField() {
-    setState(() {
-      withPhoneNumber = !withPhoneNumber;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +62,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   padding: EdgeInsets.all(25),
                   child: Text.rich(
                     TextSpan(
-                      text: withPhoneNumber
-                          ? 'Use email instead'
-                          : 'Use phone number instead.',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = changeRegisterField,
+                      text: 'Use phone number instead.',
                     ),
                     style: Theme.of(context)
                         .textTheme
@@ -85,65 +74,57 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
 
               Form(
                 key: _formKey,
-                child: withPhoneNumber
-                    ? CustomTextField('Phone Number', 'Enter your phone number',
-                        (value) {
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      'Email',
+                      'Enter your email',
+                      (value) {
                         if (value == null) {
-                          return 'Enter a phone number';
+                          return 'Enter an email';
                         }
-                        return null;
-                      })
-                    : Column(
-                        children: [
-                          CustomTextField(
-                            'Email',
-                            'Enter your email',
-                            (value) {
-                              if (value == null) {
-                                return 'Enter an email';
-                              }
-                              if (!validateEmail(value)) {
-                                return 'Enter a valid email';
-                              }
-                            },
-                            controller: emailTextFieldControler,
-                            errorMessage: !emailAlreadyInUse
-                                ? null
-                                : "This email is already in use!",
-                            disabled: loading,
-                          ),
-                          SizedBox(height: 20),
-                          CustomTextField(
-                            'Password',
-                            'Set a passowrd',
-                            (value) {
-                              if (value == null) {
-                                return 'Enter a password';
-                              }
-                              if (!validatePassword(value)) {
-                                return 'Password must be atleast 6 charecters';
-                              }
-                            },
-                            controller: passwordTextFieldControler,
-                            disabled: loading,
-                            isPassword: true,
-                          ),
-                          SizedBox(height: 20),
-                          CustomTextField(
-                            'Confirm Password',
-                            'Confirm your password',
-                            (value) {
-                              final password = passwordTextFieldControler.text;
+                        if (!validateEmail(value)) {
+                          return 'Enter a valid email';
+                        }
+                      },
+                      controller: emailTextFieldControler,
+                      errorMessage: !emailAlreadyInUse
+                          ? null
+                          : "This email is already in use!",
+                      disabled: loading,
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextField(
+                      'Password',
+                      'Set a passowrd',
+                      (value) {
+                        if (value == null) {
+                          return 'Enter a password';
+                        }
+                        if (!validatePassword(value)) {
+                          return 'Password must be atleast 6 charecters';
+                        }
+                      },
+                      controller: passwordTextFieldControler,
+                      disabled: loading,
+                      isPassword: true,
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextField(
+                      'Confirm Password',
+                      'Confirm your password',
+                      (value) {
+                        final password = passwordTextFieldControler.text;
 
-                              if (password != value) {
-                                return 'Passwords don\'t match';
-                              }
-                            },
-                            disabled: loading,
-                            isPassword: true,
-                          ),
-                        ],
-                      ),
+                        if (password != value) {
+                          return 'Passwords don\'t match';
+                        }
+                      },
+                      disabled: loading,
+                      isPassword: true,
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 35),
               loading
@@ -155,18 +136,14 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                           return;
                         }
                         if (isValid) {
-                          !withPhoneNumber
-                              ? signUpWithEmail(
-                                  context,
-                                  emailTextFieldControler.text,
-                                  passwordTextFieldControler.text,
-                                )
-                              : print(withPhoneNumber);
+                          signUpWithEmail(
+                            context,
+                            emailTextFieldControler.text,
+                            passwordTextFieldControler.text,
+                          );
                         }
                       },
-                      child: CustomProceedButton(
-                        withPhoneNumber ? 'Generate Otp' : 'Sign Up',
-                      ),
+                      child: CustomProceedButton('Sign Up'),
                     ), // Login Button Here
               SizedBox(height: 10),
               Center(
@@ -178,8 +155,9 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                         style: Theme.of(context).textTheme.bodyText1,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/login');
+                            Navigator.of(context).pushReplacementNamed(
+                              '/login',
+                            );
                           },
                       ),
                     ],
