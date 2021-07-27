@@ -5,7 +5,6 @@ import 'package:otp_text_field/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-
 class OTPScreen extends StatefulWidget {
   @override
   _OTPScreenState createState() => _OTPScreenState();
@@ -38,6 +37,26 @@ class _OTPScreenState extends State<OTPScreen> {
             padding: EdgeInsets.all(20),
             child: Column(
               children: [
+                Container(
+                  child: Text.rich(
+                    TextSpan(
+                      text: '9596342946',
+                      style: Theme.of(context).textTheme.bodyText2,
+                      children: [        
+                        WidgetSpan(
+                          child: Padding(
+                            padding: EdgeInsets.only(left:10),
+                            child: Icon(
+                              Icons.edit,
+                              size: 20,
+                              color: Theme.of(context).textTheme.bodyText1?.color,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(height: 30),
                 OTPTextField(
                   length: 6,
