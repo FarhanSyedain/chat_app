@@ -38,8 +38,8 @@ class Main extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Home(),
         darkTheme: darkTheme,
+        theme: lightTheme,
         themeMode: ThemeMode.dark,
-        // todo: Theming
         routes: {
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
