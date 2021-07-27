@@ -1,14 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chat_app/constants.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:chat_app/utilities/passwordValidator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_app/components/customProceedButton.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
 import 'socialMediaLoginButton.dart';

@@ -5,22 +5,13 @@ import 'package:otp_text_field/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+
 class OTPScreen extends StatefulWidget {
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  final pinPutDecoration = BoxDecoration(
-    color: Colors.grey,
-    // borderRadius: BorderRadius.circular(20.0),
-
-    border: Border(
-      bottom: BorderSide(
-        color: Colors.grey,
-      ),
-    ),
-  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
