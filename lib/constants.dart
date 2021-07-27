@@ -46,7 +46,7 @@ var darkTheme = ThemeData(
 );
 
 var lightTheme = ThemeData(
-  primaryColor: kLightBackgroundColor.withAlpha(200),
+  primaryColor: kLightBackgroundColor,
   backgroundColor: kLightBackgroundColor,
   cardColor: kLightCardColor,
   hoverColor: kLightHoverColor,
