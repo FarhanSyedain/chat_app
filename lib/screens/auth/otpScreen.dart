@@ -73,101 +73,102 @@ class _OTPScreenState extends State<OTPScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(FirebaseAuth.instance.currentUser);
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          SvgPicture.asset(
-            'assets/vectors/phoneAuth.svg',
-            height: MediaQuery.of(context).size.height / 3,
-          ),
-          SizedBox(height: 20),
-          Text(
-            'Verify OTP',
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Container(
-                  child: Text.rich(
-                    TextSpan(
-                      text: '9596342946',
-                      style: Theme.of(context).textTheme.bodyText2,
-                      children: [
-                        WidgetSpan(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Icon(
-                              Icons.edit,
-                              size: 20,
-                              color:
-                                  Theme.of(context).textTheme.bodyText1?.color,
+            SvgPicture.asset(
+              'assets/vectors/phoneAuth.svg',
+              height: MediaQuery.of(context).size.height / 3,
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Verify OTP',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Container(
+                    child: Text.rich(
+                      TextSpan(
+                        text: '9596342946',
+                        style: Theme.of(context).textTheme.bodyText2,
+                        children: [
+                          WidgetSpan(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Icon(
+                                Icons.edit,
+                                size: 20,
+                                color:
+                                    Theme.of(context).textTheme.bodyText1?.color,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 30),
-                otp(),
-                SizedBox(
-                  height: 40,
-                ),
-                GestureDetector(
-                  child: CustomProceedButton(
-                    'Verify',
-                    disabled: !pinGiven,
+                  SizedBox(height: 30),
+                  otp(),
+                  SizedBox(
+                    height: 40,
                   ),
-                  onTap: pinGiven ? verifyUser : () {},
-                ),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      if (timeLeft == 0)
-                        reSendCode().then(
-                          (value) {
-                            setState(
-                              () {
-                                timeLeft = previousTimeLeft * 2;
-                                previousTimeLeft = timeLeft;
-                              },
-                            );
-                            resendTimer = Timer.periodic(
-                              Duration(seconds: 1),
-                              (timer) {
-                                setState(() {
-                                  timeLeft--;
-                                });
-                                if (timeLeft == 0) {
-                                  timer.cancel();
-                                }
-                              },
-                            );
-                          },
-                        );
-                    },
-                    child: Text(
-                      timeLeft == 0
-                          ? 'Resend Code'
-                          : 'Resend Code ($timeLeft s)',
+                  GestureDetector(
+                    child: CustomProceedButton(
+                      'Verify',
+                      disabled: !pinGiven,
+                    ),
+                    onTap: pinGiven ? verifyUser : () {},
+                  ),
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        if (timeLeft == 0)
+                          reSendCode().then(
+                            (value) {
+                              setState(
+                                () {
+                                  timeLeft = previousTimeLeft * 2;
+                                  previousTimeLeft = timeLeft;
+                                },
+                              );
+                              resendTimer = Timer.periodic(
+                                Duration(seconds: 1),
+                                (timer) {
+                                  setState(() {
+                                    timeLeft--;
+                                  });
+                                  if (timeLeft == 0) {
+                                    timer.cancel();
+                                  }
+                                },
+                              );
+                            },
+                          );
+                      },
+                      child: Text(
+                        timeLeft == 0
+                            ? 'Resend Code'
+                            : 'Resend Code ($timeLeft s)',
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
