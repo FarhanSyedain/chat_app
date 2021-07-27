@@ -34,7 +34,7 @@ dependencies:
   flutter_twitter_login: ^1.1.0                                                                                                                                                                                                                                                                                                                                                                    
   loading_overlay: ^0.2.1
   awesome_dialog: ^2.0.0
-  otp_text_field: ^1.1.1
+  pin_code_fields: ^7.3.0
   
 dev_dependencies:
   flutter_test:
