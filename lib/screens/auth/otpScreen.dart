@@ -1,12 +1,12 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:chat_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:async';
+
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
   @override
@@ -21,8 +21,15 @@ class _OTPScreenState extends State<OTPScreen> {
   bool showSpiner = false;
   bool pinGiven = false;
   String? pin;
+  TextEditingController textEditingController = TextEditingController();
+  StreamController<ErrorAnimationType>? errorController;
+  bool hasError = false;
+
+  String currentText = "";
+  final formKey = GlobalKey<FormState>();
   @override
   void initState() {
+    errorController = StreamController<ErrorAnimationType>();
     resendTimer = Timer.periodic(
       Duration(seconds: 1),
       (timer) {
@@ -114,39 +121,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                 ),
                 SizedBox(height: 30),
-                OTPTextField(
-                  keyboardType: TextInputType.number,
-                  length: 6,
-                  width: MediaQuery.of(context).size.width - 40,
-                  fieldWidth: 40,
-                  style: TextStyle(fontSize: 17),
-                  otpFieldStyle: OtpFieldStyle(
-                    borderColor: Colors.grey,
-                    enabledBorderColor: Colors.grey,
-                  ),
-                  textFieldAlignment: MainAxisAlignment.spaceAround,
-                  fieldStyle: FieldStyle.underline,
-                  onChanged: (v) {
-                    print('I am getting called');
-                    print(v.length);
-                    if (v.length == 6) {
-                      setState(
-                        () {
-                          pin = v;
-                          pinGiven = true;
-                        },
-                      );
-                    } else {
-                      setState(
-                        () {
-                          pin = '';
-                          pinGiven = false;
-                        },
-                      );
-                    }
-                  },
-                  onCompleted: (v) {},
-                ),
+                otp(),
                 SizedBox(
                   height: 40,
                 ),
@@ -201,40 +176,116 @@ class _OTPScreenState extends State<OTPScreen> {
   Future<void> reSendCode() async {}
 
   Future<void> verifyUser() async {
-    print(pin);
-    FocusScope.of(context).unfocus();
-    print('I am atlest getting exculted');
-    try {
+    if (currentText.length != 6) {
+      errorController!
+          .add(ErrorAnimationType.shake); // Triggering error shake animation
+      setState(
+        () => hasError = true,
+      );
+    } else {
+      setState(() {
+        hasError = false;
+      });
+
       setState(() {
         showSpiner = true;
       });
-      print('I am atlest getting exculted 2 $pin');
-
-      await FirebaseAuth.instance
-          .signInWithCredential(
-            PhoneAuthProvider.credential(
-              verificationId: _verificationCode!,
-              smsCode: pin!,
-            ),
-          )
-          .then(
-            (value) => print('Successfull'),
-          );
-      print('Hello');
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/wrapper',
-        (route) => false,
-      );
-    } catch (e) {
-      print('Threr is an error actually');
-      print(e);
+      try {
+        await FirebaseAuth.instance
+            .signInWithCredential(
+              PhoneAuthProvider.credential(
+                verificationId: _verificationCode!,
+                smsCode: pin!,
+              ),
+            )
+            .then(
+              (value) => print('Successfull'),
+            );
+        print('Hello');
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/wrapper',
+          (route) => false,
+        );
+      } catch (e) {
+        print('Threr is an error actually');
+        print(e);
+      }
     }
 
     setState(
       () {
         showSpiner = false;
       },
+    );
+  }
+
+  Widget otp() {
+    return Form(
+      // key: formKey,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
+        child: PinCodeTextField(
+          appContext: context,
+
+          pastedTextStyle: TextStyle(
+            color: Colors.green.shade600,
+            fontWeight: FontWeight.bold,
+          ),
+          length: 6,
+
+          animationType: AnimationType.fade,
+          validator: (v) {
+            if (hasError) {
+              return "Invalid OTP";
+            }
+          },
+          pinTheme: PinTheme(
+            shape: PinCodeFieldShape.underline,
+            borderRadius: BorderRadius.circular(5),
+            selectedFillColor: Colors.transparent,
+            inactiveFillColor: Colors.transparent,
+            fieldHeight: 50,
+            fieldWidth: 40,
+            selectedColor: Colors.green,
+            inactiveColor: kDarkCardColor,
+            borderWidth: 3,
+            errorBorderColor: Colors.red,
+          ),
+          cursorColor: Colors.black,
+          animationDuration: Duration(milliseconds: 300),
+          enableActiveFill: true,
+
+          errorAnimationController: errorController,
+          controller: textEditingController,
+          keyboardType: TextInputType.number,
+          boxShadows: [
+            BoxShadow(
+              offset: Offset(0, 1),
+              color: Colors.black12,
+              blurRadius: 10,
+            )
+          ],
+          onCompleted: (v) {
+            print("Completed");
+          },
+          // onTap: () {
+          //   print("Pressed");
+          // },
+          onChanged: (value) {
+            print(value);
+            setState(() {
+              pin = value;
+            });
+          },
+          beforeTextPaste: (text) {
+            print("Allowing to paste $text");
+            //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+            //but you can show anything you want here, like your pop up saying wrong paste format or etc
+            return true;
+          },
+        ),
+      ),
     );
   }
 }
