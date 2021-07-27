@@ -68,17 +68,22 @@ class _OTPScreenState extends State<OTPScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 30),
-                  OTPTextField(
-                    length: 6,
-                    width: MediaQuery.of(context).size.width - 40,
-                    fieldWidth: 40,
-                    style: TextStyle(fontSize: 17),
-                    otpFieldStyle: OtpFieldStyle(borderColor: Colors.grey,enabledBorderColor: Colors.grey),
-                    textFieldAlignment: MainAxisAlignment.spaceAround,
-                    fieldStyle: FieldStyle.underline,
-                    onCompleted: (pin) {
-                      print("Completed: " + pin);
-                    },
+                  Form(
+                    key: _formKey,
+                    child: OTPTextField(
+                      length: 6,
+                      width: MediaQuery.of(context).size.width - 40,
+                      fieldWidth: 40,
+                      style: TextStyle(fontSize: 17),
+                      otpFieldStyle: OtpFieldStyle(
+                          borderColor: Colors.grey,
+                          enabledBorderColor: Colors.grey),
+                      textFieldAlignment: MainAxisAlignment.spaceAround,
+                      fieldStyle: FieldStyle.underline,
+                      onCompleted: (pin) {
+                        print("Completed: " + pin);
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: 30,
