@@ -1,5 +1,6 @@
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
+import 'package:chat_app/screens/auth/otpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,6 +10,8 @@ class PhoneNumberScreen extends StatefulWidget {
 }
 
 class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +42,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
             child: Column(
               children: [
                 Form(
+                  key: _formKey,
                   child: CustomTextField(
                     'Phone Number',
                     'Enter a valid phone number',
@@ -50,12 +54,27 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                           ? null
                           : 'Please enter a valid phone number';
                     },
+                    controller: _controller,
                   ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                CustomProceedButton('Get OTP'),
+                GestureDetector(
+                  child: CustomProceedButton('Get OTP'),
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OTPScreen('+91${_controller.text}');
+                          },
+                        ),
+                      );
+                    }
+                  },
+                ),
                 SizedBox(
                   height: 10,
                 ),
