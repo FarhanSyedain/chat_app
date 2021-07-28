@@ -35,6 +35,7 @@ dependencies:
   loading_overlay: ^0.2.1
   awesome_dialog: ^2.0.0
   pin_code_fields: ^7.3.0
+  intl_phone_number_input: ^0.7.0+2
   
 dev_dependencies:
   flutter_test:
