@@ -81,7 +81,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, 'register');
+                      Navigator.pushReplacementNamed(context, '/register');
                     },
                     child: Text('Use Email instead?'),
                   ),
