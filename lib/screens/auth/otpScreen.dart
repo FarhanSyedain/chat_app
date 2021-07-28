@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:async';
@@ -120,25 +121,30 @@ class _OTPScreenState extends State<OTPScreen> {
               child: Column(
                 children: [
                   Container(
-                    child: Text.rich(
-                      TextSpan(
-                        text: widget.phoneNumber,
-                        style: Theme.of(context).textTheme.bodyText2,
-                        children: [
-                          WidgetSpan(
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Icon(
-                                Icons.edit,
-                                size: 20,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.color,
+                    child: TextButton(
+                      onPressed: () => Navigator.of(context).pushReplacementNamed('/phoneAuth'),
+                      child: Text.rich(
+                        TextSpan(
+                          
+                          text: widget.phoneNumber,
+                          style: Theme.of(context).textTheme.bodyText2,
+                          children: [
+                            WidgetSpan(
+                    
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 20,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      ?.color,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
