@@ -9,6 +9,8 @@ import 'dart:async';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
+  final String phoneNumber;
+  OTPScreen(this.phoneNumber);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -46,7 +48,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   Future<void> _verifyPhoneNumber() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+911111221122',
+      phoneNumber: widget.phoneNumber,
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) async {},
       verificationFailed: (FirebaseAuthException e) {
@@ -63,7 +65,7 @@ class _OTPScreenState extends State<OTPScreen> {
         AwesomeDialog(
           context: context,
           dialogType: DialogType.SUCCES,
-          title: '+911111221122',
+          title: widget.phoneNumber,
           desc: 'OTP sent successfully.',
         ).show();
       },
@@ -101,7 +103,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   Container(
                     child: Text.rich(
                       TextSpan(
-                        text: '9596342946',
+                        text: widget.phoneNumber,
                         style: Theme.of(context).textTheme.bodyText2,
                         children: [
                           WidgetSpan(
@@ -110,8 +112,10 @@ class _OTPScreenState extends State<OTPScreen> {
                               child: Icon(
                                 Icons.edit,
                                 size: 20,
-                                color:
-                                    Theme.of(context).textTheme.bodyText1?.color,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color,
                               ),
                             ),
                           ),
@@ -208,8 +212,9 @@ class _OTPScreenState extends State<OTPScreen> {
       errorController!.add(
         ErrorAnimationType.shake,
       ); // Triggering error shake animation
-      setState(() => hasError = true);
-      print(e);
+      setState(
+        () => hasError = true,
+      );
     }
 
     setState(
