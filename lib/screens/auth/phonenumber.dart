@@ -62,7 +62,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(context, 'register');
                     },
                     child: Text('Use Email instead?'),
                   ),
