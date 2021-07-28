@@ -1,7 +1,4 @@
-import 'dart:js';
-
 import 'package:chat_app/screens/auth/confirmEmail.dart';
-import 'package:chat_app/screens/auth/otpScreen.dart';
 import 'package:chat_app/screens/auth/phonenumber.dart';
 import 'package:chat_app/screens/auth/wrapper.dart';
 import 'package:chat_app/services/auth.dart';
@@ -50,8 +47,7 @@ class Main extends StatelessWidget {
           '/home': (context) => Container(),
           '/verifyEmail': (context) => ConfirmEmailScreen(),
           '/wrapper': (context) => Wrapper(),
-          'otpScreen': (context) => OTPScreen(),
-          'phoneAuth': (context) => PhoneNumberScreen(),
+          '/phoneAuth': (context) => PhoneNumberScreen(),
         },
       ),
     );
