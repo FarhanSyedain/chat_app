@@ -161,10 +161,13 @@ class _OTPScreenState extends State<OTPScreen> {
                             },
                           );
                       },
-                      child: Text(
-                        timeLeft == 0
-                            ? 'Resend Code'
-                            : 'Resend Code ($timeLeft s)',
+                      child: TextButton(
+                        onPressed: () => _verifyPhoneNumber(),
+                        child: Text(
+                          timeLeft == 0
+                              ? 'Resend Code'
+                              : 'Resend Code ($timeLeft s)',
+                        ),
                       ),
                     ),
                   ),
