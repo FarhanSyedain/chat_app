@@ -59,6 +59,13 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   padding: EdgeInsets.all(25),
                   child: Text.rich(
                     TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            '/phoneAuth',
+                          );
+                        },
                       text: 'Use phone number instead.',
                     ),
                     style: Theme.of(context)
