@@ -157,6 +157,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   Center(
                     child: TextButton(
                       onPressed: () {
+                        if (timeLeft > 0) {
+                          return;
+                        }
                         _verifyPhoneNumber();
                         setState(() {
                           timeLeft = previousTimeLeft * 2;
