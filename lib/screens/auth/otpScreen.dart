@@ -138,52 +138,26 @@ class _OTPScreenState extends State<OTPScreen> {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        if (timeLeft == 0)
-                          reSendCode().then(
-                            (value) {
-                              setState(
-                                () {
-                                  timeLeft = previousTimeLeft * 2;
-                                  previousTimeLeft = timeLeft;
-                                },
-                              );
-                              resendTimer = Timer.periodic(
-                                Duration(seconds: 1),
-                                (timer) {
-                                  setState(() {
-                                    timeLeft--;
-                                  });
-                                  if (timeLeft == 0) {
-                                    timer.cancel();
-                                  }
-                                },
-                              );
-                            },
-                          );
+                        _verifyPhoneNumber();
+                        setState(() {
+                          timeLeft = previousTimeLeft * 2;
+                          previousTimeLeft = timeLeft;
+                        });
+                        resendTimer = Timer.periodic(
+                          Duration(seconds: 1),
+                          (timer) {
+                            setState(
+                              () {
+                                timeLeft--;
+                              },
+                            );
+                          },
+                        );
                       },
-                      child: TextButton(
-                        onPressed: () {
-                          _verifyPhoneNumber();
-                          setState(() {
-                            timeLeft = previousTimeLeft * 2;
-                            previousTimeLeft = timeLeft;
-                          });
-                          resendTimer = Timer.periodic(
-                            Duration(seconds: 1),
-                            (timer) {
-                              setState(
-                                () {
-                                  timeLeft--;
-                                },
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          timeLeft == 0
-                              ? 'Resend Code'
-                              : 'Resend Code ($timeLeft s)',
-                        ),
+                      child: Text(
+                        timeLeft == 0
+                            ? 'Resend Code'
+                            : 'Resend Code ($timeLeft s)',
                       ),
                     ),
                   ),
