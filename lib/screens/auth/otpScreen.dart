@@ -52,25 +52,44 @@ class _OTPScreenState extends State<OTPScreen> {
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) async {},
       verificationFailed: (FirebaseAuthException e) {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.ERROR,
-          title: 'Error',
-          desc: e.message,
-        ).show();
+        showAwsomeDilog(DialogType.ERROR, 'An error occured', e.message!);
       },
       codeSent: (String verificationId, int? resendToken) {
         _verificationCode = verificationId;
-
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.SUCCES,
-          title: widget.phoneNumber,
-          desc: 'OTP sent successfully.',
-        ).show();
+        showAwsomeDilog(DialogType.SUCCES, 'Otp Sent Successfully',
+            'We have sent you an otp at ${widget.phoneNumber}');
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
+  }
+
+  void showAwsomeDilog(
+    DialogType type,
+    String title,
+    String desc,
+  ) {
+    AwesomeDialog(
+      context: context,
+      dialogType: type,
+      autoHide: Duration(seconds: 5),
+      body: Container(
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(desc),
+            SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
+      ),
+    ).show();
   }
 
   @override
@@ -173,17 +192,11 @@ class _OTPScreenState extends State<OTPScreen> {
   Future<void> reSendCode() async {}
 
   Future<void> verifyUser() async {
-    // if (pin?.length != 6) {
-    //   errorController!
-    //       .add(ErrorAnimationType.shake); // Triggering error shake animation
-    //   setState(
-    //     () => hasError = true,
-    //   );
-    // } else {
-
-    setState(() {
-      showSpiner = true;
-    });
+    setState(
+      () {
+        showSpiner = true;
+      },
+    );
     try {
       await FirebaseAuth.instance
           .signInWithCredential(
