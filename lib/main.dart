@@ -25,6 +25,12 @@ class Main extends StatelessWidget {
         statusBarColor: Colors.black,
       ),
     );
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
     return MultiProvider(
       providers: [
         Provider(
