@@ -226,9 +226,8 @@ class _OTPScreenState extends State<OTPScreen> {
             ),
           )
           .then(
-            (value) => print('Successfull'),
+            (value) => {},
           );
-      print('Hello');
       Navigator.pushNamedAndRemoveUntil(
         context,
         '/wrapper',
@@ -302,7 +301,6 @@ class _OTPScreenState extends State<OTPScreen> {
             });
           },
           onChanged: (value) {
-            print(value);
             setState(() {
               hasError = false;
               pinGiven = false;
