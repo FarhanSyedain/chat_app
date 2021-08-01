@@ -55,27 +55,12 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
               ),
 
               Center(
-                child: Padding(
-                  padding: EdgeInsets.all(25),
-                  child: Text.rich(
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/phoneAuth',
-                          );
-                        },
-                      text: 'Use phone number instead.',
-                    ),
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2
-                        ?.copyWith(fontSize: 14),
-                  ),
+                child: TextButton(
+                  child: Text('Use phone number instead.'),
+                  onPressed: () =>
+                      Navigator.of(context).pushReplacementNamed('/phoneAuth'),
                 ),
               ),
-
               Form(
                 key: _formKey,
                 child: Column(
@@ -147,7 +132,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                           );
                         }
                       },
-                      child: CustomProceedButton('Sign Up'),
+                      child: Padding(padding: EdgeInsets.all(10),child: CustomProceedButton('Sign Up')),
                     ), // Login Button Here
               SizedBox(height: 10),
               Center(
