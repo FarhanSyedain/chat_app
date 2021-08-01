@@ -95,6 +95,14 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   @override
+  void dispose() {
+    resendTimer?.cancel();
+    textEditingController.dispose();
+    errorController?.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -125,15 +133,14 @@ class _OTPScreenState extends State<OTPScreen> {
                   children: [
                     Container(
                       child: TextButton(
-                        onPressed: () => Navigator.of(context).pushReplacementNamed('/phoneAuth'),
+                        onPressed: () => Navigator.of(context)
+                            .pushReplacementNamed('/phoneAuth'),
                         child: Text.rich(
                           TextSpan(
-                            
                             text: widget.phoneNumber,
                             style: Theme.of(context).textTheme.bodyText2,
                             children: [
                               WidgetSpan(
-                      
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 10),
                                   child: Icon(
