@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'dart:async';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -97,102 +98,105 @@ class _OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            SvgPicture.asset(
-              'assets/vectors/phoneAuth.svg',
-              height: MediaQuery.of(context).size.height / 3,
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Verify OTP',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+      body: LoadingOverlay(
+        isLoading: showSpiner,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 40,
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Container(
-                    child: TextButton(
-                      onPressed: () => Navigator.of(context).pushReplacementNamed('/phoneAuth'),
-                      child: Text.rich(
-                        TextSpan(
-                          
-                          text: widget.phoneNumber,
-                          style: Theme.of(context).textTheme.bodyText2,
-                          children: [
-                            WidgetSpan(
-                    
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Icon(
-                                  Icons.edit,
-                                  size: 20,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.color,
+              SvgPicture.asset(
+                'assets/vectors/phoneAuth.svg',
+                height: MediaQuery.of(context).size.height / 3,
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Verify OTP',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      child: TextButton(
+                        onPressed: () => Navigator.of(context).pushReplacementNamed('/phoneAuth'),
+                        child: Text.rich(
+                          TextSpan(
+                            
+                            text: widget.phoneNumber,
+                            style: Theme.of(context).textTheme.bodyText2,
+                            children: [
+                              WidgetSpan(
+                      
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 10),
+                                  child: Icon(
+                                    Icons.edit,
+                                    size: 20,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.color,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 30),
-                  otp(),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  GestureDetector(
-                    child: CustomProceedButton(
-                      'Verify',
-                      disabled: !pinGiven,
+                    SizedBox(height: 30),
+                    otp(),
+                    SizedBox(
+                      height: 40,
                     ),
-                    onTap: pinGiven ? verifyUser : () {},
-                  ),
-                  Center(
-                    child: TextButton(
-                      onPressed: () {
-                        if (timeLeft > 0) {
-                          return;
-                        }
-                        _verifyPhoneNumber();
-                        setState(() {
-                          timeLeft = previousTimeLeft * 2;
-                          previousTimeLeft = timeLeft;
-                        });
-                        resendTimer = Timer.periodic(
-                          Duration(seconds: 1),
-                          (timer) {
-                            setState(
-                              () {
-                                timeLeft--;
-                              },
-                            );
-                          },
-                        );
-                      },
-                      child: Text(
-                        timeLeft == 0
-                            ? 'Resend Code'
-                            : 'Resend Code ($timeLeft s)',
+                    GestureDetector(
+                      child: CustomProceedButton(
+                        'Verify',
+                        disabled: !pinGiven,
+                      ),
+                      onTap: pinGiven ? verifyUser : () {},
+                    ),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          if (timeLeft > 0) {
+                            return;
+                          }
+                          _verifyPhoneNumber();
+                          setState(() {
+                            timeLeft = previousTimeLeft * 2;
+                            previousTimeLeft = timeLeft;
+                          });
+                          resendTimer = Timer.periodic(
+                            Duration(seconds: 1),
+                            (timer) {
+                              setState(
+                                () {
+                                  timeLeft--;
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Text(
+                          timeLeft == 0
+                              ? 'Resend Code'
+                              : 'Resend Code ($timeLeft s)',
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
