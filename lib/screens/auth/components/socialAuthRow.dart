@@ -25,15 +25,11 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
         ),
         SizedBox(height: 20),
         Center(
-          child: Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Text.rich(
-              TextSpan(
-                text: 'Use phone number instead.',
-              ),
-              style:
-                  Theme.of(context).textTheme.subtitle2?.copyWith(fontSize: 14),
-            ),
+          child: TextButton(
+            child: Text('Use phone number instead.'),
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/phoneAuth');
+            },
           ),
         ),
       ],
