@@ -1,4 +1,5 @@
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:chat_app/utilities/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class LoginScreenBody extends StatefulWidget {
 
 class _LoginScreenBodyState extends State<LoginScreenBody> {
   final _formKey = GlobalKey<FormState>();
-
+  void changeVal(v) {}
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,8 +32,14 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SocialMediaLoginButton('Google'),
-                SocialMediaLoginButton('Github'),
+                GestureDetector(
+                  onTap: () => signInWithGoogle(context, changeVal),
+                  child: SocialMediaLoginButton('Google'),
+                ),
+                GestureDetector(
+                  onTap: () => signWithTwitter(context, changeVal),
+                  child: SocialMediaLoginButton('Github'),
+                ),
               ],
             ),
             SizedBox(height: 20),
@@ -130,7 +137,5 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
     );
   }
 
-  Future<void> login() async{
-   
-  }
+  Future<void> login() async {}
 }
