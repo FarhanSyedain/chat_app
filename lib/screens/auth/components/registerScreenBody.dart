@@ -20,12 +20,12 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   final passwordTextFieldControler = TextEditingController();
   final emailTextFieldControler = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool showSpiner = false;
+
 
   @override
   Widget build(BuildContext context) {
     return LoadingOverlay(
-      isLoading: showSpiner,
+      isLoading: loading,
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 20, right: 20, bottom: 30.0),
@@ -42,7 +42,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                 (v) {
                   setState(
                     () {
-                      showSpiner = v;
+                      loading = v;
                     },
                   );
                 },
