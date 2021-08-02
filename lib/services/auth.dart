@@ -19,16 +19,16 @@ class AuthService {
     return '';
   }
 
-  Future<String> loginUser(String email, String password) async {
+  Future<FirebaseAuthException?> loginUser(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      return e.code;
+      return e;
     }
-    return '';
+    return null;
   }
 
   Future<bool> signInWithGoogle() async {
