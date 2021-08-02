@@ -19,7 +19,7 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () => signWithTwitter(context, changeVal),
-              child: SocialMediaLoginButton('Github'),
+              child: SocialMediaLoginButton('Twitter'),
             ),
           ],
         ),
