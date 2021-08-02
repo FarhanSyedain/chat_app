@@ -1,10 +1,13 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
+import 'package:chat_app/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'customTextField.dart';
-
 
 class LoginScreenBody extends StatefulWidget {
   @override
@@ -13,6 +16,12 @@ class LoginScreenBody extends StatefulWidget {
 
 class _LoginScreenBodyState extends State<LoginScreenBody> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _emailControler = TextEditingController();
+  TextEditingController _passwordControler = TextEditingController();
+  bool userNotFound = false;
+  bool incorrectPassword = false;
+  bool loading = false;
+
   void changeVal(v) {}
   @override
   Widget build(BuildContext context) {
@@ -50,6 +59,10 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                           }
                           return null;
                         },
+                        controller: _emailControler,
+                        errorMessage: userNotFound
+                            ? 'User with this email doesn\'t exist'
+                            : null,
                       ),
                       SizedBox(height: 20),
                       CustomTextField(
@@ -58,7 +71,11 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                         (value) {
                           return null;
                         },
+                        errorMessage: incorrectPassword
+                            ? 'Incorrect password or no password set'
+                            : null,
                         isPassword: true,
+                        controller: _passwordControler,
                       ),
                     ],
                   ),
@@ -76,15 +93,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
             SizedBox(height: 25),
             GestureDetector(
               child: CustomProceedButton('Log In'),
-              onTap: () {
-                final isValid = _formKey.currentState?.validate();
-                if (isValid == null) {
-                  return;
-                }
-                if (isValid) {
-                  print('Hello World');
-                }
-              },
+              onTap: () => login(context),
             ), // Login Button Here
             SizedBox(height: 10),
             Center(
@@ -110,5 +119,83 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
     );
   }
 
-  Future<void> login() async {}
+  Future<void> login(BuildContext context) async {
+    setState(() {
+      userNotFound = false;
+      incorrectPassword = false;
+      loading = true;
+    });
+    FirebaseAuthException? response =
+        await context.read<AuthService>().loginUser(
+              _emailControler.text,
+              _passwordControler.text,
+            );
+    setState(() {
+      loading = false;
+    });
+    if (response!.code == '') {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/wrapper',
+        (r) => false,
+      );
+    } else {
+      print(response);
+      switch (response.code) {
+        case 'user-not-found':
+          {
+            setState(() {
+              userNotFound = true;
+            });
+            break;
+          }
+        case 'wrong-password':
+          {
+            print(response.code);
+            setState(() {
+              incorrectPassword = true;
+            });
+            break;
+          }
+        default:
+          {
+            AwesomeDialog(
+              padding: EdgeInsets.all(10),
+              animType: AnimType.LEFTSLIDE,
+              context: context,
+              dialogType: DialogType.ERROR,
+              body: Container(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Text(
+                        'Something unexpected occured',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        'An unexpected error occured. Please try again',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              desc:
+                  'A user wih this email has been signed with differnt method. Please try using that method.',
+            ).show();
+            print(response);
+          }
+      }
+    }
+  }
 }
