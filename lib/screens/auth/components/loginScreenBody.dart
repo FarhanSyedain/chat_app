@@ -3,6 +3,7 @@ import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
@@ -25,95 +26,98 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
   void changeVal(v) {}
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 60),
-            Text(
-              'Login with any of the below options.',
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-            SizedBox(height: 20),
-            SocialMediaRowWithPhoneNumberSwitch(changeVal),
-            SizedBox(
-              height: 5,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      CustomTextField(
-                        'Email',
-                        'Enter your email',
-                        (value) {
-                          if (value == null) {
-                            return 'Enter an email';
-                          }
-                          if (!validateEmail(value)) {
-                            return 'Enter a valid email adress';
-                          }
-                          return null;
-                        },
-                        controller: _emailControler,
-                        errorMessage: userNotFound
-                            ? 'User with this email doesn\'t exist'
-                            : null,
-                      ),
-                      SizedBox(height: 20),
-                      CustomTextField(
-                        'Password',
-                        'Enter your password',
-                        (value) {
-                          return null;
-                        },
-                        errorMessage: incorrectPassword
-                            ? 'Incorrect password or no password set'
-                            : null,
-                        isPassword: true,
-                        controller: _passwordControler,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20,),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10, top: 5),
-                    child: Text.rich(
-                      TextSpan(text: 'Forgot Password?'),
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 25),
-            GestureDetector(
-              child: CustomProceedButton('Log In'),
-              onTap: () => login(context),
-            ), // Login Button Here
-            SizedBox(height: 10),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Sign up',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => Navigator.of(context)
-                            .pushReplacementNamed('/register'),
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ],
-                  text: 'Don\'t have an account?   ',
-                ),
+    return LoadingOverlay(
+      isLoading: loading,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 60),
+              Text(
+                'Login with any of the below options.',
                 style: Theme.of(context).textTheme.bodyText2,
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              SocialMediaRowWithPhoneNumberSwitch(changeVal),
+              SizedBox(
+                height: 5,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        CustomTextField(
+                          'Email',
+                          'Enter your email',
+                          (value) {
+                            if (value == null) {
+                              return 'Enter an email';
+                            }
+                            if (!validateEmail(value)) {
+                              return 'Enter a valid email adress';
+                            }
+                            return null;
+                          },
+                          controller: _emailControler,
+                          errorMessage: userNotFound
+                              ? 'User with this email doesn\'t exist'
+                              : null,
+                        ),
+                        SizedBox(height: 20),
+                        CustomTextField(
+                          'Password',
+                          'Enter your password',
+                          (value) {
+                            return null;
+                          },
+                          errorMessage: incorrectPassword
+                              ? 'Incorrect password or no password set'
+                              : null,
+                          isPassword: true,
+                          controller: _passwordControler,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, top: 5),
+                      child: Text.rich(
+                        TextSpan(text: 'Forgot Password?'),
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 25),
+              GestureDetector(
+                child: CustomProceedButton('Log In'),
+                onTap: () => login(context),
+              ), // Login Button Here
+              SizedBox(height: 10),
+              Center(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Sign up',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Navigator.of(context)
+                              .pushReplacementNamed('/register'),
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ],
+                    text: 'Don\'t have an account?   ',
+                  ),
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
