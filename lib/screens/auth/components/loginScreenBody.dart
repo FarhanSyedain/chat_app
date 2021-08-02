@@ -1,4 +1,5 @@
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
 import 'package:chat_app/utilities/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
@@ -29,34 +30,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
               style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => signInWithGoogle(context, changeVal),
-                  child: SocialMediaLoginButton('Google'),
-                ),
-                GestureDetector(
-                  onTap: () => signWithTwitter(context, changeVal),
-                  child: SocialMediaLoginButton('Github'),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Use phone number instead.',
-                  ),
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2
-                      ?.copyWith(fontSize: 14),
-                ),
-              ),
-            ),
+            SocialMediaRowWithPhoneNumberSwitch(changeVal),
             SizedBox(
               height: 5,
             ),

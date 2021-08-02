@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/utilities/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
@@ -41,26 +42,17 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                 style: Theme.of(context).textTheme.bodyText2,
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    child: SocialMediaLoginButton('Google'),
-                    onTap: _signInWithGoogle,
-                  ),
-                  GestureDetector(
-                    child: SocialMediaLoginButton('Twitter'),
-                    onTap: _signWithTwitter,
-                  ),
-                ],
+              SocialMediaRowWithPhoneNumberSwitch(
+                (v) {
+                  setState(
+                    () {
+                      showSpiner = v;
+                    },
+                  );
+                },
               ),
-
-              Center(
-                child: TextButton(
-                  child: Text('Use phone number instead.'),
-                  onPressed: () =>
-                      Navigator.of(context).pushReplacementNamed('/phoneAuth'),
-                ),
+              SizedBox(
+                height: 5,
               ),
               Form(
                 key: _formKey,
