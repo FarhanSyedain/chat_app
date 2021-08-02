@@ -1,12 +1,10 @@
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
-import 'package:chat_app/utilities/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import 'customTextField.dart';
-import 'socialMediaLoginButton.dart';
+
 
 class LoginScreenBody extends StatefulWidget {
   @override
