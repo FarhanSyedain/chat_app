@@ -82,7 +82,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height:5,),
                     Padding(
                       padding: EdgeInsets.only(left: 10, top: 5),
                       child: Text.rich(

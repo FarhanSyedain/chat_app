@@ -23,7 +23,7 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         Center(
           child: TextButton(
             child: Text('Use phone number instead.'),
