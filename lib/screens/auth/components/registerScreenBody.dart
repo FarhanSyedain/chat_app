@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/utilities/auth.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:chat_app/utilities/passwordValidator.dart';
 import 'package:flutter/gestures.dart';
@@ -45,11 +46,11 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                 children: [
                   GestureDetector(
                     child: SocialMediaLoginButton('Google'),
-                    onTap: signInWithGoogle,
+                    onTap: _signInWithGoogle,
                   ),
                   GestureDetector(
                     child: SocialMediaLoginButton('Twitter'),
-                    onTap: () => signWithTwitter(),
+                    onTap: _signWithTwitter,
                   ),
                 ],
               ),
@@ -132,7 +133,12 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                           );
                         }
                       },
-                      child: Padding(padding: EdgeInsets.all(10),child: CustomProceedButton('Sign Up')),
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: CustomProceedButton(
+                          'Sign Up',
+                        ),
+                      ),
                     ), // Login Button Here
               SizedBox(height: 10),
               Center(
@@ -162,109 +168,122 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     );
   }
 
-  Future<void> signInWithGoogle() async {
-    setState(() {
-      showSpiner = true;
-    });
-
-    context.read<AuthService>().signInWithGoogle().then(
-      (value) {
-        setState(() {
-          showSpiner = false;
-        });
-        if (value) {
-          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-        } else {
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.ERROR,
-            title: 'Eroor',
-            desc: 'There was an error from our side',
-          ).show();
-        }
-      },
-    ).catchError(
-      (_) {
-        setState(() {
-          showSpiner = false;
-        });
-      },
+  Future<void> _signInWithGoogle() async {
+    signInWithGoogle(
+      context,
+      (val) {},
     );
+    // setState(() {
+    //   showSpiner = true;
+    // });
+
+    // context.read<AuthService>().signInWithGoogle().then(
+    //   (value) {
+    //     setState(() {
+    //       showSpiner = false;
+    //     });
+    //     if (value) {
+    //       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    //     } else {
+    //       AwesomeDialog(
+    //         context: context,
+    //         dialogType: DialogType.ERROR,
+    //         title: 'Eroor',
+    //         desc: 'There was an error from our side',
+    //       ).show();
+    //     }
+    //   },
+    // ).catchError(
+    //   (_) {
+    //     setState(() {
+    //       showSpiner = false;
+    //     });
+    //   },
+    // );
   }
 
-  Future<void> signWithTwitter() async {
-    setState(() {
-      showSpiner = true;
-    });
-    context.read<AuthService>().signInWithTwitter().then(
-      (value) async {
-        setState(
-          () {
-            showSpiner = false;
-          },
-        );
-        if (value!.code == '') {
-          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-        } else {
-          switch (value.code) {
-            case 'account-exists-with-different-credential':
-              {
-                AwesomeDialog(
-                  padding: EdgeInsets.all(10),
-                  animType: AnimType.LEFTSLIDE,
-                  context: context,
-                  dialogType: DialogType.ERROR,
-                  title: 'Email has already been taken',
-                  body: Container(
-                      child: Column(
-                    children: [
-                      Center(
-                        child: Text(
-                          'Email has been already taken',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Center(
-                        child: Text(
-                          'A user with this email exists with signed from different method. Use that method to sign in',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-                  )),
-                  desc:
-                      'A user wih this email has been signed with differnt method. Please try using that method.',
-                ).show();
-                break;
-              }
-            default:
-              {
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.ERROR,
-                  title: 'Eroor',
-                  desc: 'There was an error from our side',
-                ).show();
-              }
-          }
-        }
-      },
-    ).catchError(
-      (_) {
+  Future<void> _signWithTwitter() async {
+    signWithTwitter(
+      context,
+      (val) {
         setState(() {
-          showSpiner = false;
+          showSpiner = val;
         });
-        print(_);
       },
     );
+    // setState(() {
+    //   showSpiner = true;
+    // });
+    // context.read<AuthService>().signInWithTwitter().then(
+    //   (value) async {
+    //     setState(
+    //       () {
+    //         showSpiner = false;
+    //       },
+    //     );
+    //     if (value!.code == '') {
+    //       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    //     } else {
+    //       switch (value.code) {
+    //         case 'account-exists-with-different-credential':
+    //           {
+    //             AwesomeDialog(
+    //               padding: EdgeInsets.all(10),
+    //               animType: AnimType.LEFTSLIDE,
+    //               context: context,
+    //               dialogType: DialogType.ERROR,
+    //               title: 'Email has already been taken',
+    //               body: Container(
+    //                 child: Column(
+    //                   children: [
+    //                     Center(
+    //                       child: Text(
+    //                         'Email has been already taken',
+    //                         style: TextStyle(
+    //                           color: Colors.white,
+    //                           fontWeight: FontWeight.bold,
+    //                         ),
+    //                         textAlign: TextAlign.center,
+    //                       ),
+    //                     ),
+    //                     Center(
+    //                       child: Text(
+    //                         'A user with this email exists with signed from different method. Use that method to sign in',
+    //                         style: TextStyle(
+    //                           color: Colors.white70,
+    //                           fontWeight: FontWeight.w600,
+    //                         ),
+    //                         textAlign: TextAlign.center,
+    //                       ),
+    //                     )
+    //                   ],
+    //                 ),
+    //               ),
+    //               desc:
+    //                   'A user wih this email has been signed with differnt method. Please try using that method.',
+    //             ).show();
+    //             break;
+    //           }
+    //         default:
+    //           {
+    //             AwesomeDialog(
+    //               context: context,
+    //               dialogType: DialogType.ERROR,
+    //               title: 'Eroor',
+    //               desc: 'There was an error from our side',
+    //             ).show();
+    //           }
+    //       }
+    //     }
+    //   },
+    // ).catchError(
+    //   (_) {
+    //     setState(() {
+    //       showSpiner = false;
+    //     });
+    //     print(_);
+    //   },
+    // );
   }
 
   Future<void> signUpWithEmail(
