@@ -1,6 +1,8 @@
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,9 @@ class ProfilePageScreen extends StatefulWidget {
 
 class _ProfilePageScreenState extends State<ProfilePageScreen> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _bioController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +89,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                                 return 'Enter a name less that 20 charecters';
                               }
                             },
+                            controller: _firstNameController,
                           ),
                           SizedBox(
                             height: 20,
@@ -91,7 +97,18 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                           CustomTextField(
                             'Last name',
                             'Enter your last name (optional)',
-                            null,
+                            (value) {
+                              if (value == null) {
+                                return 'Please enter a name';
+                              }
+                              if (value.trim().length == 0) {
+                                return 'Please enter a name';
+                              }
+                              if (value.trim().length > 20) {
+                                return 'Enter a name less that 20 charecters';
+                              }
+                            },
+                            controller: _lastNameController,
                           ),
                           SizedBox(
                             height: 20,
@@ -101,6 +118,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                             'Bio',
                             'Say something about yourself (optional)',
                             null,
+                            controller: _bioController,
                           ),
                           SizedBox(
                             height: 30,
@@ -109,15 +127,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        final valid = _formKey.currentState?.validate();
-                        if (valid == null) {
-                          return;
-                        }
-                        if (valid) {
-                          print('Good');
-                        }
-                      },
+                      onTap: setProfile,
                       child: CustomProceedButton(
                         'Set Up Profile',
                       ),
@@ -129,6 +139,38 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> setProfile() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    final firstName = _firstNameController.text;
+    final lastName = _lastNameController.text;
+    final bio = _bioController.text;
+
+    final ref = FirebaseFirestore.instance;
+    final _auth = FirebaseAuth.instance;
+    final String uid = _auth.currentUser!.uid;
+
+    if (_auth.currentUser == null) {
+      //This check would never pass , but ya incase.
+    }
+    ref.collection('users').doc(uid).set(
+      {
+        'firstName': firstName,
+        'lastName': lastName,
+        'bio': bio,
+      },
+    ).then(
+      (value) {
+        print('Success');
+      },
+    ).catchError(
+      (eroor) {
+        print('Hello i want to inform you that an error has occured $eroor');
+      },
     );
   }
 }
