@@ -1,10 +1,12 @@
 import 'package:chat_app/screens/auth/confirmEmail.dart';
+import 'package:chat_app/screens/auth/profile.dart';
 import 'package:chat_app/screens/welcome/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatelessWidget {
-  const Wrapper({Key? key}) : super(key: key);
+  final bool profileSet;
+  Wrapper({this.profileSet = false});
   Future<void> sign() async {
     FirebaseAuth.instance.signOut();
   }
@@ -21,13 +23,16 @@ class Wrapper extends StatelessWidget {
       emailVerified = true;
     }
     return emailVerified
-        ? Container(
-            child: TextButton(
-                onPressed: () {
-                  sign();
-                },
-                child: Text('Signout')),
-          )
+        ? profileSet 
+            ? Container(
+                child: TextButton(
+                  onPressed: () {
+                    sign();
+                  },
+                  child: Text('Signout'),
+                ),
+              )
+            : ProfilePageScreen()
         : ConfirmEmailScreen();
   }
 }

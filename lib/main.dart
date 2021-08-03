@@ -5,6 +5,7 @@ import 'package:chat_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
 import 'screens/auth/login.dart';
 import 'screens/auth/register.dart';
@@ -63,6 +64,18 @@ class Main extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Wrapper();
+    return FutureBuilder(
+      builder: (context, data) {
+        return Wrapper(profileSet: data.data! as bool);
+      },
+      future: getSharedPrefs(),
+    );
+  }
+
+  Future<bool?> getSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey('profileSet') == false
+        ? null
+        : prefs.getBool('profileSet');
   }
 }
