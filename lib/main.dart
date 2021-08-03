@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       builder: (context, data) {
-        return Wrapper(profileSet: data.data! as bool);
+        return Wrapper(profileSet: data.data as bool);
       },
       future: getSharedPrefs(),
     );
@@ -75,7 +75,7 @@ class Home extends StatelessWidget {
   Future<bool?> getSharedPrefs() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey('profileSet') == false
-        ? null
+        ? false
         : prefs.getBool('profileSet');
   }
 }
