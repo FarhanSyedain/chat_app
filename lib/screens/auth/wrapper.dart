@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatelessWidget {
-  final bool profileSet;
+  final bool? profileSet;
   Wrapper({this.profileSet = false});
   Future<void> sign() async {
     FirebaseAuth.instance.signOut();
@@ -22,17 +22,20 @@ class Wrapper extends StatelessWidget {
     if (_provider != 'password') {
       emailVerified = true;
     }
+  
     return emailVerified
-        ? profileSet 
-            ? Container(
-                child: TextButton(
-                  onPressed: () {
-                    sign();
-                  },
-                  child: Text('Signout'),
-                ),
-              )
-            : ProfilePageScreen()
+        ? profileSet == null
+            ? ProfilePageScreen()
+            : profileSet! 
+                ? Container(
+                    child: TextButton(
+                      onPressed: () {
+                        sign();
+                      },
+                      child: Text('Signout'),
+                    ),
+                  )
+                : ProfilePageScreen()
         : ConfirmEmailScreen();
   }
 }
