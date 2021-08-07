@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePageScreen extends StatefulWidget {
   @override
@@ -23,7 +24,6 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: buildAppBar(context, title: 'Profile'),
       body: SingleChildScrollView(
-        child: Container(
           child: Column(
             children: [
               SizedBox(
@@ -138,7 +138,6 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 
@@ -149,6 +148,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     final firstName = _firstNameController.text;
     final lastName = _lastNameController.text;
     final bio = _bioController.text;
+    final prefs= await SharedPreferences.getInstance();
 
     final ref = FirebaseFirestore.instance;
     final _auth = FirebaseAuth.instance;
@@ -165,7 +165,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       },
     ).then(
       (value) {
-        print('Success');
+        prefs.setBool('profileSet', true);
       },
     ).catchError(
       (eroor) {
