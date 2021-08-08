@@ -24,120 +24,110 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: buildAppBar(context, title: 'Profile'),
       body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.orange,
+                ),
                 child: Container(
-                  padding: EdgeInsets.all(2),
+                  width: 120,
+                  height: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: Colors.orange,
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage(
+                        'assets/dummy/profilePicture.jpg',
+                      ),
+                    ),
                   ),
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/dummy/profilePicture.jpg',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Text.rich(
+                TextSpan(
+                  text: 'Change Profile Picture.',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => print('Replace me'),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          'Frist name',
+                          'Enter your first name',
+                          (value) {
+                            if (value == null) {
+                              return 'Please enter a name';
+                            }
+                            if (value.trim().length == 0) {
+                              return 'Please enter a name';
+                            }
+                            if (value.trim().length > 20) {
+                              return 'Enter a name less that 20 charecters';
+                            }
+                          },
+                          controller: _firstNameController,
                         ),
-                      ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextField(
+                          'Last name',
+                          'Enter your last name (optional)',
+                          null,
+                          controller: _lastNameController,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        // Todo : Add a multiline option for CustomTextField and impliment that on bio
+                        CustomTextField(
+                          'Bio',
+                          'Say something about yourself (optional)',
+                          null,
+                          controller: _bioController,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Change Profile Picture.',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
+                  GestureDetector(
+                    onTap: setProfile,
+                    child: CustomProceedButton(
+                      'Set Up Profile',
                     ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => print('Replace me'),
                   ),
-                ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            'Frist name',
-                            'Enter your first name',
-                            (value) {
-                              if (value == null) {
-                                return 'Please enter a name';
-                              }
-                              if (value.trim().length == 0) {
-                                return 'Please enter a name';
-                              }
-                              if (value.trim().length > 20) {
-                                return 'Enter a name less that 20 charecters';
-                              }
-                            },
-                            controller: _firstNameController,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          CustomTextField(
-                            'Last name',
-                            'Enter your last name (optional)',
-                            (value) {
-                              if (value == null) {
-                                return 'Please enter a name';
-                              }
-                              if (value.trim().length == 0) {
-                                return 'Please enter a name';
-                              }
-                              if (value.trim().length > 20) {
-                                return 'Enter a name less that 20 charecters';
-                              }
-                            },
-                            controller: _lastNameController,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          // Todo : Add a multiline option for CustomTextField and impliment that on bio
-                          CustomTextField(
-                            'Bio',
-                            'Say something about yourself (optional)',
-                            null,
-                            controller: _bioController,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: setProfile,
-                      child: CustomProceedButton(
-                        'Set Up Profile',
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
+      ),
     );
   }
 
@@ -148,15 +138,12 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     final firstName = _firstNameController.text;
     final lastName = _lastNameController.text;
     final bio = _bioController.text;
-    final prefs= await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     final ref = FirebaseFirestore.instance;
     final _auth = FirebaseAuth.instance;
     final String uid = _auth.currentUser!.uid;
 
-    if (_auth.currentUser == null) {
-      //This check would never pass , but ya incase.
-    }
     ref.collection('users').doc(uid).set(
       {
         'firstName': firstName,
