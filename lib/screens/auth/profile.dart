@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
+import 'package:chat_app/services/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,23 +34,9 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     });
     final _imagePicker = ImagePicker();
     final _currentUser = FirebaseAuth.instance.currentUser;
-    final ref = FirebaseStorage.instance.ref().child('userProfiles').child(
-          '${_currentUser!.uid}',
-        );
     if (source == null) {
       //remove profile picture
-
-      await ref.delete().then(
-        (value) {
-          _currentImage = null;
-          _pickedImage = null;
-          //Todo: When DB is implemented , implement changes there too.
-        },
-      ).catchError(
-        (e) {
-          //Nothing just dont crash the app
-        },
-      ).whenComplete(() {
+      ProfileService.removeProfilePicture(_currentUser!.uid).then((value) {
         setState(() {
           showSpiner = false;
         });
@@ -57,22 +44,22 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     } else {
       _pickedImage = await _imagePicker.pickImage(source: source);
 
-      await ref
-          .putFile(
-            File(_pickedImage!.path),
-          )
-          .then(
-            (v) {},
-          )
-          .catchError(
-            (v) {},
-          )
-          .whenComplete(() {
-        setState(() {
-          showSpiner = false;
-        });
-      });
-      
+      if (_pickedImage == null) {
+        return;
+      }
+
+      ProfileService.uploadProfilePicture(
+        File(_pickedImage!.path),
+        _currentUser!.uid,
+      ).then(
+        (value) {
+          setState(
+            () {
+              showSpiner = false;
+            },
+          );
+        },
+      );
     }
   }
 
