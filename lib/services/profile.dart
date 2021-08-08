@@ -16,11 +16,6 @@ class ProfileService {
       File profilePicture, String userUid) async {
     final ref =
         FirebaseStorage.instance.ref().child('userProfiles').child(userUid);
-
-    ref.putFile(profilePicture).catchError(
-      (e) {
-        //Todo: Handle errors
-      },
-    );
+    await ref.putFile(profilePicture);
   }
 }
