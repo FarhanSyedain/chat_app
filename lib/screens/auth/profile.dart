@@ -156,9 +156,11 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       borderRadius: BorderRadius.circular(100),
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/dummy/profilePicture.jpg',
-                        ),
+                        image: _currentImage != null
+                            ? FileImage(_currentImage!) as ImageProvider
+                            : AssetImage(
+                                'assets/dummy/profilePicture.jpg',
+                              ),
                       ),
                     ),
                   ),
