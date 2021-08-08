@@ -194,8 +194,6 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                   ],
                 ),
               ),
-              desc:
-                  'A user wih this email has been signed with differnt method. Please try using that method.',
             ).show();
             print(response);
           }
