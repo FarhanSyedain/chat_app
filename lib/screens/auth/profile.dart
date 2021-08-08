@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfilePageScreen extends StatefulWidget {
   @override
@@ -17,12 +21,99 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _bioController = TextEditingController();
+  File? _pickedImage;
+  File? _currentImage;
+
+  Future<void> _pickImage(ImageSource? source) async {
+    final _currentUser = FirebaseAuth.instance.currentUser;
+    if (source == null) {
+      //remove profile picture
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('userProfiles')
+          .child('${_currentUser!.uid}');
+      print('Error happening after this message');
+      await ref.delete().then(
+        (value) {
+          _currentImage = null;
+          _pickedImage = null;
+          //Todo: When DB is implemented , implement changes there too.
+        },
+      ).catchError(
+        (e) {
+          //Nothing just dont crash the app
+        },
+      );
+    }
+  }
+
+  Future<void> _askForSource() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            height: _currentImage == null ? 120 : 180,
+            width: double.infinity,
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    _pickImage(ImageSource.gallery);
+                  },
+                  child: ListTile(
+                    title: Text(
+                      'Gallery',
+                    ),
+                    leading: Icon(
+                      Icons.photo,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => _pickImage(ImageSource.camera),
+                  child: ListTile(
+                    title: Text(
+                      'Camera',
+                    ),
+                    leading: Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                if (_currentImage != null)
+                  GestureDetector(
+                    onTap: () => _pickImage(null),
+                    child: ListTile(
+                      title: Text(
+                        'Remove Profile Picture',
+                      ),
+                      leading: Icon(
+                        Icons.cancel,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: buildAppBar(context, title: 'Profile'),
+      appBar: buildAppBar(context, title: 'Profile', showBackButton: false,),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -63,7 +154,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => print('Replace me'),
+                    ..onTap = () => _askForSource(),
                 ),
               ),
             ),
