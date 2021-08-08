@@ -55,11 +55,24 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
         });
       });
     } else {
-      // _pickedImage = await _imagePicker.pickImage(source: source);
+      _pickedImage = await _imagePicker.pickImage(source: source);
 
-      // await ref.putFile(
-      //   File(_pickedImage!.path),
-      // );
+      await ref
+          .putFile(
+            File(_pickedImage!.path),
+          )
+          .then(
+            (v) {},
+          )
+          .catchError(
+            (v) {},
+          )
+          .whenComplete(() {
+        setState(() {
+          showSpiner = false;
+        });
+      });
+      
     }
   }
 
