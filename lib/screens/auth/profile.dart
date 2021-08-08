@@ -5,7 +5,6 @@ import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/services/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -135,6 +134,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
         showBackButton: false,
       ),
       body: LoadingOverlay(
+        // progressIndicator: ,
         isLoading: showSpiner,
         child: SingleChildScrollView(
           child: Column(
