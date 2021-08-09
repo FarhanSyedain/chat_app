@@ -26,6 +26,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   XFile? _pickedImage;
   File? _currentImage;
   bool showSpiner = false;
+  bool firstTime = true;
 
   Future<void> _pickImage(ImageSource? source) async {
     Navigator.of(context).pop();
@@ -131,7 +132,11 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   Future<void> init() async {
     //In case we have uploaded an image to the database but it could not be stored locally
     //The chances of happening are .0000001% but still would run the check
-
+    if (firstTime) {
+      firstTime = false;
+    } else {
+      return;
+    }
     final dir = await getApplicationDocumentsDirectory();
     final String profilePicturePath = '${dir.path}/profilePicture';
     final prefs = await SharedPreferences.getInstance();
