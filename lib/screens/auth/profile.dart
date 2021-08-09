@@ -149,7 +149,6 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     }
   }
 
-
   Future<void> _fetchNewImage() async {
     //Fetch and store new image from the database
     await ProfileService.updateProfilePicture();
@@ -303,6 +302,10 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     ).then(
       (value) {
         prefs.setBool('profileSet', true);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          '/wrapper',
+          (route) => false,
+        );
       },
     ).catchError(
       (eroor) {
