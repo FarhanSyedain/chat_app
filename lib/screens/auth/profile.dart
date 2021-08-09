@@ -39,6 +39,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       //remove profile picture
       ProfileService.removeProfilePicture(_currentUser!.uid).then((value) {
         setState(() {
+          _currentImage = null;
           showSpiner = false;
         });
       });
@@ -56,9 +57,11 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
         File(_pickedImage!.path),
         _currentUser!.uid,
       ).then(
-        (value) {
+        (value) async {
+          final dir = await getApplicationDocumentsDirectory();
           setState(
             () {
+              _currentImage = File('${dir.path}/userProfile');
               showSpiner = false;
             },
           );
@@ -132,24 +135,23 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   Future<void> init() async {
     //In case we have uploaded an image to the database but it could not be stored locally
     //The chances of happening are .0000001% but still would run the check
-    if (firstTime) {
-      firstTime = false;
-    } else {
-      return;
-    }
     final dir = await getApplicationDocumentsDirectory();
     final String profilePicturePath = '${dir.path}/userProfile';
     final prefs = await SharedPreferences.getInstance();
-
-    if (Directory(profilePicturePath).existsSync()) {
+    if (File(profilePicturePath).existsSync()) {
       _currentImage = File(profilePicturePath);
     }
     if (prefs.containsKey('DPUpdateFinished')) {
-      var finished = prefs.getBool('DPUPdateFinished');
+      var finished = prefs.getBool('DPUpdateFinished');
       if (!finished!) {
         await _fetchNewImage();
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   Future<void> _fetchNewImage() async {
