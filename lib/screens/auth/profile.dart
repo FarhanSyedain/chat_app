@@ -149,10 +149,6 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   Future<void> _fetchNewImage() async {
     //Fetch and store new image from the database
