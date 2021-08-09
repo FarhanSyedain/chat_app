@@ -138,7 +138,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       return;
     }
     final dir = await getApplicationDocumentsDirectory();
-    final String profilePicturePath = '${dir.path}/profilePicture';
+    final String profilePicturePath = '${dir.path}/userProfile';
     final prefs = await SharedPreferences.getInstance();
 
     if (Directory(profilePicturePath).existsSync()) {
@@ -154,7 +154,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
 
   Future<void> _fetchNewImage() async {
     //Fetch and store new image from the database
-    ProfileService.updateProfilePicture();
+    await ProfileService.updateProfilePicture();
   }
 
   @override
