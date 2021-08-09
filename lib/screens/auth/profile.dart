@@ -142,7 +142,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     if (prefs.containsKey('DPUpdateFinished')) {
       var finished = prefs.getBool('DPUPdateFinished');
       if (!finished!) {
-        _fetchNewImage();
+        await _fetchNewImage();
       }
     }
   }
