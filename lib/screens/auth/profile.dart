@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -44,6 +45,9 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       _pickedImage = await _imagePicker.pickImage(source: source);
 
       if (_pickedImage == null) {
+        setState(() {
+          showSpiner = false;
+        });
         return;
       }
 
@@ -124,6 +128,30 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     );
   }
 
+  Future<void> init() async {
+    //In case we have uploaded an image to the database but it could not be stored locally
+    //The chances of happening are .0000001% but still would run the check
+
+    final dir = await getApplicationDocumentsDirectory();
+    final String profilePicturePath = '${dir.path}/profilePicture';
+    final prefs = await SharedPreferences.getInstance();
+
+    if (Directory(profilePicturePath).existsSync()) {
+      _currentImage = File(profilePicturePath);
+    }
+    if (prefs.containsKey('DPUpdateFinished')) {
+      var finished = prefs.getBool('DPUPdateFinished');
+      if (!finished!) {
+        _fetchNewImage();
+      }
+    }
+  }
+
+  Future<void> _fetchNewImage() async {
+    //Fetch and store new image from the database
+    ProfileService.updateProfilePicture();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,114 +161,117 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
         title: 'Profile',
         showBackButton: false,
       ),
-      body: LoadingOverlay(
-        // progressIndicator: ,
-        isLoading: showSpiner,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.orange,
-                  ),
+      body: FutureBuilder(
+        future: init(),
+        builder: (context, data) => LoadingOverlay(
+          // progressIndicator: ,
+          isLoading: showSpiner,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                Center(
                   child: Container(
-                    width: 120,
-                    height: 120,
+                    padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: _currentImage != null
-                            ? FileImage(_currentImage!) as ImageProvider
-                            : AssetImage(
-                                'assets/dummy/profilePicture.jpg',
-                              ),
+                      color: Colors.orange,
+                    ),
+                    child: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: _currentImage != null
+                              ? FileImage(_currentImage!) as ImageProvider
+                              : AssetImage(
+                                  'assets/dummy/profilePicture.jpg',
+                                ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Change Profile Picture.',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'Change Profile Picture.',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _askForSource(),
                     ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => _askForSource(),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            'Frist name',
-                            'Enter your first name',
-                            (value) {
-                              if (value == null) {
-                                return 'Please enter a name';
-                              }
-                              if (value.trim().length == 0) {
-                                return 'Please enter a name';
-                              }
-                              if (value.trim().length > 20) {
-                                return 'Enter a name less that 20 charecters';
-                              }
-                            },
-                            controller: _firstNameController,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          CustomTextField(
-                            'Last name',
-                            'Enter your last name (optional)',
-                            null,
-                            controller: _lastNameController,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          // Todo : Add a multiline option for CustomTextField and impliment that on bio
-                          CustomTextField(
-                            'Bio',
-                            'Say something about yourself (optional)',
-                            null,
-                            controller: _bioController,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                        ],
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              'Frist name',
+                              'Enter your first name',
+                              (value) {
+                                if (value == null) {
+                                  return 'Please enter a name';
+                                }
+                                if (value.trim().length == 0) {
+                                  return 'Please enter a name';
+                                }
+                                if (value.trim().length > 20) {
+                                  return 'Enter a name less that 20 charecters';
+                                }
+                              },
+                              controller: _firstNameController,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CustomTextField(
+                              'Last name',
+                              'Enter your last name (optional)',
+                              null,
+                              controller: _lastNameController,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            // Todo : Add a multiline option for CustomTextField and impliment that on bio
+                            CustomTextField(
+                              'Bio',
+                              'Say something about yourself (optional)',
+                              null,
+                              controller: _bioController,
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: setProfile,
-                      child: CustomProceedButton(
-                        'Set Up Profile',
+                      GestureDetector(
+                        onTap: setProfile,
+                        child: CustomProceedButton(
+                          'Set Up Profile',
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
