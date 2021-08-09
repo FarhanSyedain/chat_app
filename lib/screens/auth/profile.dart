@@ -176,10 +176,10 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ),
                 Center(
                   child: Container(
-                    padding: EdgeInsets.all(2),
+                    padding: EdgeInsets.all(3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: Colors.orange,
+                      color: Colors.green,
                     ),
                     child: Container(
                       width: 120,
