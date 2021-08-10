@@ -24,6 +24,9 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: buildAppBar(
         context,
+        back: () {
+          Navigator.of(context).pop();
+        }
       ),
       body: SingleChildScrollView(
         child: Container(
