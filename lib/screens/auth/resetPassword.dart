@@ -152,16 +152,16 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
       _invalidEmail = false;
     });
     try {
-      print('No here');
+ 
       if (!_formKey.currentState!.validate()) {
         return;
       }
-      print('object');
+    
       final response = await context.read<AuthService>().sendResetPasswordEmail(
             _textEditingController.text.trim(),
           );
       if (response == null) {
-        print('It is null for sure');
+        
         await Navigator.of(context).pushReplacementNamed('/resetEmailSend');
       }
 
@@ -192,7 +192,6 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
           }
       }
     } catch (e) {
-      print(e);
       AwesomeDialog(
         padding: EdgeInsets.all(10),
         animType: AnimType.LEFTSLIDE,
