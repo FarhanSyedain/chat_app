@@ -82,11 +82,17 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                         ),
                       ],
                     ),
-                    SizedBox(height:5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: 10, top: 5),
                       child: Text.rich(
-                        TextSpan(text: 'Forgot Password?'),
+                        TextSpan(
+                          text: 'Forgot Password?',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = forgotPassword,
+                        ),
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
@@ -121,6 +127,10 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
         ),
       ),
     );
+  }
+
+  void forgotPassword()  {
+    Navigator.pushNamed(context, '/forgotPassword');
   }
 
   Future<void> login(BuildContext context) async {
