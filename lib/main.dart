@@ -1,5 +1,7 @@
 import 'package:chat_app/screens/auth/confirmEmail.dart';
 import 'package:chat_app/screens/auth/phonenumber.dart';
+import 'package:chat_app/screens/auth/resetEmail.dart';
+import 'package:chat_app/screens/auth/resetPassword.dart';
 import 'package:chat_app/screens/auth/wrapper.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +57,8 @@ class Main extends StatelessWidget {
           '/verifyEmail': (context) => ConfirmEmailScreen(),
           '/wrapper': (context) => Wrapper(),
           '/phoneAuth': (context) => PhoneNumberScreen(),
+          '/resetEmailSend': (context) => ResetEmailSendScreen(),
+          '/forgotPassword': (context) => ResetEmailScreen(),
         },
       ),
     );

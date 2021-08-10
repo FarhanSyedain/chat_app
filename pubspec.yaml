@@ -65,6 +65,7 @@ flutter:
     - assets/dummy/profilePicture.jpg
     - assets/vectors/phoneAuth.svg
     - assets/vectors/otpScreen.svg
+    - assets/vectors/emailReset.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
