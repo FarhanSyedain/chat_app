@@ -67,7 +67,6 @@ class AuthService {
 
       await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
     } on FirebaseAuthException catch (e) {
-      print(e.code);
 
       return e;
     }
@@ -76,7 +75,6 @@ class AuthService {
 
   Future<FirebaseAuthException?> sendResetPasswordEmail(String email) async {
     try {
-      print('Till here');
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       return e;
