@@ -25,119 +25,121 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
       appBar: buildAppBar(
         context,
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Text(
-                  'Forgot your password?',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: Text(
+                    'Forgot your password?',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: Text(
-                  'Enter the email associated with your account, so that we could send you instructions.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white54,
+                SizedBox(
+                  height: 15,
+                ),
+                Center(
+                  child: Text(
+                    'Enter the email associated with your account, so that we could send you instructions.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white54,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: SvgPicture.asset(
-                  'assets/vectors/emailReset.svg',
-                  height: 200,
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Center(
-                child: Form(
-                  key: _formKey,
-                  child: CustomTextField(
-                    '',
-                    'Email',
-                    (v) {
-                      if (v == null) {
-                        return 'Enter an email';
-                      }
-                      if (!validateEmail(v)) {
-                        return 'Enter a valid email';
-                      }
-                    },
-                    controller: _textEditingController,
-                    errorMessage: _invalidEmail
-                        ? 'Invalid Email'
-                        : _noUserAssociated
-                            ? 'No user associated with this email'
-                            : null,
+                Center(
+                  child: SvgPicture.asset(
+                    'assets/vectors/emailReset.svg',
+                    height: 200,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Remeber Password?  '),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            WidgetSpan(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Text(
-                                    'Login',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 25,
+                ),
+                Center(
+                  child: Form(
+                    key: _formKey,
+                    child: CustomTextField(
+                      '',
+                      'Email',
+                      (v) {
+                        if (v == null) {
+                          return 'Enter an email';
+                        }
+                        if (!validateEmail(v)) {
+                          return 'Enter a valid email';
+                        }
+                      },
+                      controller: _textEditingController,
+                      errorMessage: _invalidEmail
+                          ? 'Invalid Email'
+                          : _noUserAssociated
+                              ? 'No user associated with this email'
+                              : null,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Remeber Password?  '),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              WidgetSpan(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Center(
-                child: GestureDetector(
-                  child: CustomProceedButton('Send Email'),
-                  onTap: sendEmail,
+                SizedBox(
+                  height: 5,
                 ),
-              ),
-            ],
+                Center(
+                  child: GestureDetector(
+                    child: CustomProceedButton('Send Email'),
+                    onTap: sendEmail,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
