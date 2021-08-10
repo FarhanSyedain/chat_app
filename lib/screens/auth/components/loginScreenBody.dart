@@ -23,7 +23,11 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
   bool incorrectPassword = false;
   bool loading = false;
 
-  void changeVal(v) {}
+  void changeVal(v) {
+    setState(() {
+      loading = v;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return LoadingOverlay(
