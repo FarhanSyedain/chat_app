@@ -70,8 +70,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       builder: (context, data) {
-        // return Wrapper(profileSet: data.data as bool);
-        return ResetEmailScreen();
+        return Wrapper(profileSet: data.data as bool);
       },
       future: getSharedPrefs(),
     );
