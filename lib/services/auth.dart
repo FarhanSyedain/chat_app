@@ -19,7 +19,8 @@ class AuthService {
     return '';
   }
 
-  Future<FirebaseAuthException?> loginUser(String email, String password) async {
+  Future<FirebaseAuthException?> loginUser(
+      String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
@@ -69,6 +70,17 @@ class AuthService {
       print(e.code);
 
       return e;
+    }
+    return null;
+  }
+
+  Future<FirebaseAuthException?> sendResetPasswordEmail(String email) async {
+    try {
+      print('Till here');
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      return e;
+    } catch (e) {
     }
     return null;
   }
