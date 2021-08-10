@@ -28,6 +28,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
       loading = v;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return LoadingOverlay(
@@ -133,7 +134,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
     );
   }
 
-  void forgotPassword()  {
+  void forgotPassword() {
     Navigator.pushNamed(context, '/forgotPassword');
   }
 
@@ -209,7 +210,6 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                 ),
               ),
             ).show();
-            print(response);
           }
       }
     }
