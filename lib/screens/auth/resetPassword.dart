@@ -27,8 +27,6 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          width: double.infinity,
-          height: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
