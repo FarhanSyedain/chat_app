@@ -36,6 +36,13 @@ class _CustomFormState extends State<CustomForm> {
     super.initState();
   }
 
+@override
+void dispose() {
+    errorController?.close();
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
