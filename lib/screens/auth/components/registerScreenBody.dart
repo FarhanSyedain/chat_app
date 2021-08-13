@@ -20,8 +20,6 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   final passwordTextFieldControler = TextEditingController();
   final emailTextFieldControler = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-
   @override
   Widget build(BuildContext context) {
     return LoadingOverlay(
@@ -47,9 +45,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   );
                 },
               ),
-              SizedBox(
-                height: 5,
-              ),
+              SizedBox(height: 5),
               Form(
                 key: _formKey,
                 child: Column(
@@ -57,14 +53,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                     CustomTextField(
                       'Email',
                       'Enter your email',
-                      (value) {
-                        if (value == null) {
-                          return 'Enter an email';
-                        }
-                        if (!validateEmail(value)) {
-                          return 'Enter a valid email';
-                        }
-                      },
+                      emailValidator,
                       controller: emailTextFieldControler,
                       errorMessage: !emailAlreadyInUse
                           ? null
@@ -75,14 +64,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                     CustomTextField(
                       'Password',
                       'Set a passowrd',
-                      (value) {
-                        if (value == null) {
-                          return 'Enter a password';
-                        }
-                        if (!validatePassword(value)) {
-                          return 'Password must be atleast 6 charecters';
-                        }
-                      },
+                      passwordValidator,
                       controller: passwordTextFieldControler,
                       disabled: loading,
                       isPassword: true,
@@ -91,13 +73,10 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                     CustomTextField(
                       'Confirm Password',
                       'Confirm your password',
-                      (value) {
-                        final password = passwordTextFieldControler.text;
-
-                        if (password != value) {
-                          return 'Passwords don\'t match';
-                        }
-                      },
+                      (value) => confirmPasswordValidator(
+                        value,
+                        passwordTextFieldControler,
+                      ),
                       disabled: loading,
                       isPassword: true,
                     ),
@@ -156,7 +135,6 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     );
   }
 
- 
   Future<void> signUpWithEmail(
       BuildContext context, String email, String password) async {
     setState(() {
@@ -182,5 +160,31 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
         });
       }
     }
+  }
+}
+
+String? emailValidator(value) {
+  if (value == null) {
+    return 'Enter an email';
+  }
+  if (!validateEmail(value)) {
+    return 'Enter a valid email';
+  }
+}
+
+String? passwordValidator(value) {
+  if (value == null) {
+    return 'Enter a password';
+  }
+  if (!validatePassword(value)) {
+    return 'Password must be atleast 6 charecters';
+  }
+}
+
+String? confirmPasswordValidator(value, passwordTextFieldController) {
+  final password = passwordTextFieldController.text;
+
+  if (password != value) {
+    return 'Passwords don\'t match';
   }
 }
