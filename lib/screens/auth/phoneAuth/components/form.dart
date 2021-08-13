@@ -31,13 +31,15 @@ class _CustomFormState extends State<CustomForm> {
     _verificationCode = widget.code;
     errorController = StreamController<ErrorAnimationType>();
     verifyPhoneNumber(widget.phoneNumber, context, (v) {
-      _verificationCode = v;
+      setState(() {
+        _verificationCode = v;
+      });
     });
     super.initState();
   }
 
-@override
-void dispose() {
+  @override
+  void dispose() {
     errorController?.close();
     textEditingController.dispose();
     super.dispose();
