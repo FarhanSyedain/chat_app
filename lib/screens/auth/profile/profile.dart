@@ -80,7 +80,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(15),
-                  child: CustomFormArea(),
+                  child: CustomFormArea(changeSpinerVal),
                 )
               ],
             ),

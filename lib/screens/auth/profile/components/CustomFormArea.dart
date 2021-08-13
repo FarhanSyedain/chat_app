@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomFormArea extends StatefulWidget {
-  const CustomFormArea({Key? key}) : super(key: key);
+  final Function(bool)? changeSpinerVal;
+  CustomFormArea(this.changeSpinerVal);
 
   @override
   _CustomFormAreaState createState() => _CustomFormAreaState();
@@ -74,6 +75,7 @@ class _CustomFormAreaState extends State<CustomFormArea> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    widget.changeSpinerVal!(true);
     final firstName = _firstNameController.text;
     final lastName = _lastNameController.text;
     final bio = _bioController.text;
@@ -91,6 +93,7 @@ class _CustomFormAreaState extends State<CustomFormArea> {
       },
     ).then(
       (value) {
+        widget.changeSpinerVal!(false);
         prefs.setBool('profileSet', true);
         Navigator.of(context).pushNamedAndRemoveUntil(
           '/wrapper',
@@ -99,6 +102,7 @@ class _CustomFormAreaState extends State<CustomFormArea> {
       },
     ).catchError(
       (eroor) {
+        widget.changeSpinerVal!(false);
         print('Hello i want to inform you that an error has occured $eroor');
       },
     );
