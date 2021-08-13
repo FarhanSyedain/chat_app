@@ -14,7 +14,9 @@ class CustomProceedButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: disabled ? kDarkCardColor.withAlpha(180) : kDarkCardColor,
+        color: disabled
+            ? Theme.of(context).cardColor.withAlpha(180)
+            : Theme.of(context).cardColor,
       ),
       width: double.infinity,
       height: 60,
@@ -22,10 +24,8 @@ class CustomProceedButton extends StatelessWidget {
       child: Text(
         buttonText,
         style: disabled
-            ? Theme.of(context).textTheme.subtitle1?.copyWith(fontSize: 20)
-            : Theme.of(context).textTheme.bodyText1?.copyWith(
-                  fontSize: 20,
-                ),
+            ? Theme.of(context).textTheme.headline5
+            : Theme.of(context).textTheme.headline4,
       ),
     );
   }
