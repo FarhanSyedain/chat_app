@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../components/socialMediaLoginButton.dart';
 import '../../../utilities/auth.dart';
 
