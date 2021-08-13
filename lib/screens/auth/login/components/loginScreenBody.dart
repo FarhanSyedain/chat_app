@@ -1,17 +1,8 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/components/dilog/awsomeDilog.dart';
 import 'package:chat_app/screens/auth/components/haveAccount.dart';
 import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
 import 'package:chat_app/screens/auth/login/components/userInputArea.dart';
-import 'package:chat_app/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:provider/provider.dart';
-import 'package:chat_app/utilities/emailRegexValidator.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../../components/customTextField.dart';
 
 class LoginScreenBody extends StatefulWidget {
   @override

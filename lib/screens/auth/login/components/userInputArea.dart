@@ -1,4 +1,3 @@
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/components/dilog/awsomeDilog.dart';
@@ -68,7 +67,7 @@ class _UserInputAreaState extends State<UserInputArea> {
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
               ),
-SizedBox(height: 25),
+              SizedBox(height: 25),
               GestureDetector(
                 child: CustomProceedButton('Log In'),
                 onTap: () => login(context),
@@ -83,20 +82,20 @@ SizedBox(height: 25),
   void forgotPassword() {
     Navigator.pushNamed(context, '/forgotPassword');
   }
-Future<void> login(BuildContext context) async {
+
+  Future<void> login(BuildContext context) async {
     setState(() {
       userNotFound = false;
       incorrectPassword = false;
       widget.changeVal(true);
     });
     FirebaseAuthException? response =
-  
         await context.read<AuthService>().loginUser(
               _emailControler.text,
               _passwordControler.text,
             );
     setState(() {
-    widget.changeVal(false);
+      widget.changeVal(false);
     });
     if (response!.code == '') {
       Navigator.pushNamedAndRemoveUntil(
@@ -135,5 +134,3 @@ Future<void> login(BuildContext context) async {
     }
   }
 }
-
-
