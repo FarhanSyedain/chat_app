@@ -50,6 +50,11 @@ var darkTheme = ThemeData(
       fontSize: 20,
       color: kDarkPrimaryColor.withAlpha(220),
     ),
+    headline6: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
   ),
 );
 
