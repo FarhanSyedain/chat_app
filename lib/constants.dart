@@ -46,6 +46,10 @@ var darkTheme = ThemeData(
       fontSize: 20,
       color: Colors.white,
     ),
+    headline5: TextStyle(
+      fontSize: 20,
+      color: kDarkPrimaryColor.withAlpha(220),
+    ),
   ),
 );
 
@@ -80,6 +84,9 @@ var lightTheme = ThemeData(
     headline4: TextStyle(
       fontSize: 20,
       color: Colors.white,
+    ),
+    headline5: TextStyle(
+      color: kLightPrimaryColor.withAlpha(220),
     ),
   ),
 );
