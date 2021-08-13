@@ -1,6 +1,6 @@
-import 'package:chat_app/components/customProceedButton.dart';
+import '/components/customProceedButton.dart';
 
-import 'package:chat_app/screens/auth/register/register.dart';
+import '/screens/auth/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';

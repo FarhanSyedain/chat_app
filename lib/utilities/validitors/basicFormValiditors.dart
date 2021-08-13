@@ -1,5 +1,5 @@
-import 'package:chat_app/utilities/regex/emailRegexValidator.dart';
-import 'package:chat_app/utilities/regex/passwordValidator.dart';
+import '/utilities/regex/emailRegexValidator.dart';
+import '/utilities/regex/passwordValidator.dart';
 
 String? emailValidator(value) {
   if (value == null) {

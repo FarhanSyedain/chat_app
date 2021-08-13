@@ -1,9 +1,9 @@
-import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
-import 'package:chat_app/services/auth.dart';
-import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
+import '/screens/auth/components/socialAuthRow.dart';
+import '/services/auth.dart';
+import '/utilities/validitors/basicFormValiditors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/components/customProceedButton.dart';
+import '/components/customProceedButton.dart';
 import 'package:provider/provider.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import '../../components/customTextField.dart';

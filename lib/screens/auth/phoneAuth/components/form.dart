@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/constants.dart';
-import 'package:chat_app/screens/auth/phoneAuth/util/verfiyPhoneNumber.dart';
+import '/components/customProceedButton.dart';
+import '/constants.dart';
+import '/screens/auth/phoneAuth/util/verfiyPhoneNumber.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';

@@ -1,5 +1,5 @@
-import 'package:chat_app/screens/auth/phoneAuth/components/form.dart';
-import 'package:chat_app/screens/auth/phoneAuth/components/topBar.dart';
+import '/screens/auth/phoneAuth/components/form.dart';
+import '/screens/auth/phoneAuth/components/topBar.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'dart:async';

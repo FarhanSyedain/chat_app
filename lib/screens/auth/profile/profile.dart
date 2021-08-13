@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:chat_app/screens/auth/components/customAppbar.dart';
-import 'package:chat_app/screens/auth/profile/components/CustomFormArea.dart';
-import 'package:chat_app/screens/auth/profile/components/profileArea.dart';
-import 'package:chat_app/services/profile.dart';
+import '/screens/auth/components/customAppbar.dart';
+import '/screens/auth/profile/components/CustomFormArea.dart';
+import '/screens/auth/profile/components/profileArea.dart';
+import '/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:path_provider/path_provider.dart';

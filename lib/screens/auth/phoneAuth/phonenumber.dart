@@ -1,6 +1,6 @@
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/screens/auth/constants.dart';
-import 'package:chat_app/screens/auth/phoneAuth/otpScreen.dart';
+import '/components/customProceedButton.dart';
+import '/screens/auth/constants.dart';
+import '/screens/auth/phoneAuth/otpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
