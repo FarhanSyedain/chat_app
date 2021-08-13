@@ -10,6 +10,12 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 60),
+        Text(
+          'Login with any of the below options.',
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
