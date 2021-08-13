@@ -118,9 +118,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Center(
               child: Text(
                 'We\'ve sent you a verification link on your email $emailAdress. Please open the link to complete the setup of your account',
@@ -132,9 +130,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             sendingEmail
                 ? CustomProceedButton('Sending Email.')
                 : GestureDetector(
@@ -155,9 +151,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                       );
                     },
                   ),
-            SizedBox(
-              height: 13,
-            ),
+            SizedBox(height: 13),
             Center(
               child: Text.rich(
                 TextSpan(
@@ -180,9 +174,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Expanded(child: Container()),
             Center(
               child: Text.rich(
@@ -198,14 +190,11 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                           ?.copyWith(color: Colors.blue),
                     ),
                   ],
-                  text: '',
                 ),
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -216,5 +205,4 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacementNamed(context, '/wrapper');
   }
-
 }
