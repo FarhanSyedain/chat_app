@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'dart:async';
-import '../../components/dilog/awsomeDilog.dart';
+import '../../../components/dilog/awsomeDilog.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
