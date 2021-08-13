@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'components/customAppbar.dart';
-import 'components/registerScreenBody.dart';
+import '../components/customAppbar.dart';
+import '../components/registerScreenBody.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);

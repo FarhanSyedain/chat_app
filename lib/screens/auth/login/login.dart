@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'components/customAppbar.dart';
-import 'components/loginScreenBody.dart';
+import '../components/customAppbar.dart';
+import '../components/loginScreenBody.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
