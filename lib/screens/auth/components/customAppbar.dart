@@ -20,7 +20,7 @@ PreferredSize buildAppBar(
             ? IconButton(
                 padding: EdgeInsets.only(top: 20),
                 icon: Icon(Icons.arrow_back_ios_outlined),
-                onPressed: () {},
+                onPressed: back,
               )
             : null,
         // centerTitle: showBackButton ? false : true,
