@@ -1,4 +1,5 @@
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:chat_app/screens/auth/constants.dart';
 import 'package:chat_app/screens/auth/otpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -49,20 +50,8 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       selectorTextStyle: Theme.of(context).textTheme.bodyText2,
                       autoValidateMode: AutovalidateMode.always,
                       searchBoxDecoration: InputDecoration(
-                        // counterStyle: Theme.of(context).textTheme.bodyText2,
-
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).cardColor.withAlpha(200),
-                            width: 3,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                            width: 3,
-                          ),
-                        ),
+                        enabledBorder: unFocusedBorder(context),
+                        focusedBorder: focusedBorder(context),
                       ),
                       selectorConfig: SelectorConfig(
                         leadingPadding: 0,
@@ -80,18 +69,8 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       inputDecoration: InputDecoration(
                         hintText: 'Phone Number',
                         hintStyle: Theme.of(context).textTheme.bodyText2,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                            width: 3,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).cardColor.withAlpha(200),
-                            width: 3,
-                          ),
-                        ),
+                        focusedBorder: focusedBorder(context),
+                        enabledBorder: unFocusedBorder(context),
                       ),
                     ),
                   ),

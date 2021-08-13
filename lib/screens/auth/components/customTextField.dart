@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/auth/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -56,19 +57,3 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
-
-OutlineInputBorder unFocusedBorder(c) => OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Theme.of(c).cardColor.withAlpha(200),
-        width: 3,
-      ),
-      borderRadius: BorderRadius.circular(15),
-    );
-
-OutlineInputBorder focusedBorder(c) => OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.green,
-        width: 2,
-      ),
-      borderRadius: BorderRadius.circular(15),
-    );
