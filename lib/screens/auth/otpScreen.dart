@@ -81,13 +81,9 @@ class _OTPScreenState extends State<OTPScreen> {
               title,
               style: Theme.of(context).textTheme.bodyText1,
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Text(desc),
-            SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
           ],
         ),
       ),
@@ -111,9 +107,7 @@ class _OTPScreenState extends State<OTPScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 40,
-              ),
+              SizedBox(height: 40),
               SvgPicture.asset(
                 'assets/vectors/phoneAuth.svg',
                 height: MediaQuery.of(context).size.height / 3,
@@ -160,9 +154,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                     SizedBox(height: 30),
                     otp(),
-                    SizedBox(
-                      height: 40,
-                    ),
+                    SizedBox(height: 40),
                     GestureDetector(
                       child: CustomProceedButton(
                         'Verify',

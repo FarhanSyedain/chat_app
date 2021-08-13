@@ -36,9 +36,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 color: Colors.white,
               ),
             ),
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 40),
             Padding(
               padding: EdgeInsets.all(20),
               child: Column(
@@ -98,9 +96,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 50,
-                  ),
+                  SizedBox(height: 50),
                   GestureDetector(
                     child: CustomProceedButton('Get OTP'),
                     onTap: () {
@@ -116,9 +112,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       }
                     },
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Center(
                     child: TextButton(
                       onPressed: () {
