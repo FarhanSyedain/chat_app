@@ -5,6 +5,7 @@ import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/screens/auth/profile/components/CustomFormArea.dart';
 import 'package:chat_app/screens/auth/profile/components/profileArea.dart';
+import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,6 +49,12 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     await ProfileService.updateProfilePicture();
   }
 
+  void changeSpinerVal(v) {
+    setState(() {
+      showSpiner = v;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +76,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ProfileArea(
                   currentImage: _currentImage,
                   pickedImage: _pickedImage,
+                  changeSpinerval: changeSpinerVal,
                 ),
                 Padding(
                   padding: EdgeInsets.all(15),

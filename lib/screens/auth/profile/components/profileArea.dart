@@ -10,7 +10,8 @@ import 'package:path_provider/path_provider.dart';
 class ProfileArea extends StatefulWidget {
   final XFile? pickedImage;
   final File? currentImage;
-  ProfileArea({this.pickedImage, this.currentImage});
+  final Function(bool)? changeSpinerval;
+  ProfileArea({this.pickedImage, this.currentImage, this.changeSpinerval});
   @override
   _ProfileAreaState createState() => _ProfileAreaState();
 }
@@ -18,7 +19,7 @@ class ProfileArea extends StatefulWidget {
 class _ProfileAreaState extends State<ProfileArea> {
   XFile? _pickedImage;
   File? _currentImage;
-  
+
   @override
   initState() {
     XFile? _pickedImage = widget.pickedImage;
@@ -78,8 +79,8 @@ class _ProfileAreaState extends State<ProfileArea> {
       ProfileService.removeProfilePicture(_currentUser!.uid).then((value) {
         setState(() {
           _currentImage = null;
-          // showSpiner = false;
         });
+        widget.changeSpinerval!(false);
       });
     } else {
       _pickedImage = await _imagePicker.pickImage(source: source);
@@ -88,6 +89,7 @@ class _ProfileAreaState extends State<ProfileArea> {
         // setState(() {
         //   showSpiner = false;
         // });
+        widget.changeSpinerval!(false);
         return;
       }
 
@@ -100,9 +102,10 @@ class _ProfileAreaState extends State<ProfileArea> {
           setState(
             () {
               _currentImage = File('${dir.path}/userProfile');
-              // showSpiner = false;
+              // showSpiner = false
             },
           );
+            widget.changeSpinerval!(false);
         },
       );
     }
