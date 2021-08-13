@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:chat_app/utilities/emailRegexValidator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'customTextField.dart';
+import '../../components/customTextField.dart';
 
 class LoginScreenBody extends StatefulWidget {
   @override

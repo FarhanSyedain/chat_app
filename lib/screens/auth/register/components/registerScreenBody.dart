@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:provider/provider.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'customTextField.dart';
+import '../../components/customTextField.dart';
 
 class RegisterScreenBody extends StatefulWidget {
   @override
