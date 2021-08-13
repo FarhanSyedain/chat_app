@@ -171,9 +171,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 30),
                 Center(
                   child: Container(
                     padding: EdgeInsets.all(3),
@@ -198,17 +196,12 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 Center(
                   child: Text.rich(
                     TextSpan(
                       text: 'Change Profile Picture.',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: Theme.of(context).textTheme.subtitle2,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => _askForSource(),
                     ),
@@ -238,18 +231,14 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                               },
                               controller: _firstNameController,
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            SizedBox(height: 20),
                             CustomTextField(
                               'Last name',
                               'Enter your last name (optional)',
                               null,
                               controller: _lastNameController,
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            SizedBox(height: 20),
                             // Todo : Add a multiline option for CustomTextField and impliment that on bio
                             CustomTextField(
                               'Bio',
@@ -257,9 +246,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                               null,
                               controller: _bioController,
                             ),
-                            SizedBox(
-                              height: 30,
-                            ),
+                            SizedBox(height: 30),
                           ],
                         ),
                       ),
