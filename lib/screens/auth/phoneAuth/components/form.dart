@@ -61,14 +61,7 @@ class _CustomFormState extends State<CustomForm> {
               ),
               length: 6,
               animationType: AnimationType.fade,
-              validator: (v) {
-                if (hasError) {
-                  return "Invalid OTP";
-                }
-                if (v!.length < 6) {
-                  return 'OTP must be 6 didgits long';
-                }
-              },
+              validator: (v) => otpIsValid(v,hasError),
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.underline,
                 borderRadius: BorderRadius.circular(5),
@@ -153,3 +146,11 @@ class _CustomFormState extends State<CustomForm> {
     }
   }
 }
+String? otpIsValid (v,hasError) {
+                if (hasError) {
+                  return "Invalid OTP";
+                }
+                if (v!.length < 6) {
+                  return 'OTP must be 6 didgits long';
+                }
+              }
