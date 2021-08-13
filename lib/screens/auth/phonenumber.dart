@@ -1,5 +1,4 @@
 import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/screens/auth/otpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,7 +15,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
