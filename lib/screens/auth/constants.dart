@@ -11,7 +11,7 @@ OutlineInputBorder unFocusedBorder(c) => OutlineInputBorder(
 OutlineInputBorder focusedBorder(c) => OutlineInputBorder(
       borderSide: BorderSide(
         color: Colors.green,
-        width: 2,
+        width: 3,
       ),
       borderRadius: BorderRadius.circular(15),
     );
