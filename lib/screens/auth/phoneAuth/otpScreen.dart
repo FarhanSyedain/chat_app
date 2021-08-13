@@ -45,8 +45,6 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   void dispose() {
     resendTimer?.cancel();
-    // textEditingController.dispose();
-    // errorController?.close();
     super.dispose();
   }
 
