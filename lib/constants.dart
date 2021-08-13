@@ -42,6 +42,10 @@ var darkTheme = ThemeData(
       color: Colors.blue,
       fontSize: 12,
     ),
+    headline4: TextStyle(
+      fontSize: 20,
+      color: Colors.white,
+    ),
   ),
 );
 
@@ -72,6 +76,10 @@ var lightTheme = ThemeData(
     subtitle2: TextStyle(
       color: Colors.blue,
       fontSize: 12,
+    ),
+    headline4: TextStyle(
+      fontSize: 20,
+      color: Colors.white,
     ),
   ),
 );
