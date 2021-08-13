@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'dart:async';
-
+import '../../components/dilog/awsomeDilog.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -53,41 +53,23 @@ class _OTPScreenState extends State<OTPScreen> {
       phoneNumber: widget.phoneNumber,
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) async {},
-      verificationFailed: (FirebaseAuthException e) {
-        showAwsomeDilog(DialogType.ERROR, 'An error occured', e.message!);
-      },
+      verificationFailed: (FirebaseAuthException e) => showAwsomeDilog(
+        DialogType.ERROR,
+        'An error occured',
+        e.message!,
+        context,
+      ),
       codeSent: (String verificationId, int? resendToken) {
         _verificationCode = verificationId;
-        showAwsomeDilog(DialogType.SUCCES, 'Otp Sent Successfully',
-            'We have sent you an otp at ${widget.phoneNumber}');
+        showAwsomeDilog(
+          DialogType.SUCCES,
+          'Otp Sent Successfully',
+          'We have sent you an otp at ${widget.phoneNumber}',
+          context,
+        );
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
-  }
-
-  void showAwsomeDilog(
-    DialogType type,
-    String title,
-    String desc,
-  ) {
-    AwesomeDialog(
-      context: context,
-      dialogType: type,
-      autoHide: Duration(seconds: 5),
-      body: Container(
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            SizedBox(height: 20),
-            Text(desc),
-            SizedBox(height: 30),
-          ],
-        ),
-      ),
-    ).show();
   }
 
   @override
@@ -200,8 +182,6 @@ class _OTPScreenState extends State<OTPScreen> {
       ),
     );
   }
-
-  Future<void> reSendCode() async {}
 
   Future<void> verifyUser() async {
     setState(

@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:chat_app/components/dilog/awsomeDilog.dart';
 import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -164,38 +165,12 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
           }
         default:
           {
-            AwesomeDialog(
-              padding: EdgeInsets.all(10),
-              animType: AnimType.LEFTSLIDE,
-              context: context,
-              dialogType: DialogType.ERROR,
-              body: Container(
-                child: Column(
-                  children: [
-                    Center(
-                      child: Text(
-                        'Something unexpected occured',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'An unexpected error occured. Please try again',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ).show();
+            showAwsomeDilog(
+              DialogType.ERROR,
+              'Something unexpected occured',
+              'An unexpected error occured. Please try again.',
+              context,
+            );
           }
       }
     }
