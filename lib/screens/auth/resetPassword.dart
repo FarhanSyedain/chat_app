@@ -22,12 +22,9 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: buildAppBar(
-        context,
-        back: () {
-          Navigator.of(context).pop();
-        }
-      ),
+      appBar: buildAppBar(context, back: () {
+        Navigator.of(context).pop();
+      }),
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
@@ -78,14 +75,7 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                     child: CustomTextField(
                       '',
                       'Email',
-                      (v) {
-                        if (v == null) {
-                          return 'Enter an email';
-                        }
-                        if (!validateEmail(v)) {
-                          return 'Enter a valid email';
-                        }
-                      },
+                      emailValidator,
                       controller: _textEditingController,
                       errorMessage: _invalidEmail
                           ? 'Invalid Email'
@@ -111,7 +101,8 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                                     Navigator.of(context).pop();
                                   },
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.0),
                                     child: Text(
                                       'Login',
                                       style: TextStyle(
@@ -130,9 +121,7 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
+                SizedBox(height: 5),
                 Center(
                   child: GestureDetector(
                     child: CustomProceedButton('Send Email'),
@@ -153,16 +142,14 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
       _invalidEmail = false;
     });
     try {
- 
       if (!_formKey.currentState!.validate()) {
         return;
       }
-    
+
       final response = await context.read<AuthService>().sendResetPasswordEmail(
             _textEditingController.text.trim(),
           );
       if (response == null) {
-        
         await Navigator.of(context).pushReplacementNamed('/resetEmailSend');
       }
 
@@ -226,5 +213,14 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
         ),
       ).show();
     }
+  }
+}
+
+String? emailValidator(v) {
+  if (v == null) {
+    return 'Enter an email';
+  }
+  if (!validateEmail(v)) {
+    return 'Enter a valid email';
   }
 }
