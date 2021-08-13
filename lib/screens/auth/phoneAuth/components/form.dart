@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/components/dilog/awsomeDilog.dart';
 import 'package:chat_app/constants.dart';
 import 'package:chat_app/screens/auth/phoneAuth/util/verfiyPhoneNumber.dart';
 import 'package:firebase_auth/firebase_auth.dart';

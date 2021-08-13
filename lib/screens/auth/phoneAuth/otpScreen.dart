@@ -1,19 +1,8 @@
-import 'dart:js';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/constants.dart';
 import 'package:chat_app/screens/auth/phoneAuth/components/form.dart';
 import 'package:chat_app/screens/auth/phoneAuth/components/topBar.dart';
-import 'package:chat_app/screens/auth/profile/components/CustomFormArea.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'dart:async';
-import '../../../components/dilog/awsomeDilog.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'util/verfiyPhoneNumber.dart';
 
 class OTPScreen extends StatefulWidget {
