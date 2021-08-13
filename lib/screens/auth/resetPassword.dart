@@ -32,43 +32,29 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 Center(
                   child: Text(
                     'Forgot your password?',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: 15),
                 Center(
                   child: Text(
                     'Enter the email associated with your account, so that we could send you instructions.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white54,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 30),
                 Center(
                   child: SvgPicture.asset(
                     'assets/vectors/emailReset.svg',
                     height: 200,
                   ),
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                SizedBox(height: 25),
                 Center(
                   child: Form(
                     key: _formKey,
@@ -91,7 +77,10 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Remeber Password?  '),
+                        Text(
+                          'Remeber Password?  ',
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
                         Text.rich(
                           TextSpan(
                             children: [
@@ -105,11 +94,8 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                                         EdgeInsets.symmetric(vertical: 8.0),
                                     child: Text(
                                       'Login',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ),
                                 ),
