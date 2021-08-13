@@ -4,7 +4,6 @@ import 'package:chat_app/components/dilog/awsomeDilog.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/services/auth.dart';
-import 'package:chat_app/utilities/regex/emailRegexValidator.dart';
 import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

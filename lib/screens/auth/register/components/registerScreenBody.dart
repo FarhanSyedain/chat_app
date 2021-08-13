@@ -1,7 +1,5 @@
 import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
 import 'package:chat_app/services/auth.dart';
-import 'package:chat_app/utilities/regex/emailRegexValidator.dart';
-import 'package:chat_app/utilities/regex/passwordValidator.dart';
 import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -1,15 +1,9 @@
 import 'dart:io';
 
-import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
-import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/screens/auth/profile/components/CustomFormArea.dart';
 import 'package:chat_app/screens/auth/profile/components/profileArea.dart';
-import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/profile.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:path_provider/path_provider.dart';
