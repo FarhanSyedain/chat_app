@@ -217,5 +217,4 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
     Navigator.pushReplacementNamed(context, '/wrapper');
   }
 
-  Future<void> refreshPage() async {}
 }
