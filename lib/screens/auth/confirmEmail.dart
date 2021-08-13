@@ -51,11 +51,8 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
     await user?.reload();
 
     final emailVerified = user?.emailVerified;
-    if (emailVerified == null) {
-      return;
-      //Stupid null saftey
-    }
-    if (emailVerified) {
+
+    if (emailVerified!) {
       timer.cancel();
       Navigator.pushNamedAndRemoveUntil(
         context,
