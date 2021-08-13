@@ -4,6 +4,7 @@ import 'package:chat_app/components/dilog/awsomeDilog.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/screens/auth/login/resetPassword.dart';
 import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
