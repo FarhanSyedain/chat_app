@@ -1,5 +1,5 @@
 import 'package:chat_app/screens/auth/login/confirmEmail.dart';
-import 'package:chat_app/screens/auth/phonenumber.dart';
+import 'package:chat_app/screens/auth/phoneAuth/phonenumber.dart';
 import 'package:chat_app/screens/auth/login/resetEmail.dart';
 import 'package:chat_app/screens/auth/login/resetPassword.dart';
 import 'package:chat_app/screens/auth/wrapper.dart';
