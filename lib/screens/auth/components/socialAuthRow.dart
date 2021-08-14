@@ -12,7 +12,7 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
       children: [
         SizedBox(height: 60),
         Text(
-          'Login with any of the below options.',
+          'Sign in with',
           style: Theme.of(context).textTheme.bodyText2,
         ),
         SizedBox(height: 20),
