@@ -29,12 +29,6 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40),
-              Text(
-                'Sign up with any of the below options.',
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-              SizedBox(height: 20),
               SocialMediaRowWithPhoneNumberSwitch(
                 (v) {
                   setState(
