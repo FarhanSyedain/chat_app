@@ -18,6 +18,9 @@ var darkTheme = ThemeData(
   primaryColor: kDarkBackgroundColor.withAlpha(200),
   backgroundColor: kDarkBackgroundColor,
   cardColor: kDarkCardColor,
+  iconTheme: IconThemeData(
+    color: Colors.white,
+  ),
   hoverColor: kDarkHoverColor,
   textTheme: TextTheme(
     headline1: TextStyle(
