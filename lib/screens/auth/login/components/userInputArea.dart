@@ -47,7 +47,7 @@ class _UserInputAreaState extends State<UserInputArea> {
                   CustomTextField(
                     'Password',
                     'Enter your password',
-                    null,
+                    passwordValidator,
                     errorMessage: incorrectPassword
                         ? 'Incorrect password or no password set'
                         : null,
@@ -84,7 +84,9 @@ class _UserInputAreaState extends State<UserInputArea> {
   }
 
   Future<void> login(BuildContext context) async {
-  
+  if (! _formKey.currentState!.validate()){
+    return;
+  }
     setState(() {
       userNotFound = false;
       incorrectPassword = false;
