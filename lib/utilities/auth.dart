@@ -1,8 +1,8 @@
-import 'package:chat_app/components/dilog/awsomeDilog.dart';
+import '/components/dilog/awsomeDilog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chat_app/services/auth.dart';
+import '/services/auth.dart';
 import 'package:provider/provider.dart';
 
 Future<void> signWithTwitter(context, Function chagneSpinerVal) async {

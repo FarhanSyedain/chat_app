@@ -1,5 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chat_app/components/dilog/awsomeDilog.dart';
+import '/components/dilog/awsomeDilog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> verifyPhoneNumber(phoneNumber,context,setVal) async {

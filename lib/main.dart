@@ -1,9 +1,9 @@
-import 'package:chat_app/screens/auth/login/confirmEmail.dart';
-import 'package:chat_app/screens/auth/phoneAuth/phonenumber.dart';
-import 'package:chat_app/screens/auth/login/resetEmail.dart';
-import 'package:chat_app/screens/auth/login/resetPassword.dart';
-import 'package:chat_app/screens/auth/wrapper.dart';
-import 'package:chat_app/services/auth.dart';
+import '/screens/auth/login/confirmEmail.dart';
+import '/screens/auth/phoneAuth/phonenumber.dart';
+import '/screens/auth/login/resetEmail.dart';
+import '/screens/auth/login/resetPassword.dart';
+import '/screens/auth/wrapper.dart';
+import '/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

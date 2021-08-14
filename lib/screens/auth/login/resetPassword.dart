@@ -1,10 +1,10 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/components/dilog/awsomeDilog.dart';
-import 'package:chat_app/screens/auth/components/customAppbar.dart';
-import 'package:chat_app/screens/auth/components/customTextField.dart';
-import 'package:chat_app/services/auth.dart';
-import 'package:chat_app/utilities/emailRegexValidator.dart';
+import '/components/dilog/awsomeDilog.dart';
+import '/screens/auth/components/customAppbar.dart';
+import '/screens/auth/components/customTextField.dart';
+import '/services/auth.dart';
+import '/utilities/validitors/basicFormValiditors.dart';
+import '/components/customProceedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -177,11 +177,4 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
   }
 }
 
-String? emailValidator(v) {
-  if (v == null) {
-    return 'Enter an email';
-  }
-  if (!validateEmail(v)) {
-    return 'Enter a valid email';
-  }
-}
+

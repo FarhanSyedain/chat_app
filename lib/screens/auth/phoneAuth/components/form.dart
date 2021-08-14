@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/constants.dart';
-import 'package:chat_app/screens/auth/phoneAuth/util/verfiyPhoneNumber.dart';
+import '/components/customProceedButton.dart';
+import '/constants.dart';
+import '/screens/auth/phoneAuth/util/verfiyPhoneNumber.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -31,9 +31,18 @@ class _CustomFormState extends State<CustomForm> {
     _verificationCode = widget.code;
     errorController = StreamController<ErrorAnimationType>();
     verifyPhoneNumber(widget.phoneNumber, context, (v) {
-      _verificationCode = v;
+      setState(() {
+        _verificationCode = v;
+      });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    errorController?.close();
+    textEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,14 +61,7 @@ class _CustomFormState extends State<CustomForm> {
               ),
               length: 6,
               animationType: AnimationType.fade,
-              validator: (v) {
-                if (hasError) {
-                  return "Invalid OTP";
-                }
-                if (v!.length < 6) {
-                  return 'OTP must be 6 didgits long';
-                }
-              },
+              validator: (v) => otpIsValid(v, hasError),
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.underline,
                 borderRadius: BorderRadius.circular(5),
@@ -142,5 +144,14 @@ class _CustomFormState extends State<CustomForm> {
       );
       widget.changeVal!(false);
     }
+  }
+}
+
+String? otpIsValid(v, hasError) {
+  if (hasError) {
+    return "Invalid OTP";
+  }
+  if (v!.length < 6) {
+    return 'OTP must be 6 didgits long';
   }
 }

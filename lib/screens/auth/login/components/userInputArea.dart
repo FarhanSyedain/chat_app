@@ -1,9 +1,9 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/components/dilog/awsomeDilog.dart';
-import 'package:chat_app/screens/auth/components/customTextField.dart';
-import 'package:chat_app/screens/auth/login/resetPassword.dart';
-import 'package:chat_app/services/auth.dart';
+import '/components/customProceedButton.dart';
+import '/components/dilog/awsomeDilog.dart';
+import '/screens/auth/components/customTextField.dart';
+import '/services/auth.dart';
+import '/utilities/validitors/basicFormValiditors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:chat_app/secrets.dart';
+import '/secrets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';

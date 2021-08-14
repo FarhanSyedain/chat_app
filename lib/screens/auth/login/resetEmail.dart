@@ -1,5 +1,5 @@
-import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/screens/auth/components/customAppbar.dart';
+import '/components/customProceedButton.dart';
+import '/screens/auth/components/customAppbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

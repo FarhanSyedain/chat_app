@@ -1,6 +1,6 @@
-import 'package:chat_app/screens/auth/components/haveAccount.dart';
-import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
-import 'package:chat_app/screens/auth/login/components/userInputArea.dart';
+import '../../components/haveAccount.dart';
+import '../../components/socialAuthRow.dart';
+import '../components/userInputArea.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:flutter/material.dart';
 

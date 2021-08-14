@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:chat_app/screens/auth/components/socialMediaLoginButton.dart';
+import '../components/socialMediaLoginButton.dart';
 import '../../../utilities/auth.dart';
 
 class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {

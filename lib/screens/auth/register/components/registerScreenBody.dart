@@ -1,10 +1,9 @@
-import 'package:chat_app/screens/auth/components/socialAuthRow.dart';
-import 'package:chat_app/services/auth.dart';
-import 'package:chat_app/utilities/emailRegexValidator.dart';
-import 'package:chat_app/utilities/passwordValidator.dart';
+import '/screens/auth/components/socialAuthRow.dart';
+import '/services/auth.dart';
+import '/utilities/validitors/basicFormValiditors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/components/customProceedButton.dart';
+import '/components/customProceedButton.dart';
 import 'package:provider/provider.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import '../../components/customTextField.dart';
@@ -163,28 +162,4 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   }
 }
 
-String? emailValidator(value) {
-  if (value == null) {
-    return 'Enter an email';
-  }
-  if (!validateEmail(value)) {
-    return 'Enter a valid email';
-  }
-}
 
-String? passwordValidator(value) {
-  if (value == null) {
-    return 'Enter a password';
-  }
-  if (!validatePassword(value)) {
-    return 'Password must be atleast 6 charecters';
-  }
-}
-
-String? confirmPasswordValidator(value, passwordTextFieldController) {
-  final password = passwordTextFieldController.text;
-
-  if (password != value) {
-    return 'Passwords don\'t match';
-  }
-}
