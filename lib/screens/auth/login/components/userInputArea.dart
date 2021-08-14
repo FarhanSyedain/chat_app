@@ -84,6 +84,7 @@ class _UserInputAreaState extends State<UserInputArea> {
   }
 
   Future<void> login(BuildContext context) async {
+  
     setState(() {
       userNotFound = false;
       incorrectPassword = false;
@@ -97,14 +98,14 @@ class _UserInputAreaState extends State<UserInputArea> {
     setState(() {
       widget.changeVal(false);
     });
-    if (response!.code == '') {
-      Navigator.pushNamedAndRemoveUntil(
+    if (response == null) {
+      await Navigator.pushNamedAndRemoveUntil(
         context,
         '/wrapper',
         (r) => false,
       );
     } else {
-      print(response);
+    
       switch (response.code) {
         case 'user-not-found':
           {
