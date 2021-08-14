@@ -19,7 +19,10 @@ PreferredSize buildAppBar(
         leading: showBackButton
             ? IconButton(
                 padding: EdgeInsets.only(top: 20),
-                icon: Icon(Icons.arrow_back_ios_outlined),
+                icon: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Theme.of(context).iconTheme.color,
+                ),
                 onPressed: back,
               )
             : null,
