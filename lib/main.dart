@@ -1,7 +1,7 @@
-import 'package:chat_app/screens/auth/confirmEmail.dart';
-import 'package:chat_app/screens/auth/phonenumber.dart';
-import 'package:chat_app/screens/auth/resetEmail.dart';
-import 'package:chat_app/screens/auth/resetPassword.dart';
+import 'package:chat_app/screens/auth/login/confirmEmail.dart';
+import 'package:chat_app/screens/auth/phoneAuth/phonenumber.dart';
+import 'package:chat_app/screens/auth/login/resetEmail.dart';
+import 'package:chat_app/screens/auth/login/resetPassword.dart';
 import 'package:chat_app/screens/auth/wrapper.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
-import 'screens/auth/login.dart';
-import 'screens/auth/register.dart';
+import 'screens/auth/login/login.dart';
+import 'screens/auth/register/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {

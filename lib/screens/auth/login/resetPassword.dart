@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat_app/components/customProceedButton.dart';
+import 'package:chat_app/components/dilog/awsomeDilog.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/services/auth.dart';
@@ -22,12 +23,9 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: buildAppBar(
-        context,
-        back: () {
-          Navigator.of(context).pop();
-        }
-      ),
+      appBar: buildAppBar(context, back: () {
+        Navigator.of(context).pop();
+      }),
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
@@ -35,57 +33,36 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 Center(
                   child: Text(
                     'Forgot your password?',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: 15),
                 Center(
                   child: Text(
                     'Enter the email associated with your account, so that we could send you instructions.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white54,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 30),
                 Center(
                   child: SvgPicture.asset(
                     'assets/vectors/emailReset.svg',
                     height: 200,
                   ),
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                SizedBox(height: 25),
                 Center(
                   child: Form(
                     key: _formKey,
                     child: CustomTextField(
                       '',
                       'Email',
-                      (v) {
-                        if (v == null) {
-                          return 'Enter an email';
-                        }
-                        if (!validateEmail(v)) {
-                          return 'Enter a valid email';
-                        }
-                      },
+                      emailValidator,
                       controller: _textEditingController,
                       errorMessage: _invalidEmail
                           ? 'Invalid Email'
@@ -101,7 +78,10 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Remeber Password?  '),
+                        Text(
+                          'Remeber Password?  ',
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
                         Text.rich(
                           TextSpan(
                             children: [
@@ -111,14 +91,12 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                                     Navigator.of(context).pop();
                                   },
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.0),
                                     child: Text(
                                       'Login',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ),
                                 ),
@@ -130,9 +108,7 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
+                SizedBox(height: 5),
                 Center(
                   child: GestureDetector(
                     child: CustomProceedButton('Send Email'),
@@ -153,16 +129,14 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
       _invalidEmail = false;
     });
     try {
- 
       if (!_formKey.currentState!.validate()) {
         return;
       }
-    
+
       final response = await context.read<AuthService>().sendResetPasswordEmail(
             _textEditingController.text.trim(),
           );
       if (response == null) {
-        
         await Navigator.of(context).pushReplacementNamed('/resetEmailSend');
       }
 
@@ -193,38 +167,21 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
           }
       }
     } catch (e) {
-      AwesomeDialog(
-        padding: EdgeInsets.all(10),
-        animType: AnimType.LEFTSLIDE,
-        context: context,
-        dialogType: DialogType.ERROR,
-        body: Container(
-          child: Column(
-            children: [
-              Center(
-                child: Text(
-                  'Something unexpected occured',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Center(
-                child: Text(
-                  'An unexpected error occured. Please try again',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              )
-            ],
-          ),
-        ),
-      ).show();
+      showAwsomeDilog(
+        DialogType.ERROR,
+        'Something went wrong!',
+        'Unfourtunatley something happened , please try again maybe after some time',
+        context,
+      );
     }
+  }
+}
+
+String? emailValidator(v) {
+  if (v == null) {
+    return 'Enter an email';
+  }
+  if (!validateEmail(v)) {
+    return 'Enter a valid email';
   }
 }

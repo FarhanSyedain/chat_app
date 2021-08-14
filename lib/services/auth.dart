@@ -1,3 +1,4 @@
+import 'package:chat_app/secrets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
@@ -55,8 +56,8 @@ class AuthService {
   Future<FirebaseAuthException?> signInWithTwitter() async {
     try {
       final TwitterLogin twitterLogin = new TwitterLogin(
-        consumerKey: '6hUY3Q6y59swYd78P6ejdIYaW',
-        consumerSecret: 'f2u73Xo0Ip2RMAukBJl8P8adeLrYXED80p58vSQBB8Tr8GGUxs',
+        consumerKey: twitterConsumerKey,
+        consumerSecret: twitterSecretKey,
       );
       final TwitterLoginResult loginResult = await twitterLogin.authorize();
       final TwitterSession twitterSession = loginResult.session;
@@ -67,7 +68,6 @@ class AuthService {
 
       await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
     } on FirebaseAuthException catch (e) {
-
       return e;
     }
     return null;
@@ -78,8 +78,7 @@ class AuthService {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       return e;
-    } catch (e) {
-    }
+    } catch (e) {}
     return null;
   }
 }

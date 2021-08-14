@@ -1,3 +1,4 @@
+import 'package:chat_app/components/dilog/awsomeDilog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -5,7 +6,7 @@ import 'package:chat_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 Future<void> signWithTwitter(context, Function chagneSpinerVal) async {
-  final _authService = Provider.of<AuthService>(context,listen: false);
+  final _authService = Provider.of<AuthService>(context, listen: false);
 
   chagneSpinerVal(true);
   _authService.signInWithTwitter().then(
@@ -76,22 +77,21 @@ Future<void> signWithTwitter(context, Function chagneSpinerVal) async {
 }
 
 Future<void> signInWithGoogle(context, Function changeSpinerVal) async {
-  final _authService = Provider.of<AuthService>(context,listen: false);
+  final _authService = Provider.of<AuthService>(context, listen: false);
   changeSpinerVal(true);
 
   _authService.signInWithGoogle().then(
     (value) {
       changeSpinerVal(false);
       if (value) {
-        print('Would be pushing');
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.ERROR,
-          title: 'Eroor',
-          desc: 'There was an error from our side',
-        ).show();
+        showAwsomeDilog(
+          DialogType.ERROR,
+          'Error',
+          'There was an error from our side',
+          context,
+        );
       }
     },
   ).catchError(

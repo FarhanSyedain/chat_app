@@ -1,6 +1,6 @@
 import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/screens/auth/components/customTextField.dart';
-import 'package:chat_app/screens/auth/otpScreen.dart';
+import 'package:chat_app/screens/auth/constants.dart';
+import 'package:chat_app/screens/auth/phoneAuth/otpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -16,7 +16,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -36,9 +36,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 color: Colors.white,
               ),
             ),
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 40),
             Padding(
               padding: EdgeInsets.all(20),
               child: Column(
@@ -52,20 +50,8 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       selectorTextStyle: Theme.of(context).textTheme.bodyText2,
                       autoValidateMode: AutovalidateMode.always,
                       searchBoxDecoration: InputDecoration(
-                        // counterStyle: Theme.of(context).textTheme.bodyText2,
-
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).cardColor.withAlpha(200),
-                            width: 3,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                            width: 3,
-                          ),
-                        ),
+                        enabledBorder: unFocusedBorder(context),
+                        focusedBorder: focusedBorder(context),
                       ),
                       selectorConfig: SelectorConfig(
                         leadingPadding: 0,
@@ -83,24 +69,12 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       inputDecoration: InputDecoration(
                         hintText: 'Phone Number',
                         hintStyle: Theme.of(context).textTheme.bodyText2,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.green,
-                            width: 3,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).cardColor.withAlpha(200),
-                            width: 3,
-                          ),
-                        ),
+                        focusedBorder: focusedBorder(context),
+                        enabledBorder: unFocusedBorder(context),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 50,
-                  ),
+                  SizedBox(height: 50),
                   GestureDetector(
                     child: CustomProceedButton('Get OTP'),
                     onTap: () {
@@ -116,9 +90,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                       }
                     },
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Center(
                     child: TextButton(
                       onPressed: () {

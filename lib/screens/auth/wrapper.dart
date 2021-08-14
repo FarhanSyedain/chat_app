@@ -1,5 +1,5 @@
-import 'package:chat_app/screens/auth/confirmEmail.dart';
-import 'package:chat_app/screens/auth/profile.dart';
+import 'package:chat_app/screens/auth/login/confirmEmail.dart';
+import 'package:chat_app/screens/auth/profile/profile.dart';
 import 'package:chat_app/screens/welcome/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
