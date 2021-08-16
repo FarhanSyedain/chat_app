@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import '/services/profile.dart';
 import '/components/customProceedButton.dart';
 import '/components/dilog/awsomeDilog.dart';
 import '/screens/auth/components/customTextField.dart';
@@ -84,9 +85,9 @@ class _UserInputAreaState extends State<UserInputArea> {
   }
 
   Future<void> login(BuildContext context) async {
-  if (! _formKey.currentState!.validate()){
-    return;
-  }
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     setState(() {
       userNotFound = false;
       incorrectPassword = false;
@@ -101,13 +102,13 @@ class _UserInputAreaState extends State<UserInputArea> {
       widget.changeVal(false);
     });
     if (response == null) {
+      await context.read<ProfileService>().getProfile(FirebaseAuth.instance);
       await Navigator.pushNamedAndRemoveUntil(
         context,
         '/wrapper',
         (r) => false,
       );
     } else {
-    
       switch (response.code) {
         case 'user-not-found':
           {
