@@ -7,7 +7,6 @@ import '/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
 import 'screens/auth/login/login.dart';
 import 'screens/auth/register/register.dart';
@@ -68,18 +67,6 @@ class Main extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (context, data) {
-        return Wrapper(profileSet: data.data as bool);
-      },
-      future: getSharedPrefs(),
-    );
-  }
-
-  Future<bool?> getSharedPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey('profileSet') == false
-        ? false
-        : prefs.getBool('profileSet');
+    return Wrapper();
   }
 }
