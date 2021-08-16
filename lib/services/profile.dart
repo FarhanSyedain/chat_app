@@ -34,7 +34,14 @@ class ProfileService {
     }
   }
 
-  static Future<void> updateProfilePicture() async {
+  static Future<void> updateProfilePicture({skipCheck = true}) async {
+    final dir = await pathProvider.getApplicationDocumentsDirectory();
+    if (!skipCheck) {
+      //Check if profilePicture already exists
+      if (File('${dir.path}/profilePicture').existsSync()) {
+        return;
+      }
+    }
     final userUid = FirebaseAuth.instance.currentUser!.uid;
     final ref =
         FirebaseStorage.instance.ref().child('userProfiles').child(userUid);
