@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/screens/auth/components/socialAuthRow.dart';
 import '/services/auth.dart';
 import '/utilities/validitors/basicFormValiditors.dart';
@@ -141,6 +143,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     });
     if (response == '') {
       //User successfully registerd
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setBool('profileSet', false);
       Navigator.pushNamedAndRemoveUntil(
         context,
         '/verifyEmail',
@@ -155,5 +159,3 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
     }
   }
 }
-
-
