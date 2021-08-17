@@ -1,3 +1,6 @@
+import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/services/profile.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/screens/auth/login/confirmEmail.dart';
@@ -26,6 +29,13 @@ class Wrapper extends StatelessWidget {
     }
     if (emailVerified) {
       if (prefs.getBool('profileSet') ?? false) {
+        if (prefs.getBool('profileSet') == null) {
+          //Then fetch the profile
+          await ProfileService().getProfile(FirebaseAuth.instance).then(
+            (value) =>
+                Wrapper(), //Now that the value of profileSet would be a bool
+          );
+        }
         return Container();
       }
       return ProfilePageScreen();
@@ -38,7 +48,9 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       builder: (context, data) {
-        return data.data as Widget;
+        return data.connectionState == ConnectionState.waiting
+            ? CircularProgressIndicator()
+            : data.data as Widget;
       },
       future: init(),
     );
