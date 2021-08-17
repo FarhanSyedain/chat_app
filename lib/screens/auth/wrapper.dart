@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/screens/auth/login/confirmEmail.dart';
 import '/screens/auth/profile/profile.dart';
 import '/screens/welcome/welcome.dart';
@@ -11,8 +13,8 @@ class Wrapper extends StatelessWidget {
     FirebaseAuth.instance.signOut();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Future<Widget?> init() async {
+    final prefs = await SharedPreferences.getInstance();
     final _user = FirebaseAuth.instance.currentUser;
     if (_user == null) {
       return WelcomeScreen();
@@ -22,20 +24,23 @@ class Wrapper extends StatelessWidget {
     if (_provider != 'password') {
       emailVerified = true;
     }
-  
-    return emailVerified
-        ? profileSet == null
-            ? ProfilePageScreen()
-            : profileSet! 
-                ? Container(
-                    child: TextButton(
-                      onPressed: () {
-                        sign();
-                      },
-                      child: Text('Signout'),
-                    ),
-                  )
-                : ProfilePageScreen()
-        : ConfirmEmailScreen();
+    if (emailVerified) {
+      if (prefs.getBool('profileSet') ?? false) {
+        return Container();
+      }
+      return ProfilePageScreen();
+    } else {
+      return ConfirmEmailScreen();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      builder: (context, data) {
+        return data.data as Widget;
+      },
+      future: init(),
+    );
   }
 }
