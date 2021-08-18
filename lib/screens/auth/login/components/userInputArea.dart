@@ -102,7 +102,7 @@ class _UserInputAreaState extends State<UserInputArea> {
       widget.changeVal(false);
     });
     if (response == null) {
-      await context.read<ProfileService>().getProfile(FirebaseAuth.instance);
+      ProfileService().getProfile(FirebaseAuth.instance);
       await Navigator.pushNamedAndRemoveUntil(
         context,
         '/wrapper',
