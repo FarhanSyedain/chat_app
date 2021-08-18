@@ -33,14 +33,18 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     if (prefs.containsKey('DPUpdateFinished')) {
       var finished = prefs.getBool('DPUpdateFinished');
       if (!finished!) {
-        await _fetchNewImage();
+        _fetchNewImage().then((value) {
+          setState(() {
+            _currentImage = value!;
+          });
+        });
       }
     }
   }
 
-  Future<void> _fetchNewImage() async {
+  Future<File?> _fetchNewImage() async {
     //Fetch and store new image from the database
-    await ProfileService.updateProfilePicture();
+    return await ProfileService.updateProfilePicture();
   }
 
   void changeSpinerVal(v) {
