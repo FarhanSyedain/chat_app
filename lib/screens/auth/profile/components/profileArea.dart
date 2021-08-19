@@ -71,7 +71,7 @@ class _ProfileAreaState extends State<ProfileArea> {
 
   Future<void> _pickImage(ImageSource? source) async {
     Navigator.of(context).pop();
-
+    widget.changeSpinerval!(true);
     final _imagePicker = ImagePicker();
     final _currentUser = FirebaseAuth.instance.currentUser;
     if (source == null) {
