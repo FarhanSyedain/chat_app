@@ -28,7 +28,7 @@ class Wrapper extends StatelessWidget {
       emailVerified = true;
     }
     if (emailVerified) {
-      if (prefs.getBool('profileSet') ?? false) {
+      if (prefs.getBool('profileSet') ?? true) {
         if (prefs.getBool('profileSet') == null) {
           //Then fetch the profile
           await ProfileService().getProfile(FirebaseAuth.instance).then(
