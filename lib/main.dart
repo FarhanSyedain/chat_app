@@ -13,6 +13,7 @@ import 'screens/auth/register/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
+  Provider.debugCheckInvalidValueType =null;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
