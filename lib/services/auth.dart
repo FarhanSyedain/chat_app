@@ -1,12 +1,22 @@
+import 'package:flutter/widgets.dart';
+
 import '/secrets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 
-class AuthService {
+class AuthService with ChangeNotifier {
+
+
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
+
+  signOut() async {
+    _auth.signOut();
+    notifyListeners();
+  }
 
   Future<String> registerUser(String email, String password) async {
     try {
