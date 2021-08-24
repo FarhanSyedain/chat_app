@@ -101,11 +101,11 @@ class _ProfileAreaState extends State<ProfileArea> {
           final dir = await getApplicationDocumentsDirectory();
           setState(
             () {
+
               _currentImage = File('${dir.path}/userProfile');
-              // showSpiner = false
             },
           );
-            widget.changeSpinerval!(false);
+          widget.changeSpinerval!(false);
         },
       );
     }
