@@ -1,5 +1,6 @@
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/profile.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,9 +17,11 @@ class Wrapper extends StatelessWidget {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<Widget?> init() async {
+  Future<Widget> init(User? _user) async {
+    // FirebaseAuth.instance.signOut();
     final prefs = await SharedPreferences.getInstance();
-    final _user = FirebaseAuth.instance.currentUser;
+ 
+    // final _user = FirebaseAuth.instance.currentUser;
     if (_user == null) {
       return WelcomeScreen();
     }
@@ -32,11 +35,12 @@ class Wrapper extends StatelessWidget {
         if (prefs.getBool('profileSet') == null) {
           //Then fetch the profile
           await ProfileService().getProfile(FirebaseAuth.instance).then(
-            (value) =>
-                Wrapper(), //Now that the value of profileSet would be a bool
-          );
+                (value) =>
+                    Wrapper(), //Now that the value of profileSet would be a bool
+              );
         }
-        return Container();
+        return HomeScreen();
+        // return Container();
       }
       return ProfilePageScreen();
     } else {
@@ -46,13 +50,36 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final _user = Provider.of<User?>(context);
     return FutureBuilder(
       builder: (context, data) {
         return data.connectionState == ConnectionState.waiting
             ? CircularProgressIndicator()
             : data.data as Widget;
+        // return data.data as Widget;
       },
-      future: init(),
+      future: init(_user),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: [
+            TextButton(
+                onPressed: () {
+                  context.read<AuthService>().signOut();
+                },
+                child: Text('Signout'))
+          ],
+        ),
+      ),
     );
   }
 }
