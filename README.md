@@ -12,3 +12,7 @@ Then run :
 
 After it's complete, run the app.
 
+Ps
+Also get the backend in firebase.
+Enable authentication.
+Add twitter api things in secrets and you're gtg.
