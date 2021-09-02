@@ -17,6 +17,7 @@ var kLightSecondaryColor = Colors.grey[850];
 var darkTheme = ThemeData(
   primaryColor: kDarkBackgroundColor.withAlpha(200),
   backgroundColor: kDarkBackgroundColor,
+  // backgroundColor: Color.fromRGBO(21, 32, 44, 1),
   cardColor: kDarkCardColor,
   iconTheme: IconThemeData(
     color: Colors.white,
@@ -31,15 +32,15 @@ var darkTheme = ThemeData(
     ),
     bodyText2: TextStyle(
       color: kDarkSecondaryColor,
-      fontSize: 16,
+      fontSize: 13,
     ),
     bodyText1: TextStyle(
       color: kDarkPrimaryColor,
-      fontSize: 18,
+      fontSize: 16,
     ),
     subtitle1: TextStyle(
       color: kDarkPrimaryColor.withAlpha(220),
-      fontSize: 16,
+      fontSize: 14,
     ),
     subtitle2: TextStyle(
       color: Colors.blue,
