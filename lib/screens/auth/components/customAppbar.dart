@@ -10,6 +10,8 @@ PreferredSize buildAppBar(
   bgColor,
   height,
   leading,
+  statusBarColor,
+  elevation,
   leadingWidth,
 List<Widget>? actions 
 }) =>
@@ -20,7 +22,7 @@ List<Widget>? actions
         backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
-          statusBarColor: Theme.of(context).backgroundColor,
+          statusBarColor: statusBarColor ?? Theme.of(context).cardColor,
         ),
         backgroundColor: bgColor ?? Theme.of(context).backgroundColor,
         leading: showBackButton
@@ -36,7 +38,7 @@ List<Widget>? actions
           
             actions:actions,
         // centerTitle: showBackButton ? false : true,
-        elevation: 0,
+        elevation: elevation ?? 0,
         
         title: title != null
             ? Padding(
