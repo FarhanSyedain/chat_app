@@ -4,11 +4,44 @@ import 'package:flutter/material.dart';
 var chats = {
   'Mehran': 'Where were you?',
   'Farhan': 'How is life?',
+  'Aprameya': 'And that\'s the end of the story',
+  'Linus Torvalds': 'Big fan',
+  'Bill gates': 'I got dumped again',
   'Lakshya': 'What\'s up?',
   'Aalim': 'So how was the party?',
   'Ali': 'Did you ask him why',
+  'Vk': 'Attack kar!',
+  'Salman': 'Chakrs yikha',
+  'Tabin': 'Ok',
 };
-var read = [false, false, true, true, true];
+var times = [
+  '25m ago',
+  '2h ago',
+  '10h ago',
+  '11h ago',
+  '12h ago',
+  'Wed',
+  'Mon',
+  'Sun',
+  'Sun',
+  'Sun',
+  'Sat'
+];
+var messageTimes = [2, 44, 12, 1, 3, 0, 0, 0, 0, 0, 0];
+var read = [
+  false,
+  false,
+  false,
+  false,
+  false,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true
+];
 var keys = chats.keys;
 
 class ChatScreen extends StatelessWidget {
@@ -17,24 +50,48 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      floatingActionButton: FloatingActionButton(child: Icon(Icons.add),onPressed: (){},backgroundColor: Colors.green),
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: buildAppBar(context,
-          title: 'Messages',
-          showBackButton: false,
-          paddingTop: 0.0,
-          height: 60.0,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.search,
-              ),
+      appBar: buildAppBar(
+        context,
+        bgColor: Theme.of(context).cardColor,
+        title: 'Messages',
+        showBackButton: false,
+        paddingTop: 0.0,
+        height: 60.0,
+        statusBarColor: Theme.of(context).cardColor,
+        
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.search,
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
-          ]),
+          ),
+          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+        ],
+      ),
       body: ChatScreenBody(),
+      //Todo: Use curved bottomNavigationBar
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).cardColor,
+        fixedColor: Colors.green,
+        unselectedItemColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.call),
+            label: 'Calls',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Add ',
+          )
+        ],
+      ),
+      // bottomNavigationBar: BottomNavi,
     );
   }
 }
@@ -45,11 +102,12 @@ class ChatScreenBody extends StatelessWidget {
     return Column(children: [
       Expanded(
         child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             var subtitle = chats[keys.elementAt(index)];
             var r = read.elementAt(index);
-            return MessageTile(keys.elementAt(index), subtitle, r);
+            return MessageTile(keys.elementAt(index), subtitle, r, times[index],
+                messageTimes[index]);
           },
           itemCount: chats.length,
         ),
@@ -62,8 +120,9 @@ class MessageTile extends StatelessWidget {
   final title;
   final subtitle;
   final read;
-
-  MessageTile(this.title, this.subtitle, this.read);
+  final time;
+  final count;
+  MessageTile(this.title, this.subtitle, this.read, this.time, this.count);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +148,7 @@ class MessageTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
       ),
       width: double.infinity,
-      height: 70,
+      height: 80,
       padding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,13 +169,11 @@ class MessageTile extends StatelessWidget {
                 ),
                 if (!read)
                   Positioned(
-                    right: -20,
-                 
+                    right: 0,
                     child: Container(
-                      margin: EdgeInsets.only(right: 20),
                       alignment: Alignment.center,
                       child: Text(
-                        '2',
+                        count.toString(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
@@ -125,8 +182,9 @@ class MessageTile extends StatelessWidget {
                       width: 20,
                       height: 20,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.green),
+                        borderRadius: BorderRadius.circular(100),
+                        color: Colors.blue,
+                      ),
                     ),
                   )
               ]),
@@ -183,29 +241,35 @@ class MessageTile extends StatelessWidget {
           //           ),
           //         ],
           //       ),
-          if (read)
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                margin: EdgeInsets.only(right: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Wed',
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
+
+          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (read)
                     Icon(
-                      Icons.check_circle_outline,
+                      Icons.check,
                       color: Theme.of(context).textTheme.bodyText2!.color,
                       size: 15,
                     ),
-                  ],
-                ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Text(
+                    time,
+                    style: read
+                        ? Theme.of(context).textTheme.bodyText2
+                        : Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(fontSize: 14),
+                  ),
+                ],
               ),
-            ])
+            ),
+          ])
         ],
       ),
     );
