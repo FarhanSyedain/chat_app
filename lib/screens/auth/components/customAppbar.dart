@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-PreferredSize buildAppBar(
-  context, {
-  String? title,
-  void Function()? back,
-  showBackButton = true,
-  paddingTop = 20.0,
-  bgColor,
-  height,
-  leading,
-  statusBarColor,
-  elevation,
-  leadingWidth,
-List<Widget>? actions 
-}) =>
+PreferredSize buildAppBar(context,
+        {String? title,
+        void Function()? back,
+        showBackButton = true,
+        paddingTop = 20.0,
+        bgColor,
+        height,
+        leading,
+        statusBarColor,
+        elevation,
+        leadingWidth,
+        bottom,
+        List<Widget>? actions}) =>
     PreferredSize(
       preferredSize: Size.fromHeight(height ?? 70.0),
       child: AppBar(
-      
+        bottom: bottom,
+
         backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
@@ -34,12 +34,13 @@ List<Widget>? actions
                 ),
                 onPressed: back,
               )
-            :  leading,
-          
-            actions:actions,
+            : leading,
+
+        actions: actions,
         // centerTitle: showBackButton ? false : true,
-        elevation: elevation ?? 0,
-        
+        elevation: elevation ?? 5.0,
+        shadowColor: Theme.of(context).cardColor,
+
         title: title != null
             ? Padding(
                 padding: EdgeInsets.only(top: paddingTop),
