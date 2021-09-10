@@ -1,4 +1,8 @@
+import 'package:chat_app/packages/navBar/main.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
+import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
+import 'package:fluentui_icons/fluentui_icons.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 var chats = {
@@ -44,22 +48,61 @@ var read = [
 ];
 var keys = chats.keys;
 
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class ChatScreen extends StatefulWidget {
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this, initialIndex: 1);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+
       appBar: buildAppBar(
         context,
-        bgColor: Theme.of(context).cardColor,
+        elevation: 1.0,
+        bottom: TabBar(
+          enableFeedback: true,
+          indicatorColor: Colors.green,
+          dragStartBehavior: DragStartBehavior.down,
+          tabs: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              // child: Icon(Icons.call),
+              child: Text(
+                'Call',
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              // child: Icon(Icons.home),
+              child: Text('Home'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              // child: Icon(Icons.add),
+              child: Text(
+                'Add',
+              ),
+            ),
+          ],
+          controller: _tabController,
+        ),
+        bgColor: Theme.of(context).backgroundColor,
         title: 'Messages',
         showBackButton: false,
         paddingTop: 0.0,
-        height: 60.0,
-        statusBarColor: Theme.of(context).cardColor,
-        
+        height: 80.0,
+        statusBarColor: Theme.of(context).backgroundColor,
         actions: [
           IconButton(
             onPressed: () {},
@@ -71,27 +114,22 @@ class ChatScreen extends StatelessWidget {
         ],
       ),
       body: ChatScreenBody(),
+
       //Todo: Use curved bottomNavigationBar
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).cardColor,
-        fixedColor: Colors.green,
-        unselectedItemColor: Colors.white,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.call),
-            label: 'Calls',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add ',
-          )
-        ],
-      ),
-      // bottomNavigationBar: BottomNavi,
+      // bottomNavigationBar: CurvedNavigationBar(     index: 0,
+      //   height: 60.0,
+      //   color: Theme.of(context).backgroundColor.withAlpha(220),
+      //   buttonBackgroundColor: Colors.green,
+
+      //   backgroundColor: Theme.of(context).cardColor,
+      //   animationCurve: Curves.easeInOut,
+      //   animationDuration: const Duration(milliseconds: 500),items: [
+      //   Icon(Icons.home),
+      //   Icon(Icons.call),
+      //   Icon(Icons.add),
+      // ],),
+
+      // // bottomNavigationBar: BottomNavi,
     );
   }
 }
@@ -210,10 +248,8 @@ class MessageTile extends StatelessWidget {
                                 .textTheme
                                 .bodyText2
                                 ?.copyWith(fontSize: 14)
-                            : Theme.of(context).textTheme.bodyText2?.copyWith(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold))
+                            : Theme.of(context).textTheme.bodyText1?.copyWith(
+                                fontSize: 14, fontWeight: FontWeight.bold))
                   ],
                 ),
               ),
