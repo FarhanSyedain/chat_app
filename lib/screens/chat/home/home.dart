@@ -54,11 +54,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
-  TabController? _tabController;
+
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this, initialIndex: 1);
     super.initState();
   }
 
@@ -66,42 +65,14 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-
       appBar: buildAppBar(
         context,
         elevation: 1.0,
-        bottom: TabBar(
-          enableFeedback: true,
-          indicatorColor: Colors.green,
-          dragStartBehavior: DragStartBehavior.down,
-          tabs: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              // child: Icon(Icons.call),
-              child: Text(
-                'Call',
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              // child: Icon(Icons.home),
-              child: Text('Home'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              // child: Icon(Icons.add),
-              child: Text(
-                'Add',
-              ),
-            ),
-          ],
-          controller: _tabController,
-        ),
         bgColor: Theme.of(context).backgroundColor,
         title: 'Messages',
         showBackButton: false,
         paddingTop: 0.0,
-        height: 80.0,
+        height: 50.0,
         statusBarColor: Theme.of(context).backgroundColor,
         actions: [
           IconButton(
@@ -114,22 +85,12 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         ],
       ),
       body: ChatScreenBody(),
-
-      //Todo: Use curved bottomNavigationBar
-      // bottomNavigationBar: CurvedNavigationBar(     index: 0,
-      //   height: 60.0,
-      //   color: Theme.of(context).backgroundColor.withAlpha(220),
-      //   buttonBackgroundColor: Colors.green,
-
-      //   backgroundColor: Theme.of(context).cardColor,
-      //   animationCurve: Curves.easeInOut,
-      //   animationDuration: const Duration(milliseconds: 500),items: [
-      //   Icon(Icons.home),
-      //   Icon(Icons.call),
-      //   Icon(Icons.add),
-      // ],),
-
-      // // bottomNavigationBar: BottomNavi,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+        ),
+      ),
     );
   }
 }
@@ -137,20 +98,27 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 class ChatScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Expanded(
-        child: ListView.builder(
-          // physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            var subtitle = chats[keys.elementAt(index)];
-            var r = read.elementAt(index);
-            return MessageTile(keys.elementAt(index), subtitle, r, times[index],
-                messageTimes[index]);
-          },
-          itemCount: chats.length,
+    return SingleChildScrollView(
+   
+    
+      child: Column(children: [
+       ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+         
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              var subtitle = chats[keys.elementAt(index)];
+              var r = read.elementAt(index);
+              return MessageTile(keys.elementAt(index), subtitle, r, times[index],
+                  messageTimes[index]);
+            },
+            itemCount: chats.length,
+          
         ),
-      ),
-    ]);
+        SizedBox(height: 20,),
+    
+      ]),
+    );
   }
 }
 
@@ -196,6 +164,7 @@ class MessageTile extends StatelessWidget {
               Stack(children: [
                 Container(
                   width: 50,
+                  
                   height: 50,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
@@ -215,13 +184,13 @@ class MessageTile extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            ?.copyWith(fontSize: 14),
+                            ?.copyWith(fontSize: 12),
                       ),
                       width: 20,
                       height: 20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: Colors.blue,
+                        color: Colors.green,
                       ),
                     ),
                   )
@@ -278,34 +247,37 @@ class MessageTile extends StatelessWidget {
           //         ],
           //       ),
 
-          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              margin: EdgeInsets.only(right: 20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  if (read)
-                    Icon(
-                      Icons.check,
-                      color: Theme.of(context).textTheme.bodyText2!.color,
-                      size: 15,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical:12.0),
+            child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Container(
+                margin: EdgeInsets.only(right: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    if (read)
+                      Icon(
+                        Icons.check,
+                        color: Theme.of(context).textTheme.bodyText2!.color,
+                        size: 15,
+                      ),
+                    SizedBox(
+                      width: 4,
                     ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Text(
-                    time,
-                    style: read
-                        ? Theme.of(context).textTheme.bodyText2
-                        : Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(fontSize: 14),
-                  ),
-                ],
+                    Text(
+                      time,
+                      style: read
+                          ? Theme.of(context).textTheme.bodyText2
+                          : Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              ?.copyWith(fontSize: 14),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ])
+            ]),
+          )
         ],
       ),
     );
