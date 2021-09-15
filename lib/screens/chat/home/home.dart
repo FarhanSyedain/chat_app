@@ -72,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         title: 'Messages',
         showBackButton: false,
         paddingTop: 0.0,
-        height: 50.0,
+        height: 60.0,
         statusBarColor: Theme.of(context).backgroundColor,
         actions: [
           IconButton(
