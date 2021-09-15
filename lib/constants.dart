@@ -27,8 +27,8 @@ var darkTheme = ThemeData(
     headline1: TextStyle(
       color: kDarkPrimaryColor,
       fontSize: 36,
-      fontFamily: 'Sans-serif',
-      fontWeight: FontWeight.bold,
+      fontFamily: 'Sans',
+      fontWeight: FontWeight.w800,
     ),
     bodyText2: TextStyle(
       color: kDarkSecondaryColor,
