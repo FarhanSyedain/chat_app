@@ -72,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         title: 'Messages',
         showBackButton: false,
         paddingTop: 0.0,
-        height: 60.0,
+        height: 55.0,
         statusBarColor: Theme.of(context).backgroundColor,
         actions: [
           IconButton(
@@ -154,8 +154,8 @@ class MessageTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
       ),
       width: double.infinity,
-      height: 80,
-      padding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
+      height: 90,
+      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -163,15 +163,16 @@ class MessageTile extends StatelessWidget {
             children: [
               Stack(children: [
                 Container(
-                  width: 50,
+                  width: 55,
                   
-                  height: 50,
+                  height:55,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Image.asset(
                     'assets/dummy/profilePicture.jpg',
+                    fit: BoxFit.cover,
                   ),
                 ),
                 if (!read)
@@ -209,7 +210,7 @@ class MessageTile extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     SizedBox(
-                      height: 4,
+                      height: 7,
                     ),
                     Text(subtitle,
                         style: read
@@ -248,7 +249,7 @@ class MessageTile extends StatelessWidget {
           //       ),
 
           Padding(
-            padding: const EdgeInsets.symmetric(vertical:12.0),
+            padding: const EdgeInsets.symmetric(vertical:26.0),
             child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               Container(
                 margin: EdgeInsets.only(right: 20),
