@@ -30,6 +30,12 @@ var darkTheme = ThemeData(
       fontFamily: 'Sans',
       fontWeight: FontWeight.w800,
     ),
+    headline2: TextStyle(
+      color: kDarkPrimaryColor,
+      fontFamily: 'Sans',
+      fontWeight: FontWeight.w800,
+      fontSize: 25,
+    ),
     bodyText2: TextStyle(
       color: kDarkSecondaryColor,
       fontSize: 13,
