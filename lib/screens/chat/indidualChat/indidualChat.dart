@@ -1,6 +1,5 @@
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/indidualChat/IndidualChatBody.dart';
-import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 
 class IndidualChat extends StatelessWidget {
@@ -21,7 +20,14 @@ class IndidualChat extends StatelessWidget {
       titleWidget: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          backButton(context, () {}, 0.0),
+        IconButton(
+            padding: EdgeInsets.only(top: 0.0),
+            icon: Icon(
+              Icons.arrow_back_ios_outlined,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            onPressed: () {},
+          ),
           SizedBox(
             width: 5,
           ),
