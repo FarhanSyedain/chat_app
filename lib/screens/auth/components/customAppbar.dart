@@ -8,6 +8,7 @@ PreferredSize buildAppBar(context,
         paddingTop = 20.0,
         bgColor,
         height,
+        titleWidget,
         leading,
         statusBarColor,
         elevation,
@@ -18,7 +19,6 @@ PreferredSize buildAppBar(context,
       preferredSize: Size.fromHeight(height ?? 70.0),
       child: AppBar(
         bottom: bottom,
-
         backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
@@ -41,14 +41,16 @@ PreferredSize buildAppBar(context,
         elevation: elevation ?? 5.0,
         shadowColor: Theme.of(context).cardColor,
 
-        title: title != null
-            ? Padding(
-                padding: EdgeInsets.only(top: paddingTop),
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-              )
-            : null,
+        title: titleWidget != null
+            ? titleWidget
+            : title != null
+                ? Padding(
+                    padding: EdgeInsets.only(top: paddingTop),
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  )
+                : null,
       ),
     );
