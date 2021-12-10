@@ -13,7 +13,7 @@ import 'screens/auth/register/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
-  Provider.debugCheckInvalidValueType =null;
+  Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -68,6 +68,6 @@ class Main extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Wrapper();
+    return SafeArea(child: Wrapper());
   }
 }
