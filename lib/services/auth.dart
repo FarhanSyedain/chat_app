@@ -7,11 +7,9 @@ import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 
 class AuthService with ChangeNotifier {
 
-
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Stream<User?> get authStateChanges => _auth.authStateChanges();
+  Stream<User?> get authStateChanges => _auth.userChanges();
 
   signOut() async {
     _auth.signOut();
