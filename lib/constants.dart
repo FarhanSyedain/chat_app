@@ -27,7 +27,7 @@ var darkTheme = ThemeData(
     headline1: TextStyle(
       color: kDarkPrimaryColor,
       fontSize: 36,
-      fontFamily: 'Sans',
+      fontFamily: 'Space',
       fontWeight: FontWeight.w800,
     ),
     headline2: TextStyle(
@@ -53,8 +53,10 @@ var darkTheme = ThemeData(
       fontSize: 12,
     ),
     headline4: TextStyle(
-      fontSize: 20,
+      fontSize: 25,
       color: Colors.white,
+      fontFamily:'Owl',
+     
     ),
     headline5: TextStyle(
       fontSize: 20,
@@ -97,8 +99,9 @@ var lightTheme = ThemeData(
       fontSize: 12,
     ),
     headline4: TextStyle(
-      fontSize: 20,
+      fontSize: 25,
       color: Colors.white,
+      fontFamily: 'Owl',
     ),
     headline5: TextStyle(
       color: kLightPrimaryColor.withAlpha(220),
