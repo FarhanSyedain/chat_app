@@ -22,6 +22,7 @@ class Wrapper extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
  
     // final _user = FirebaseAuth.instance.currentUser;
+    await _user?.reload();
     if (_user == null) {
       return WelcomeScreen();
     }
