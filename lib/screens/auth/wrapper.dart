@@ -20,7 +20,7 @@ class Wrapper extends StatelessWidget {
   Future<Widget> init(User? _user) async {
     // FirebaseAuth.instance.signOut();
     final prefs = await SharedPreferences.getInstance();
- 
+
     // final _user = FirebaseAuth.instance.currentUser;
     await _user?.reload();
     if (_user == null) {
@@ -51,7 +51,7 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final _user = Provider.of<User?>(context);
+    final _user = Provider.of<User?>(context);
     return FutureBuilder(
       builder: (context, data) {
         return data.connectionState == ConnectionState.waiting
@@ -74,10 +74,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             TextButton(
-                onPressed: () {
-                  context.read<AuthService>().signOut();
-                },
-                child: Text('Signout'))
+              onPressed: () {
+                context.read<AuthService>().signOut();
+              },
+              child: Text('Signout',style: Theme.of(context).textTheme.bodyText1,),
+            )
           ],
         ),
       ),
