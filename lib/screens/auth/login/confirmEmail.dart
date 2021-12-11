@@ -20,6 +20,9 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   bool sendingEmail = false;
   String? emailAdress = '';
   Timer? timeLeftTimer;
+
+  
+
   @override
   void initState() {
     _user?.sendEmailVerification().catchError((e) {
@@ -93,6 +96,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: buildAppBar(
@@ -107,13 +111,14 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
             children: [
               SvgPicture.asset(
                 'assets/vectors/emailSent.svg',
-                height: 400,
+                height: 300,
               ),
               Center(
                 child: Text(
                   'Verification link sent',
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 30,
+                    fontFamily: 'Sans',
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -122,16 +127,17 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
               SizedBox(height: 10),
               Center(
                 child: Text(
-                  'We\'ve sent you a verification link on your email $emailAdress. Please open the link to complete the setup of your account',
+                  'We\'ve sent you a verification link on your email $emailAdress.',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.w400,
-                    color: Colors.white54,
+                    color: Colors.grey,
+                    fontFamily: 'Sans',
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: deviceHeight * .10 ),
               sendingEmail
                   ? CustomProceedButton('Sending Email.')
                   : GestureDetector(
@@ -152,31 +158,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                         );
                       },
                     ),
-              SizedBox(height: 13),
-              Center(
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Clicked the link?  ',
-                    children: [
-                      TextSpan(
-                        text: 'Refresh page',
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => checkIfVerified(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                    style: TextStyle(
-                      color: Colors.white60,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
               SizedBox(height: 20),
-              Expanded(child: Container()),
               Center(
                 child: Text.rich(
                   TextSpan(
