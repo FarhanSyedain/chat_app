@@ -45,6 +45,7 @@ dependencies:
   curved_navigation_bar: ^1.0.1
   swipe_to: ^0.0.1+8
   fluentui_icons: ^1.0.0
+  android_intent: ^2.0.2
 
 dev_dependencies:
   flutter_test:
