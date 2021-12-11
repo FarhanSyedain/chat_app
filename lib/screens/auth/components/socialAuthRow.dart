@@ -22,14 +22,14 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () => signInWithGoogle(context, changeVal),
-                child: SocialMediaLoginButton('Google'),
+                child: SocialMediaLoginButton('assets/vectors/google_icon.svg'),
               ),
             ),
             SizedBox(width:25),
             Expanded(
               child: GestureDetector(
                 onTap: () => signWithTwitter(context, changeVal),
-                child: SocialMediaLoginButton('Twitter'),
+                child: SocialMediaLoginButton('assets/vectors/twitter_icon.svg'),
               ),
             ),
           ],
