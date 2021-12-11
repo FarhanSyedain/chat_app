@@ -100,102 +100,104 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
         title: 'Verify Email',
         showBackButton: false,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            SvgPicture.asset(
-              'assets/vectors/emailSent.svg',
-              height: 400,
-            ),
-            Center(
-              child: Text(
-                'Verification link sent',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                'assets/vectors/emailSent.svg',
+                height: 400,
               ),
-            ),
-            SizedBox(height: 10),
-            Center(
-              child: Text(
-                'We\'ve sent you a verification link on your email $emailAdress. Please open the link to complete the setup of your account',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white54,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(height: 20),
-            sendingEmail
-                ? CustomProceedButton('Sending Email.')
-                : GestureDetector(
-                    child: CustomProceedButton(
-                      timeLeft == 0
-                          ? 'Resend Email'
-                          : 'Resend Email (in $timeLeft s)',
-                    ),
-                    onTap: () async {
-                      setState(() {
-                        sendingEmail = true;
-                      });
-                      await resendVerificationEmail();
-                      setState(
-                        () {
-                          sendingEmail = false;
-                        },
-                      );
-                    },
-                  ),
-            SizedBox(height: 13),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  text: 'Clicked the link?  ',
-                  children: [
-                    TextSpan(
-                      text: 'Refresh page',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => checkIfVerified(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
+              Center(
+                child: Text(
+                  'Verification link sent',
                   style: TextStyle(
-                    color: Colors.white60,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Expanded(child: Container()),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Sign out',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => signOut(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          ?.copyWith(color: Colors.blue),
-                    ),
-                  ],
+              SizedBox(height: 10),
+              Center(
+                child: Text(
+                  'We\'ve sent you a verification link on your email $emailAdress. Please open the link to complete the setup of your account',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white54,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                style: Theme.of(context).textTheme.bodyText2,
               ),
-            ),
-            SizedBox(height: 20),
-          ],
+              SizedBox(height: 20),
+              sendingEmail
+                  ? CustomProceedButton('Sending Email.')
+                  : GestureDetector(
+                      child: CustomProceedButton(
+                        timeLeft == 0
+                            ? 'Resend Email'
+                            : 'Resend Email (in $timeLeft s)',
+                      ),
+                      onTap: () async {
+                        setState(() {
+                          sendingEmail = true;
+                        });
+                        await resendVerificationEmail();
+                        setState(
+                          () {
+                            sendingEmail = false;
+                          },
+                        );
+                      },
+                    ),
+              SizedBox(height: 13),
+              Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Clicked the link?  ',
+                    children: [
+                      TextSpan(
+                        text: 'Refresh page',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => checkIfVerified(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                    style: TextStyle(
+                      color: Colors.white60,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Expanded(child: Container()),
+              Center(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Sign out',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => signOut(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            ?.copyWith(color: Colors.blue),
+                      ),
+                    ],
+                  ),
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
