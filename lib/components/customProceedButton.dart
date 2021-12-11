@@ -12,7 +12,7 @@ class CustomProceedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(15),
         color: disabled
             ? Theme.of(context).cardColor.withAlpha(180)
             : Theme.of(context).cardColor,
