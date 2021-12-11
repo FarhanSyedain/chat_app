@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SocialMediaLoginButton extends StatelessWidget {
-  final String text;
-  SocialMediaLoginButton(this.text);
+  final String svgPath;
+  SocialMediaLoginButton(this.svgPath);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,10 +13,7 @@ class SocialMediaLoginButton extends StatelessWidget {
       ),
       height: 70,
       alignment: Alignment.center,
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.bodyText1,
-      ),
+      child: SvgPicture.asset(svgPath,height: 35,width: 35,),
     );
   }
 }
