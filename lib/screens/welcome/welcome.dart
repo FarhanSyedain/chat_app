@@ -36,7 +36,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         },
         // showNextButton: false,
 
-        next: CustomProceedButton("Next"), // todo: put CustomProceedButton here
+        // next: CustomProceedButton("Next"), // todo: put CustomProceedButton here
+        next: Container(
+          height: 60,
+          child: RotatedBox(
+            child: Icon(Icons.arrow_back_ios,color: Theme.of(context).accentColor,),
+            quarterTurns: 2,
+          ),
+        ),
         pages: [
           PageViewModel(
             decoration: PageDecoration(
