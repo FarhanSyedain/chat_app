@@ -79,6 +79,12 @@ flutter:
     - family: HammersmithOne
       fonts:
         - asset: assets/fonts/HammersmithOne.ttf
+    - family: Owl
+      fonts:
+        - asset: assets/fonts/MagicOwl.otf
+    - family: Space
+      fonts:
+        - asset: assets/fonts/HollowSpace.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
