@@ -19,13 +19,18 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: () => signInWithGoogle(context, changeVal),
-              child: SocialMediaLoginButton('Google'),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => signInWithGoogle(context, changeVal),
+                child: SocialMediaLoginButton('Google'),
+              ),
             ),
-            GestureDetector(
-              onTap: () => signWithTwitter(context, changeVal),
-              child: SocialMediaLoginButton('Twitter'),
+            SizedBox(width:25),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => signWithTwitter(context, changeVal),
+                child: SocialMediaLoginButton('Twitter'),
+              ),
             ),
           ],
         ),

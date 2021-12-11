@@ -12,7 +12,6 @@ class SocialMediaLoginButton extends StatelessWidget {
       ),
       height: 70,
       alignment: Alignment.center,
-      width: 180,
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodyText1,
