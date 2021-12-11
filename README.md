@@ -1,4 +1,4 @@
-# chat_app
+# Spark
 ## Firebase Setup
 
 Go to firebase and create a new app. Add json file in respected folder `andriod/app`. Enable firebase storage , firebase database , phone number authentication, twitter login and google login.
