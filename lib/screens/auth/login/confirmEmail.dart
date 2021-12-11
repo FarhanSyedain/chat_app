@@ -66,11 +66,12 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
 
     final emailVerified = user?.emailVerified;
 
+
     if (emailVerified!) {
       timer.cancel();
       Navigator.pushNamedAndRemoveUntil(
         context,
-        '/home',
+        '/wrapper',
         (route) => false,
       );
     }
