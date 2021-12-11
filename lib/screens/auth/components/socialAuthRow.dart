@@ -10,7 +10,7 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 60),
+        SizedBox(height: 50),
         Text(
           'Sign in with one of these options.',
           style: Theme.of(context).textTheme.bodyText2,
