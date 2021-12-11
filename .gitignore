@@ -48,3 +48,4 @@ app.*.map.json
 lib/secrets.dart
 
 /android/app/google-services.json
+/android/app/build
