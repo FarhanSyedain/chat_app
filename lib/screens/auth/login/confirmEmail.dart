@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:android_intent/android_intent.dart';
+import 'package:android_intent/flag.dart';
+
 import '/components/customProceedButton.dart';
 import '/screens/auth/components/customAppbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +24,14 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   String? emailAdress = '';
   Timer? timeLeftTimer;
 
-  
+  void openDefaultMail() {
+    AndroidIntent intent = AndroidIntent(
+      action: 'android.intent.action.MAIN',
+      category: 'android.intent.category.APP_EMAIL',
+      flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
+    );
+    intent.launch();
+  }
 
   @override
   void initState() {
@@ -137,36 +147,59 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: deviceHeight * .10 ),
-              sendingEmail
-                  ? CustomProceedButton('Sending Email.')
-                  : GestureDetector(
-                      child: CustomProceedButton(
-                        timeLeft == 0
-                            ? 'Resend Email'
-                            : 'Resend Email (in $timeLeft s)',
-                      ),
-                      onTap: () async {
-                        setState(() {
-                          sendingEmail = true;
-                        });
-                        await resendVerificationEmail();
-                        setState(
-                          () {
-                            sendingEmail = false;
-                          },
-                        );
-                      },
-                    ),
+              SizedBox(height: deviceHeight * .10),
+              // sendingEmail
+              //     ? CustomProceedButton('Sending Email.')
+              //     : GestureDetector(
+              //         child: CustomProceedButton(
+              //           timeLeft == 0
+              //               ? 'Resend Email'
+              //               : 'Resend Email (in $timeLeft s)',
+              //         ),
+              //         onTap: () async {
+              //           setState(() {
+              //             sendingEmail = true;
+              //           });
+              //           await resendVerificationEmail();
+              //           setState(
+              //             () {
+              //               sendingEmail = false;
+              //             },
+              //           );
+              //         },
+              //       ),
+              GestureDetector(
+                child: CustomProceedButton('Open Mail'),
+                onTap: () {
+                  openDefaultMail();
+                },
+              ),
               SizedBox(height: 20),
               Center(
                 child: Text.rich(
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Sign out',
+                        text: sendingEmail
+                            ? 'Sending..'
+                            : timeLeft == 0
+                                ? 'Resend email'
+                                : 'Resend email ($timeLeft s)',
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => signOut(),
+                          ..onTap = () async {
+                            if (timeLeft != 0 || sendingEmail) {
+                              return;
+                            }
+                            setState(() {
+                              sendingEmail = true;
+                            });
+                            await resendVerificationEmail();
+                            setState(
+                              () {
+                                sendingEmail = false;
+                              },
+                            );
+                          },
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
