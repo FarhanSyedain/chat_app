@@ -25,22 +25,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Container(
       child: IntroductionScreen(
         globalBackgroundColor: isDarkMode ? Colors.black : Colors.white,
-
-        done: CustomProceedButton(
-          "Sign up",
-        ), // todo: put CustomProceedButton here
-
+        done: Container(
+          height: 60,
+          child: RotatedBox(
+            child: Icon(
+              Icons.arrow_back_ios,
+              size: 30,
+              color: Theme.of(context).accentColor,
+            ),
+            quarterTurns: 2,
+          ),
+        ),
         onDone: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => RegisterScreen()));
         },
-        // showNextButton: false,
-
-        // next: CustomProceedButton("Next"), // todo: put CustomProceedButton here
         next: Container(
           height: 60,
           child: RotatedBox(
-            child: Icon(Icons.arrow_back_ios,color: Theme.of(context).accentColor,),
+            child: Icon(
+              Icons.arrow_back_ios,
+              size: 25,
+              color: Theme.of(context).accentColor,
+            ),
             quarterTurns: 2,
           ),
         ),
