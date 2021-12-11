@@ -1,18 +1,13 @@
 # chat_app
+## Firebase Setup
 
+Go to firebase and create a new app. Add json file in respected folder `andriod/app`. Enable firebase storage , firebase database , phone number authentication, twitter login and google login.
 
+## Repo setup
 
+Add `secrets.dart` in your lib folder
+In this file add `twitterSecretKey` and `twitterConsumerKey`
 ## Getting Started
 
-First of all you've to add a `secrets.dart` file inside chat_app/lib and add differnt secrets.
-
-Then run : 
-
-`flutter pub get`
-
-After it's complete, run the app.
-
-Ps
-Also get the backend in firebase.
-Enable authentication.
-Add twitter api things in secrets and you're gtg.
+Run `flutter pub get` to get packages.
+Now run `flutter run --no-sound-null-safety`
