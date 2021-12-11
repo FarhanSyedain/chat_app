@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:android_intent/android_intent.dart';
 import 'package:android_intent/flag.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/components/customProceedButton.dart';
 import '/screens/auth/components/customAppbar.dart';
@@ -220,6 +221,9 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
+    SharedPreferences.getInstance().then((value) {
+      value.clear();
+    });
     Navigator.pushReplacementNamed(context, '/wrapper');
   }
 }
