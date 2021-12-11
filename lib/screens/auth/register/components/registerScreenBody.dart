@@ -95,11 +95,8 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                           );
                         }
                       },
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: CustomProceedButton(
+                      child: CustomProceedButton(
                           'Sign Up',
-                        ),
                       ),
                     ), // Login Button Here
               SizedBox(height: 10),
