@@ -54,8 +54,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
-
-
   @override
   void initState() {
     super.initState();
@@ -72,6 +70,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         title: 'Messages',
         showBackButton: false,
         paddingTop: 0.0,
+        paddingBottom: 10.0,
         height: 55.0,
         statusBarColor: Theme.of(context).backgroundColor,
         actions: [
@@ -80,8 +79,13 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             icon: Icon(
               Icons.search,
             ),
+            padding: EdgeInsets.only(bottom: 10),
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_vert),
+            padding: EdgeInsets.only(bottom: 10),
+          )
         ],
       ),
       body: ChatScreenBody(),
@@ -99,25 +103,29 @@ class ChatScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-   
-    
-      child: Column(children: [
-       ListView.builder(
+      child: Column(
+        children: [
+          ListView.builder(
             physics: NeverScrollableScrollPhysics(),
-         
             shrinkWrap: true,
             itemBuilder: (context, index) {
               var subtitle = chats[keys.elementAt(index)];
               var r = read.elementAt(index);
-              return MessageTile(keys.elementAt(index), subtitle, r, times[index],
-                  messageTimes[index]);
+              return MessageTile(
+                keys.elementAt(index),
+                subtitle,
+                r,
+                times[index],
+                messageTimes[index],
+              );
             },
             itemCount: chats.length,
-          
-        ),
-        SizedBox(height: 20,),
-    
-      ]),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -164,8 +172,7 @@ class MessageTile extends StatelessWidget {
               Stack(children: [
                 Container(
                   width: 55,
-                  
-                  height:55,
+                  height: 55,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
@@ -249,35 +256,38 @@ class MessageTile extends StatelessWidget {
           //       ),
 
           Padding(
-            padding: const EdgeInsets.symmetric(vertical:26.0),
-            child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Container(
-                margin: EdgeInsets.only(right: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    if (read)
-                      Icon(
-                        Icons.check,
-                        color: Theme.of(context).textTheme.bodyText2!.color,
-                        size: 15,
+            padding: const EdgeInsets.symmetric(vertical: 26.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (read)
+                        Icon(
+                          Icons.check,
+                          color: Theme.of(context).textTheme.bodyText2!.color,
+                          size: 15,
+                        ),
+                      SizedBox(
+                        width: 4,
                       ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      time,
-                      style: read
-                          ? Theme.of(context).textTheme.bodyText2
-                          : Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontSize: 14),
-                    ),
-                  ],
+                      Text(
+                        time,
+                        style: read
+                            ? Theme.of(context).textTheme.bodyText2
+                            : Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(fontSize: 14),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           )
         ],
       ),
