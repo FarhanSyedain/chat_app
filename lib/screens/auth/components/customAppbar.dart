@@ -19,7 +19,6 @@ PreferredSize buildAppBar(context,
       preferredSize: Size.fromHeight(height),
       child: AppBar(
         bottom: bottom,
-        backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
           statusBarColor: statusBarColor ?? Theme.of(context).backgroundColor,
