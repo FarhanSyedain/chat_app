@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:chat_app/models/customUserModel.dart';
 import 'package:flutter/widgets.dart';
 
 import '/secrets.dart';
@@ -6,14 +9,28 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 
 class AuthService with ChangeNotifier {
+  StreamController<AuthState> streamController = StreamController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  AuthService() {
+    _auth.authStateChanges().listen(
+      (user) {
+        streamController.add(AuthState(user));
+      },
+    );
+  }
+
   Stream<User?> get authStateChanges => _auth.userChanges();
+  Stream<AuthState> get authChanges => _authChanges();
+
+  Stream<AuthState> _authChanges() {
+    final stream = streamController.stream;
+    return stream;
+  }
 
   signOut() async {
     _auth.signOut();
-    notifyListeners();
   }
 
   Future<String> registerUser(String email, String password) async {

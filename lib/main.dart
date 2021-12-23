@@ -42,6 +42,10 @@ class Main extends StatelessWidget {
         StreamProvider(
           create: (context) => context.read<AuthService>().authStateChanges,
           initialData: null,
+        ),
+        StreamProvider(
+          create: (context) => context.read<AuthService>().authChanges,
+          initialData: null,
         )
       ],
       child: MaterialApp(
