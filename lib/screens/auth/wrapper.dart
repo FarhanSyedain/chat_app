@@ -53,11 +53,9 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final _user = Provider.of<User?>(context);
     return FutureBuilder(
+      initialData: CircularProgressIndicator(),
       builder: (context, data) {
-        return data.connectionState == ConnectionState.waiting
-            ? CircularProgressIndicator()
-            : data.data as Widget;
-        // return data.data as Widget;
+        return data.data as Widget;
       },
       future: init(_user),
     );
