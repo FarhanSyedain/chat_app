@@ -1,6 +1,6 @@
+import 'package:chat_app/models/customUserModel.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/profile.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,20 +17,25 @@ class Wrapper extends StatelessWidget {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<Widget> init(User? _user) async {
-    // FirebaseAuth.instance.signOut();
+  Future<Widget> init(User? _user, AuthState? _authState) async {
+    
     final prefs = await SharedPreferences.getInstance();
 
-    // final _user = FirebaseAuth.instance.currentUser;
+    await prefs.reload();
     await _user?.reload();
-    if (_user == null) {
+    await _authState!.user?.reload();
+
+    if (_authState.user == null) {
       return WelcomeScreen();
-    }
-    bool emailVerified = _user.emailVerified;
+    } 
+
+    bool emailVerified = _user!.emailVerified;
     final _provider = _user.providerData[0].providerId;
+
     if (_provider != 'password') {
       emailVerified = true;
     }
+
     if (emailVerified) {
       if (prefs.getBool('profileSet') ?? true) {
         if (prefs.getBool('profileSet') == null) {
@@ -41,7 +46,6 @@ class Wrapper extends StatelessWidget {
               );
         }
         return HomeScreen();
-        // return Container();
       }
       return ProfilePageScreen();
     } else {
@@ -51,13 +55,16 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _user = Provider.of<User?>(context);
+    final _user = Provider.of<User?>(context, listen: false);
+    final _authState = Provider.of<AuthState?>(context);
     return FutureBuilder(
       initialData: CircularProgressIndicator(),
       builder: (context, data) {
-        return data.data as Widget;
+        return data.data == null
+            ? CircularProgressIndicator()
+            : data.data as Widget;
       },
-      future: init(_user),
+      future: init(_user, _authState),
     );
   }
 }
@@ -68,14 +75,25 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container(
         child: Column(
           children: [
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.greenAccent,
+            ),
             TextButton(
               onPressed: () {
                 context.read<AuthService>().signOut();
               },
-              child: Text('Signout',style: Theme.of(context).textTheme.bodyText1,),
+              child: Center(
+                child: Text(
+                  'Signout',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
             )
           ],
         ),
