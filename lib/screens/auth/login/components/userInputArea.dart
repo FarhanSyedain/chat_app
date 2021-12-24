@@ -54,6 +54,7 @@ class _UserInputAreaState extends State<UserInputArea> {
                         : null,
                     isPassword: true,
                     controller: _passwordControler,
+                    textInputAction: TextInputAction.done,
                   ),
                 ],
               ),

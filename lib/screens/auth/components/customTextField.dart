@@ -9,6 +9,8 @@ class CustomTextField extends StatelessWidget {
   final String? errorMessage;
   final bool disabled;
   final bool isPassword;
+  final bool focused;
+  final TextInputAction textInputAction;
 
   CustomTextField(
     this.fieldName,
@@ -18,6 +20,8 @@ class CustomTextField extends StatelessWidget {
     this.errorMessage,
     this.disabled = false,
     this.isPassword = false,
+    this.focused = false,
+    this.textInputAction = TextInputAction.next,
   });
 
   @override
@@ -34,6 +38,8 @@ class CustomTextField extends StatelessWidget {
         ),
         SizedBox(height: 5),
         TextFormField(
+          textInputAction: textInputAction,
+          autofocus: focused,
           controller: controller == null ? null : controller,
           validator: validator,
           obscureText: isPassword,

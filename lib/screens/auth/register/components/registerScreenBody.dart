@@ -74,6 +74,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       ),
                       disabled: loading,
                       isPassword: true,
+                      textInputAction: TextInputAction.done,
                     ),
                   ],
                 ),
@@ -96,7 +97,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                         }
                       },
                       child: CustomProceedButton(
-                          'Sign Up',
+                        'Sign Up',
                       ),
                     ), // Login Button Here
               SizedBox(height: 10),
