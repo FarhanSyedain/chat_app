@@ -11,17 +11,20 @@ class PhoneNumberInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return InternationalPhoneNumberInput(
       initialValue: number,
+      autoFocus: true,
       countrySelectorScrollControlled: false,
       scrollPadding: EdgeInsets.all(0),
       selectorTextStyle: Theme.of(context).textTheme.bodyText2,
       autoValidateMode: AutovalidateMode.always,
       searchBoxDecoration: InputDecoration(
+      filled: true,
+      fillColor: Theme.of(context).backgroundColor,
         enabledBorder: unFocusedBorder(context),
         focusedBorder: focusedBorder(context),
       ),
       selectorConfig: SelectorConfig(
         leadingPadding: 0,
-        selectorType: PhoneInputSelectorType.DIALOG,
+        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         useEmoji: true,
         setSelectorButtonAsPrefixIcon: true,
         trailingSpace: false,

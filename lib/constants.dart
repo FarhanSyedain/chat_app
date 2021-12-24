@@ -19,6 +19,7 @@ var darkTheme = ThemeData(
   backgroundColor: kDarkBackgroundColor,
   // backgroundColor: Color.fromRGBO(21, 32, 44, 1),
   cardColor: kDarkCardColor,
+  canvasColor: kDarkBackgroundColor,
   iconTheme: IconThemeData(
     color: Colors.white,
   ),
@@ -30,6 +31,7 @@ var darkTheme = ThemeData(
       fontFamily: 'Space',
       fontWeight: FontWeight.w800,
     ),
+    caption: TextStyle(color: Colors.grey),
     headline2: TextStyle(
       color: kDarkPrimaryColor,
       fontFamily: 'Sans',
@@ -55,8 +57,7 @@ var darkTheme = ThemeData(
     headline4: TextStyle(
       fontSize: 25,
       color: Colors.white,
-      fontFamily:'Owl',
-     
+      fontFamily: 'Owl',
     ),
     headline5: TextStyle(
       fontSize: 20,
