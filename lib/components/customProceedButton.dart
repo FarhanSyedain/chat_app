@@ -23,7 +23,7 @@ class CustomProceedButton extends StatelessWidget {
       child: Text(
         buttonText,
         style: disabled
-            ? Theme.of(context).textTheme.headline5
+            ? Theme.of(context).textTheme.headline4?.copyWith(fontSize: 20)
             : Theme.of(context).textTheme.headline4,
       ),
     );
