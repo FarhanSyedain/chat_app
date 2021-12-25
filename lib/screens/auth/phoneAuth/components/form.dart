@@ -34,7 +34,8 @@ class _CustomFormState extends State<CustomForm> {
       setState(() {
         _verificationCode = v;
       });
-    });
+    },widget.changeVal);
+
     super.initState();
   }
 
@@ -107,9 +108,12 @@ class _CustomFormState extends State<CustomForm> {
         ),
         SizedBox(height: 40),
         GestureDetector(
-          child: CustomProceedButton(
-            'Verify',
-            disabled: !pinGiven,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: CustomProceedButton(
+              'Verify',
+              disabled: !pinGiven,
+            ),
           ),
           onTap: pinGiven ? verifyUser : () {},
         ),

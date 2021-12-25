@@ -13,7 +13,7 @@ class PhoneNumberScreen extends StatefulWidget {
 
 class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   final _formKey = GlobalKey<FormState>();
-  PhoneNumber number = PhoneNumber(isoCode: 'IN');
+  PhoneNumber number = PhoneNumber(isoCode: 'IN',phoneNumber: '');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +46,8 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                     key: _formKey,
                     child: PhoneNumberInput(number, (v) {
                       number = v;
+                      print(v);
+                      print('Women');
                     }),
                   ),
                   SizedBox(height: 50),

@@ -16,8 +16,8 @@ class _OTPScreenState extends State<OTPScreen> {
   int timeLeft = 60;
   int previousTimeLeft = 60;
   Timer? resendTimer;
-  bool showSpiner = false;
-  String? _verificationCode;
+  bool showSpiner = true;
+  String? _verificationCode = '';
 
   final formKey = GlobalKey<FormState>();
   @override
@@ -59,18 +59,24 @@ class _OTPScreenState extends State<OTPScreen> {
             children: [
               TopBar(widget.phoneNumber),
               SizedBox(height: 30),
-              CustomForm(widget.phoneNumber, _verificationCode!,changeVal),
+              CustomForm(widget.phoneNumber, _verificationCode!, changeVal),
               Center(
                 child: TextButton(
                   onPressed: () {
                     if (timeLeft > 0) {
                       return;
                     }
-                    verifyPhoneNumber(widget.phoneNumber, context, (v) {
-                      setState(() {
-                        _verificationCode = v;
-                      });
-                    });
+                    changeVal(true);
+                    verifyPhoneNumber(
+                      widget.phoneNumber,
+                      context,
+                      (v) {
+                        setState(() {
+                          _verificationCode = v;
+                        });
+                      },
+                      changeVal,
+                    );
                     setState(() {
                       timeLeft = previousTimeLeft * 2;
                       previousTimeLeft = timeLeft;

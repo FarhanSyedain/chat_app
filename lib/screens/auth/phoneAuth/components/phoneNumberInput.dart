@@ -17,8 +17,8 @@ class PhoneNumberInput extends StatelessWidget {
       selectorTextStyle: Theme.of(context).textTheme.bodyText2,
       autoValidateMode: AutovalidateMode.always,
       searchBoxDecoration: InputDecoration(
-      filled: true,
-      fillColor: Theme.of(context).backgroundColor,
+        filled: true,
+        fillColor: Theme.of(context).backgroundColor,
         enabledBorder: unFocusedBorder(context),
         focusedBorder: focusedBorder(context),
       ),
@@ -36,6 +36,8 @@ class PhoneNumberInput extends StatelessWidget {
         changeVal(phoneNumber);
       },
       inputDecoration: InputDecoration(
+        focusedErrorBorder: unFocusedBorder(context, isError: true),
+        errorBorder: unFocusedBorder(context, isError: true),
         hintText: 'Phone Number',
         hintStyle: Theme.of(context).textTheme.bodyText2,
         focusedBorder: focusedBorder(context),
