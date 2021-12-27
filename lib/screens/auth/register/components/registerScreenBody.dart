@@ -33,41 +33,38 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
             children: [
               SocialMediaRowWithPhoneNumberSwitch(
                 (v) {
-                  setState(
-                    () {
-                      loading = v;
-                    },
-                  );
+                  setState(() {
+                    loading = v;
+                  });
                 },
+                'Up',
               ),
-              SizedBox(height: 5),
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     CustomTextField(
                       'Email',
-                      'Enter your email',
                       emailValidator,
                       controller: emailTextFieldControler,
                       errorMessage: !emailAlreadyInUse
                           ? null
                           : "This email is already in use!",
                       disabled: loading,
+                      prefixIcon: Icons.email,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     CustomTextField(
-                      'Password',
-                      'Set a passowrd',
+                      'Passowrd',
                       passwordValidator,
                       controller: passwordTextFieldControler,
                       disabled: loading,
                       isPassword: true,
+                      prefixIcon: Icons.lock_open,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     CustomTextField(
-                      'Confirm Password',
-                      'Confirm your password',
+                      'Confirm password',
                       (value) => confirmPasswordValidator(
                         value,
                         passwordTextFieldControler,
@@ -75,19 +72,18 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       disabled: loading,
                       isPassword: true,
                       textInputAction: TextInputAction.done,
+                      prefixIcon: Icons.lock,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 35),
+              SizedBox(height: 55),
               loading
                   ? CustomProceedButton('Signin in..')
                   : GestureDetector(
                       onTap: () {
-                        final isValid = _formKey.currentState?.validate();
-                        if (isValid == null) {
-                          return;
-                        }
+                        FocusScope.of(context).unfocus();
+                        final isValid = _formKey.currentState!.validate();
                         if (isValid) {
                           signUpWithEmail(
                             context,

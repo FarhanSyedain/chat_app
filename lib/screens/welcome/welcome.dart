@@ -31,7 +31,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Icon(
               Icons.arrow_back_ios,
               size: 30,
-              color: Theme.of(context).accentColor,
+              color: Colors.blue,
             ),
             quarterTurns: 2,
           ),
@@ -46,7 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Icon(
               Icons.arrow_back_ios,
               size: 25,
-              color: Theme.of(context).accentColor,
+              color: Colors.blue,
             ),
             quarterTurns: 2,
           ),

@@ -34,20 +34,20 @@ class _UserInputAreaState extends State<UserInputArea> {
           child: Column(
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomTextField(
                     'Email',
-                    'Enter your email',
                     emailValidator,
                     controller: _emailControler,
                     errorMessage: userNotFound
                         ? 'User with this email doesn\'t exist'
                         : null,
+                    prefixIcon: Icons.email,
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   CustomTextField(
                     'Password',
-                    'Enter your password',
                     passwordValidator,
                     errorMessage: incorrectPassword
                         ? 'Incorrect password or no password set'
@@ -55,21 +55,13 @@ class _UserInputAreaState extends State<UserInputArea> {
                     isPassword: true,
                     controller: _passwordControler,
                     textInputAction: TextInputAction.done,
+                    prefixIcon: Icons.lock,
                   ),
                 ],
               ),
-              SizedBox(height: 5),
-              Padding(
-                padding: EdgeInsets.only(left: 10, top: 5),
-                child: Text.rich(
-                  TextSpan(
-                    text: 'Forgot Password?',
-                    recognizer: TapGestureRecognizer()..onTap = forgotPassword,
-                  ),
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-              ),
-              SizedBox(height: 25),
+
+              // ),
+              SizedBox(height: 55),
               GestureDetector(
                 child: CustomProceedButton('Log In'),
                 onTap: () => login(context),
@@ -81,11 +73,9 @@ class _UserInputAreaState extends State<UserInputArea> {
     );
   }
 
-  void forgotPassword() {
-    Navigator.pushNamed(context, '/forgotPassword');
-  }
-
   Future<void> login(BuildContext context) async {
+    FocusScope.of(context).unfocus();
+
     if (!_formKey.currentState!.validate()) {
       return;
     }

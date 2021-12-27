@@ -27,8 +27,8 @@ class _CustomFormAreaState extends State<CustomFormArea> {
           child: Column(
             children: [
               CustomTextField(
-                'Frist name',
-                'Enter your first name',
+                // 'Frist name',
+                'First name',
                 (value) {
                   if (value == null) {
                     return 'Please enter a name';
@@ -40,22 +40,24 @@ class _CustomFormAreaState extends State<CustomFormArea> {
                     return 'Enter a name less that 20 charecters';
                   }
                 },
+                prefixIcon: Icons.person_outline,
                 controller: _firstNameController,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               CustomTextField(
-                'Last name',
-                'Enter your last name (optional)',
+                'Last Name',
                 null,
+                prefixIcon: Icons.person,
                 controller: _lastNameController,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               // Todo : Add a multiline option for CustomTextField and impliment that on bio
               CustomTextField(
-                'Bio',
-                'Say something about yourself (optional)',
+                'About',
                 null,
+                prefixIcon: Icons.info,
                 controller: _bioController,
+                textInputAction: TextInputAction.done,
               ),
               SizedBox(height: 30),
             ],

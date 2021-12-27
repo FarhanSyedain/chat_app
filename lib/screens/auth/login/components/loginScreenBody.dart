@@ -1,3 +1,5 @@
+import 'package:flutter/gestures.dart';
+
 import '../../components/haveAccount.dart';
 import '../../components/socialAuthRow.dart';
 import '../components/userInputArea.dart';
@@ -28,19 +30,37 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SocialMediaRowWithPhoneNumberSwitch(changeVal),
+              SocialMediaRowWithPhoneNumberSwitch(changeVal,'in'),
               SizedBox(height: 5),
               UserInputArea(changeVal),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               HaveOrHaveNotAnAccount(
                 pageName: 'Sign Up',
                 title: 'Don\'t have an account?  ',
                 route: '/register',
+              ),
+              SizedBox(height: 5),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.only(left: 10, top: 5),
+                child: Center(
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'Forgot Password?',
+                      recognizer: TapGestureRecognizer()..onTap = forgotPassword,
+                    ),
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void forgotPassword() {
+    Navigator.pushNamed(context, '/forgotPassword');
   }
 }

@@ -36,7 +36,7 @@ class _ProfileAreaState extends State<ProfileArea> {
             padding: EdgeInsets.all(3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              color: Colors.green,
+              color: Colors.blue,
             ),
             child: Container(
               width: 120,

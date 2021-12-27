@@ -76,6 +76,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   pickedImage: _pickedImage,
                   changeSpinerval: changeSpinerVal,
                 ),
+                SizedBox(height: 40,),
                 Padding(
                   padding: EdgeInsets.all(15),
                   child: CustomFormArea(changeSpinerVal),
