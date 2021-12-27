@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat_app/models/customUserModel.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/secrets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,6 +32,7 @@ class AuthService with ChangeNotifier {
 
   signOut() async {
     _auth.signOut();
+    SharedPreferences.getInstance().then((value) => value.clear());
   }
 
   Future<String> registerUser(String email, String password) async {
