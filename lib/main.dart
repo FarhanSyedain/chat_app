@@ -1,7 +1,7 @@
-import '/screens/auth/login/confirmEmail.dart';
+import 'screens/auth/additional/confirmEmail.dart';
 import '/screens/auth/phoneAuth/phonenumber.dart';
-import '/screens/auth/login/resetEmail.dart';
-import '/screens/auth/login/resetPassword.dart';
+import 'screens/auth/additional/resetEmail.dart';
+import 'screens/auth/additional/resetPassword.dart';
 import '/screens/auth/wrapper.dart';
 import '/services/auth.dart';
 import 'package:flutter/material.dart';
