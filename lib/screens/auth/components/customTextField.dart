@@ -2,7 +2,6 @@ import '../constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String fieldName;
   final String helperText;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -11,9 +10,9 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
   final bool focused;
   final TextInputAction textInputAction;
+  final IconData? prefixIcon;
 
   CustomTextField(
-    this.fieldName,
     this.helperText,
     this.validator, {
     this.controller,
@@ -22,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     this.isPassword = false,
     this.focused = false,
     this.textInputAction = TextInputAction.next,
+    this.prefixIcon,
   });
 
   @override
@@ -29,14 +29,6 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: Text(
-            fieldName,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-        ),
-        SizedBox(height: 5),
         TextFormField(
           textInputAction: textInputAction,
           autofocus: focused,
@@ -48,8 +40,16 @@ class CustomTextField extends StatelessWidget {
               .bodyText1
               ?.copyWith(fontSize: 15, height: 1.5),
           decoration: InputDecoration(
+            fillColor: Theme.of(context).cardColor,
+            filled: true,
+            prefixIcon: prefixIcon == null
+                ? null
+                : Icon(
+                    prefixIcon,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
             enabled: !disabled,
-            disabledBorder: focusedBorder(context),
+            disabledBorder: unFocusedBorder(context),
             errorText: errorMessage == null ? null : errorMessage,
             focusedErrorBorder: focusedBorder(context),
             errorBorder: unFocusedBorder(context),
