@@ -15,7 +15,7 @@ class CustomProceedButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         color: disabled
             ? Theme.of(context).cardColor.withAlpha(180)
-            : Theme.of(context).cardColor,
+            : Theme.of(context).colorScheme.secondary,
       ),
       width: double.infinity,
       height: 60,
