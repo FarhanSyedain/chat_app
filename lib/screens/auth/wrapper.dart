@@ -4,7 +4,7 @@ import 'package:chat_app/services/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/screens/auth/login/confirmEmail.dart';
+import 'additional/confirmEmail.dart';
 import '/screens/auth/profile/profile.dart';
 import '/screens/welcome/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +18,6 @@ class Wrapper extends StatelessWidget {
   }
 
   Future<Widget> init(User? _user, AuthState? _authState) async {
-    
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.reload();
@@ -27,16 +26,16 @@ class Wrapper extends StatelessWidget {
 
     if (_authState.user == null) {
       return WelcomeScreen();
-    } 
-
-    bool emailVerified = _user!.emailVerified;
-    final _provider = _user.providerData[0].providerId;
-
-    if (_provider != 'password') {
-      emailVerified = true;
     }
 
-    if (emailVerified) {
+    //? Socail authe removed so no need, will see later
+    // bool emailVerified = _user!.emailVerified;
+    // final _provider = _user.providerData[0].providerId;
+    // if (_provider != 'password') {
+    //   emailVerified = true;
+    // }
+
+    if (_user!.emailVerified) {
       if (prefs.getBool('profileSet') ?? true) {
         if (prefs.getBool('profileSet') == null) {
           //Then fetch the profile
@@ -58,13 +57,38 @@ class Wrapper extends StatelessWidget {
     final _user = Provider.of<User?>(context, listen: false);
     final _authState = Provider.of<AuthState?>(context);
     return FutureBuilder(
-      initialData: CircularProgressIndicator(),
+      initialData: CustomProsgressScreen(),
       builder: (context, data) {
         return data.data == null
-            ? CircularProgressIndicator()
+            ? CustomProsgressScreen()
             : data.data as Widget;
       },
       future: init(_user, _authState),
+    );
+  }
+}
+
+class CustomProsgressScreen extends StatelessWidget {
+  const CustomProsgressScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Center(
+          child: Container(
+            width: 50,
+            height: 50,
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.secondary,
+              strokeWidth: 4,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
