@@ -23,12 +23,16 @@ var darkTheme = ThemeData(
   iconTheme: IconThemeData(
     color: Colors.white,
   ),
+  colorScheme: ColorScheme.dark().copyWith(
+    secondary: Color(0xff5D9187),
+    primary: Color(0xff5D9187),
+  ),
   hoverColor: kDarkHoverColor,
   textTheme: TextTheme(
     headline1: TextStyle(
       color: kDarkPrimaryColor,
       fontSize: 36,
-      fontFamily: 'Space',
+      fontFamily: 'Montserrat',
       fontWeight: FontWeight.w800,
     ),
     caption: TextStyle(color: Colors.grey),
@@ -76,6 +80,9 @@ var lightTheme = ThemeData(
   backgroundColor: kLightBackgroundColor,
   cardColor: kLightCardColor,
   hoverColor: kLightHoverColor,
+  colorScheme: ColorScheme.dark().copyWith(
+    secondary: Color(0xff5D9187),
+  ),
   textTheme: TextTheme(
     headline1: TextStyle(
       color: kLightPrimaryColor,
