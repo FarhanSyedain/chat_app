@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:android_intent/android_intent.dart';
 import 'package:android_intent/flag.dart';
+import 'package:chat_app/models/customUserModel.dart';
+import 'package:chat_app/services/auth.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/components/customProceedButton.dart';
@@ -66,7 +69,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
 
     final emailVerified = user?.emailVerified;
 
-
     if (emailVerified!) {
       timer.cancel();
       Navigator.pushNamedAndRemoveUntil(
@@ -115,6 +117,47 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
         context,
         title: 'Verify Email',
         showBackButton: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      backgroundColor: Theme.of(context).cardColor,
+                      title: Text('Logout ?'),
+                      actions: [
+                        TextButton(
+                          child: Text('No'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                          ),
+                          child: Text(
+                            'Yes',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Provider.of<AuthService>(context, listen: false)
+                                .signOut();
+                          },
+                        ),
+                      ],
+                    );
+                  });
+            },
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
