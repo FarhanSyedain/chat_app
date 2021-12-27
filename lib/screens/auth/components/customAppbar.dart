@@ -39,6 +39,7 @@ PreferredSize buildAppBar(context,
         actions: actions,
         // centerTitle: showBackButton ? false : true,
         toolbarHeight: height,
+        elevation: 0,
         shadowColor: Theme.of(context).cardColor,
         title: titleWidget != null
             ? titleWidget
