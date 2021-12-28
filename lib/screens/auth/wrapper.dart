@@ -1,4 +1,5 @@
 import 'package:chat_app/models/customUserModel.dart';
+import 'package:chat_app/screens/chat/home/home.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/profile.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class Wrapper extends StatelessWidget {
                     Wrapper(), //Now that the value of profileSet would be a bool
               );
         }
-        return HomeScreen();
+        return ChatScreen();
       }
       return ProfilePageScreen();
     } else {
