@@ -11,10 +11,11 @@ PreferredSize buildAppBar(context,
         titleWidget,
         leading,
         statusBarColor,
+        titleStyle,
         elevation,
         leadingWidth,
         bottom,
-        paddingBottom=  15.0,
+        paddingBottom = 15.0,
         List<Widget>? actions}) =>
     PreferredSize(
       preferredSize: Size.fromHeight(height),
@@ -27,7 +28,8 @@ PreferredSize buildAppBar(context,
         backgroundColor: bgColor ?? Theme.of(context).backgroundColor,
         leading: showBackButton
             ? IconButton(
-                padding: EdgeInsets.only(top: paddingTop,bottom:paddingBottom),
+                padding:
+                    EdgeInsets.only(top: paddingTop, bottom: paddingBottom),
                 icon: Icon(
                   Icons.arrow_back_ios_outlined,
                   color: Theme.of(context).iconTheme.color,
@@ -45,10 +47,12 @@ PreferredSize buildAppBar(context,
             ? titleWidget
             : title != null
                 ? Padding(
-                    padding: EdgeInsets.only(top: paddingTop,bottom:paddingBottom),
+                    padding:
+                        EdgeInsets.only(top: paddingTop, bottom: paddingBottom),
                     child: Text(
                       title,
-                      style: Theme.of(context).textTheme.headline1,
+                      style:
+                          titleStyle ?? Theme.of(context).textTheme.headline1,
                     ),
                   )
                 : null,
