@@ -1,8 +1,5 @@
-import 'package:chat_app/packages/navBar/main.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
-import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
-import 'package:fluentui_icons/fluentui_icons.dart';
-import 'package:flutter/gestures.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 var chats = {
@@ -71,8 +68,11 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         showBackButton: false,
         paddingTop: 0.0,
         paddingBottom: 10.0,
-        height: 55.0,
         statusBarColor: Theme.of(context).backgroundColor,
+        titleStyle: TextStyle(
+          fontFamily: 'MontserratB',
+          fontSize: 35,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -88,12 +88,21 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
           )
         ],
       ),
+      extendBody: true,
       body: ChatScreenBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-        ),
+      bottomNavigationBar: CurvedNavigationBar(
+        items: [
+          Icon(Icons.call_sharp),
+          Icon(Icons.camera_alt),
+          Icon(Icons.home),
+          Icon(Icons.people),
+          Icon(Icons.search),
+        ],
+        color: Theme.of(context).colorScheme.secondary,
+        height: 60,
+        index: 2,
+        backgroundColor: Theme.of(context).backgroundColor,
+        buttonBackgroundColor: Theme.of(context).colorScheme.secondary,
       ),
     );
   }
@@ -198,7 +207,8 @@ class MessageTile extends StatelessWidget {
                       height: 20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: Colors.green,
+                        // color: Theme.of(context).colorScheme.secondary,
+                        color: Colors.blue,
                       ),
                     ),
                   )
@@ -219,14 +229,18 @@ class MessageTile extends StatelessWidget {
                     SizedBox(
                       height: 7,
                     ),
-                    Text(subtitle,
-                        style: read
-                            ? Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(fontSize: 14)
-                            : Theme.of(context).textTheme.bodyText1?.copyWith(
-                                fontSize: 14, fontWeight: FontWeight.bold))
+                    Text(
+                      subtitle,
+                      style: read
+                          ? Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(fontSize: 14)
+                          : Theme.of(context).textTheme.bodyText1?.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                    )
                   ],
                 ),
               ),
