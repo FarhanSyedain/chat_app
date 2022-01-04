@@ -45,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: RotatedBox(
             child: Icon(
               Icons.arrow_back_ios,
-              size: 25,
+              size: 30,
               color: Colors.blue,
             ),
             quarterTurns: 2,
