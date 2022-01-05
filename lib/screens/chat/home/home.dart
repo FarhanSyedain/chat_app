@@ -1,5 +1,6 @@
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 var chats = {
@@ -58,6 +59,9 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print(FirebaseAuth.instance.currentUser!
+        .getIdToken()
+        .then((value) => print((value))));
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: buildAppBar(
@@ -149,22 +153,6 @@ class MessageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return ListTile(
-    //   leading: Container(
-    //     child: Image.asset('assets/dummy/profilePicture.jpg'),
-    //     clipBehavior: Clip.hardEdge,
-    //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
-    //   ),
-    //   title: Text(
-    //     'Mehran',
-    //     style: Theme.of(context).textTheme.bodyText1,
-    //   ),
-    //   subtitle: Text(
-    //     'Where are you?',
-    //     style: Theme.of(context).textTheme.bodyText2,
-
-    //   ),
-    // );
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
@@ -178,41 +166,43 @@ class MessageTile extends StatelessWidget {
         children: [
           Row(
             children: [
-              Stack(children: [
-                Container(
-                  width: 55,
-                  height: 55,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Image.asset(
-                    'assets/dummy/profilePicture.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                if (!read)
-                  Positioned(
-                    right: 0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        count.toString(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(fontSize: 12),
-                      ),
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        // color: Theme.of(context).colorScheme.secondary,
-                        color: Colors.blue,
-                      ),
+              Stack(
+                children: [
+                  Container(
+                    width: 55,
+                    height: 55,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
                     ),
-                  )
-              ]),
+                    child: Image.asset(
+                      'assets/dummy/profilePicture.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  if (!read)
+                    Positioned(
+                      right: 0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          count.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              ?.copyWith(fontSize: 12),
+                        ),
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          // color: Theme.of(context).colorScheme.secondary,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    )
+                ],
+              ),
               SizedBox(
                 width: 10,
               ),
@@ -246,29 +236,6 @@ class MessageTile extends StatelessWidget {
               ),
             ],
           ),
-          // !read
-          //     ? Column(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           Container(
-          //             margin: EdgeInsets.only(right: 20),
-          //             alignment: Alignment.center,
-          //             child: Text(
-          //               '2',
-          //               style: Theme.of(context)
-          //                   .textTheme
-          //                   .bodyText1
-          //                   ?.copyWith(fontSize: 14),
-          //             ),
-          //             width: 20,
-          //             height: 20,
-          //             decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(100),
-          //                 color: Colors.green),
-          //           ),
-          //         ],
-          //       ),
-
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 26.0),
             child: Column(

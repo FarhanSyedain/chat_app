@@ -18,7 +18,6 @@ class ProfileService {
 
   static Future<void> uploadProfilePicture(
       File profilePicture, String userUid) async {
-    final prefs = await SharedPreferences.getInstance();
     try {
       final ref =
           FirebaseStorage.instance.ref().child('userProfiles').child(userUid);

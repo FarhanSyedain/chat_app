@@ -77,42 +77,6 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                     ),
                   ),
                   SizedBox(height: 10,),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(10.0),
-                  //   child: Center(
-                  //     child: Row(
-                  //       mainAxisSize: MainAxisSize.min,
-                  //       children: [
-                  //         Text(
-                  //           'Remeber Password?  ',
-                  //           style: Theme.of(context).textTheme.bodyText2,
-                  //         ),
-                  //         Text.rich(
-                  //           TextSpan(
-                  //             children: [
-                  //               WidgetSpan(
-                  //                 child: GestureDetector(
-                  //                   onTap: () {
-                  //                     Navigator.of(context).pop();
-                  //                   },
-                  //                   child: Padding(
-                  //                     padding:
-                  //                         EdgeInsets.symmetric(vertical: 8.0),
-                  //                     child: Text(
-                  //                       'Login',
-                  //                       style:
-                  //                           Theme.of(context).textTheme.bodyText1,
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //               )
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                   SizedBox(height: 15),
                   Center(
                     child: GestureDetector(

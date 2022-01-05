@@ -193,26 +193,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 ),
               ),
               SizedBox(height: deviceHeight * .10),
-              // sendingEmail
-              //     ? CustomProceedButton('Sending Email.')
-              //     : GestureDetector(
-              //         child: CustomProceedButton(
-              //           timeLeft == 0
-              //               ? 'Resend Email'
-              //               : 'Resend Email (in $timeLeft s)',
-              //         ),
-              //         onTap: () async {
-              //           setState(() {
-              //             sendingEmail = true;
-              //           });
-              //           await resendVerificationEmail();
-              //           setState(
-              //             () {
-              //               sendingEmail = false;
-              //             },
-              //           );
-              //         },
-              //       ),
               GestureDetector(
                 child: CustomProceedButton('Open Mail'),
                 onTap: () {
