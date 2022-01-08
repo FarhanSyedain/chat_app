@@ -1,5 +1,4 @@
 import 'screens/auth/additional/confirmEmail.dart';
-import '/screens/auth/phoneAuth/phonenumber.dart';
 import 'screens/auth/additional/resetEmail.dart';
 import 'screens/auth/additional/resetPassword.dart';
 import '/screens/auth/wrapper.dart';
@@ -60,7 +59,7 @@ class Main extends StatelessWidget {
           '/home': (context) => Container(),
           '/verifyEmail': (context) => ConfirmEmailScreen(),
           '/wrapper': (context) => Wrapper(),
-          '/phoneAuth': (context) => PhoneNumberScreen(),
+          // '/phoneAuth': (context) => PhoneNumberScreen(),
           '/resetEmailSend': (context) => ResetEmailSendScreen(),
           '/forgotPassword': (context) => ResetEmailScreen(),
         },

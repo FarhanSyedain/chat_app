@@ -2,6 +2,7 @@
     package="com.example.chat_app">
    <application
         android:label="chat_app"
+        android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
