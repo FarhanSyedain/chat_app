@@ -43,7 +43,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
       print(e);
     });
     timer = Timer.periodic(
-      Duration(seconds: 5),
+      Duration(seconds: 1),
       (_) {
         checkIfVerified();
       },
