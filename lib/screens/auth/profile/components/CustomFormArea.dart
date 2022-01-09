@@ -92,6 +92,7 @@ class _CustomFormAreaState extends State<CustomFormArea> {
         'firstName': firstName,
         'lastName': lastName,
         'bio': bio,
+        'email': _auth.currentUser!.email,
       },
     ).then(
       (value) {
