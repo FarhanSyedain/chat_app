@@ -1,50 +1,11 @@
+import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
+import 'package:chat_app/screens/chat/add/add.dart';
+import 'package:chat_app/screens/chat/home/components/messageTite.dart';
+import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-var chats = {
-  'Mehran': 'Where were you?',
-  'Farhan': 'How is life?',
-  'Aprameya': 'And that\'s the end of the story',
-  'Linus Torvalds': 'Big fan',
-  'Bill gates': 'I got dumped again',
-  'Lakshya': 'What\'s up?',
-  'Aalim': 'So how was the party?',
-  'Ali': 'Did you ask him why',
-  'Vk': 'Attack kar!',
-  'Salman': 'Chakrs yikha',
-  'Tabin': 'Ok',
-};
-var times = [
-  '25m ago',
-  '2h ago',
-  '10h ago',
-  '11h ago',
-  '12h ago',
-  'Wed',
-  'Mon',
-  'Sun',
-  'Sun',
-  'Sun',
-  'Sat'
-];
-var messageTimes = [2, 44, 12, 1, 3, 0, 0, 0, 0, 0, 0];
-var read = [
-  false,
-  false,
-  false,
-  false,
-  false,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true,
-  true
-];
-var keys = chats.keys;
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -57,11 +18,9 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
+  int _index = 2;
   @override
   Widget build(BuildContext context) {
-    print(FirebaseAuth.instance.currentUser!
-        .getIdToken()
-        .then((value) => print((value))));
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: buildAppBar(
@@ -93,18 +52,29 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         ],
       ),
       extendBody: true,
-      body: ChatScreenBody(),
+      body: ChatScreenBody(_index),
       bottomNavigationBar: CurvedNavigationBar(
         items: [
           Icon(Icons.call_sharp),
           Icon(Icons.camera_alt),
           Icon(Icons.home),
-          Icon(Icons.people),
+          Icon(Icons.add),
           Icon(Icons.search),
         ],
         color: Theme.of(context).colorScheme.secondary,
         height: 60,
-        index: 2,
+        index: _index,
+        onTap: (i) {
+          if (i == 2) {
+            setState(() {
+              _index = 2;
+            });
+          } else if (i == 3) {
+            setState(() {
+              _index = 3;
+            });
+          }
+        },
         backgroundColor: Theme.of(context).backgroundColor,
         buttonBackgroundColor: Theme.of(context).colorScheme.secondary,
       ),
@@ -113,165 +83,51 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 }
 
 class ChatScreenBody extends StatelessWidget {
+  final int index;
+  ChatScreenBody(@required this.index);
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              var subtitle = chats[keys.elementAt(index)];
-              var r = read.elementAt(index);
-              return MessageTile(
-                keys.elementAt(index),
-                subtitle,
-                r,
-                times[index],
-                messageTimes[index],
-              );
-            },
-            itemCount: chats.length,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MessageTile extends StatelessWidget {
-  final title;
-  final subtitle;
-  final read;
-  final time;
-  final count;
-  MessageTile(this.title, this.subtitle, this.read, this.time, this.count);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      width: double.infinity,
-      height: 90,
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+    final provider = Provider.of<Chats>(context);
+    return IndexedStack(
+      index: index == 2 ? 0 : 1,
+      children: [
+        SingleChildScrollView(
+          child: Column(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: 55,
-                    height: 55,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: Image.asset(
-                      'assets/dummy/profilePicture.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  if (!read)
-                    Positioned(
-                      right: 0,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          count.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontSize: 12),
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final chat = provider.chats.elementAt(index);
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (c) => ChangeNotifierProvider.value(
+                            value: provider.chats
+                                .firstWhere((element) => element.id == chat.id),
+                            builder: (context, child) {
+                              final provider = Provider.of<Chat>(context);
+                              return IndidualChat(provider);
+                            },
+                          ),
                         ),
-                        width: 20,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          // color: Theme.of(context).colorScheme.secondary,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    )
-                ],
+                      );
+                    },
+                    child: MessageTile(chat),
+                  );
+                },
+                // itemCount: chats.length,
+                itemCount: provider.chats.length,
               ),
               SizedBox(
-                width: 10,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 6),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      subtitle,
-                      style: read
-                          ? Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(fontSize: 14)
-                          : Theme.of(context).textTheme.bodyText1?.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                    )
-                  ],
-                ),
+                height: 20,
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 26.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (read)
-                        Icon(
-                          Icons.check,
-                          color: Theme.of(context).textTheme.bodyText2!.color,
-                          size: 15,
-                        ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        time,
-                        style: read
-                            ? Theme.of(context).textTheme.bodyText2
-                            : Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+        AddPerson(),
+      ],
     );
   }
 }
