@@ -20,6 +20,7 @@ PreferredSize buildAppBar(context,
     PreferredSize(
       preferredSize: Size.fromHeight(height),
       child: AppBar(
+        automaticallyImplyLeading: false,
         bottom: bottom,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,

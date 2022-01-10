@@ -1,3 +1,4 @@
+import 'package:chat_app/models/chat/chat.dart';
 import 'screens/auth/additional/confirmEmail.dart';
 import 'screens/auth/additional/resetEmail.dart';
 import 'screens/auth/additional/resetPassword.dart';
@@ -45,7 +46,11 @@ class Main extends StatelessWidget {
         StreamProvider(
           create: (context) => context.read<AuthService>().authChanges,
           initialData: null,
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (c) => Chats(),
+          // lazy: false,
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

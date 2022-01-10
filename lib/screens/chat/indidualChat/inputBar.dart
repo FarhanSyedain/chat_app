@@ -1,16 +1,20 @@
+
+import 'package:chat_app/models/chat/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:provider/provider.dart';
+
 
 class InputBar extends StatefulWidget {
   @override
   _InputBarState createState() => _InputBarState();
+  final Chat provider;
+  final ScrollController controller;
 
-  String replyTo = '';
 
   InputBar({
-    this.replyTo = '',
+    required this.controller,
+    required this.provider,
   });
 }
 
@@ -21,7 +25,6 @@ class _InputBarState extends State<InputBar> {
   @override
   Widget build(BuildContext context) {
     final spaceTakenByKeyboard = MediaQuery.of(context).viewInsets.bottom;
-
     return Column(
       children: [
         Container(
@@ -53,21 +56,31 @@ class _InputBarState extends State<InputBar> {
                       });
                     }
                   },
-                  autofocus: widget.replyTo.isNotEmpty ? true : false,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Message',
                     hintStyle: Theme.of(context).textTheme.bodyText2,
-                    
                   ),
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
-                                                                                                                                                    ),
+              ),
               showSendButton
                   ? IconButton(
                       icon: Icon(Icons.send),
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.provider.send(
+                          Message(
+                            DateTime.now().toString(),
+                            inputTextController.text,
+                            Sender.me,
+                            DateTime.now(),
+                          ),
+                          widget.provider.id,
+                        );
+                        _scrollDown(spaceTakenByKeyboard);
+                        inputTextController.clear();
+                      },
                       color: Colors.blue,
                     )
                   : IconButton(
@@ -79,6 +92,14 @@ class _InputBarState extends State<InputBar> {
           ),
         ),
       ],
+    );
+  }
+
+  void _scrollDown(bottomInset) {
+    widget.controller.animateTo(
+      widget.controller.position.maxScrollExtent + 50 + bottomInset,
+      duration: Duration(milliseconds: 220),
+      curve: Curves.fastOutSlowIn,
     );
   }
 }
