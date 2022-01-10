@@ -76,9 +76,8 @@ class Chat extends ChangeNotifier {
         message.id,
         message.data()['data'],
         Sender.other,
-        DateTime.parse(
-          message.data()['date'],
-        ),
+        DateTime.parse(message.data()['date']),
+        reciepent: message.data()['senderID'],
       ),
     );
 
@@ -131,18 +130,22 @@ enum Sender { me, other }
 class Message {
   final String? id;
 
+  final String? reciepent;
+
   final String? data;
 
   final Sender? sender;
 
   final DateTime? date;
 
-  Message(this.id, this.data, this.sender, this.date);
+  Message(this.id, this.data, this.sender, this.date, {this.reciepent});
   Message.empty()
       : id = null,
         data = null,
         date = null,
+        reciepent = null,
         sender = null;
 
-  Message.fromJson({this.id, this.data, this.sender, this.date});
+  Message.fromJson(
+      {this.id, this.data, this.sender, this.date, this.reciepent});
 }

@@ -1,16 +1,12 @@
-
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-
 
 class InputBar extends StatefulWidget {
   @override
   _InputBarState createState() => _InputBarState();
   final Chat provider;
   final ScrollController controller;
-
 
   InputBar({
     required this.controller,
@@ -75,6 +71,7 @@ class _InputBarState extends State<InputBar> {
                             inputTextController.text,
                             Sender.me,
                             DateTime.now(),
+                            reciepent: widget.provider.id,
                           ),
                           widget.provider.id,
                         );
