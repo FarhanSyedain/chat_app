@@ -1,13 +1,21 @@
 # Spark
-## Firebase Setup
 
-Go to firebase and create a new app. Add json file in respected folder `andriod/app`. Enable firebase storage , firebase database , phone number authentication, twitter login and google login.
+## Setup
 
-## Repo setup
+## Firebase
 
-Add `secrets.dart` in your lib folder
-In this file add `twitterSecretKey` and `twitterConsumerKey`
-## Getting Started
+First of all go to firebase and add a new project.
+Add this app (Change the app id in `andriod/app/build.grade`) to firebase and add the obtained firebase congif file to `andriod/app`
 
-Run `flutter pub get` to get packages.
-Now run `flutter run --no-sound-null-safety`
+Enable email-password authentication in firebase authentication.
+Enable firebase storage and firebase database.
+
+# App
+Go to root of the project
+Open terminal there and run :
+`flutter pub get`
+Followed by
+`flutter run  --no-sound-null-safety`
+
+
+# welcome
