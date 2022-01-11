@@ -49,7 +49,6 @@ class Main extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (c) => Chats(),
-          // lazy: false,
         ),
       ],
       child: MaterialApp(
