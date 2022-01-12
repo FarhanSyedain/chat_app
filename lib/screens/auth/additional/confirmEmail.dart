@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:android_intent/android_intent.dart';
 import 'package:android_intent/flag.dart';
-import 'package:chat_app/models/customUserModel.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,7 +39,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   @override
   void initState() {
     _user?.sendEmailVerification().catchError((e) {
-      print(e);
+      
     });
     timer = Timer.periodic(
       Duration(seconds: 1),
@@ -91,7 +90,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
     }
     await _user?.sendEmailVerification().catchError((e) {
       //Too many requests sent
-      print(e);
+    
     });
     timeLeft = previousTimeLeft * 3;
     previousTimeLeft = timeLeft;
