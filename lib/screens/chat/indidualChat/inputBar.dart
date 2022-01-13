@@ -71,7 +71,6 @@ class _InputBarState extends State<InputBar> {
                             inputTextController.text,
                             Sender.me,
                             DateTime.now(),
-                            reciepent: widget.provider.id,
                           ),
                           widget.provider.id,
                         );

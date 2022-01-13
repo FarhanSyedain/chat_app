@@ -1,8 +1,10 @@
+import 'package:chat_app/models/chat/chat.dart';
+import 'package:provider/provider.dart';
 import 'package:chat_app/models/customUserModel.dart';
 import 'package:chat_app/screens/chat/home/home.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/profile.dart';
-import 'package:provider/provider.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'additional/confirmEmail.dart';
@@ -18,17 +20,24 @@ class Wrapper extends StatelessWidget {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<Widget> init(User? _user, AuthState? _authState) async {
+  Future<Widget> init(
+      User? _user, AuthState? _authState, BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
+    final bool? authComplete = prefs.getBool('authComplete');
 
     await prefs.reload();
     await _user?.reload();
-    await _authState!.user?.reload();
 
-    if (_authState.user == null) {
+    if (_authState?.user == null) {
       return WelcomeScreen();
     }
+    await _authState!.user?.reload();
+    if (authComplete ?? false) {
+      await Provider.of<Chats>(context, listen: false).fetchChats();
+      Provider.of<Chats>(context, listen: false).getChats;
 
+      return ChatScreen();
+    }
     //? Socail authe removed so no need, will see later
     // bool emailVerified = _user!.emailVerified;
     // final _provider = _user.providerData[0].providerId;
@@ -45,6 +54,7 @@ class Wrapper extends StatelessWidget {
                     Wrapper(), //Now that the value of profileSet would be a bool
               );
         }
+        prefs.setBool('authComplete', true);
         return ChatScreen();
       }
       return ProfilePageScreen();
@@ -64,7 +74,7 @@ class Wrapper extends StatelessWidget {
             ? CustomProsgressScreen()
             : data.data as Widget;
       },
-      future: init(_user, _authState),
+      future: init(_user, _authState, context),
     );
   }
 }

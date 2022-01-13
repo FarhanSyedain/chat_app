@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'package:chat_app/database/chat.dart';
+import 'package:chat_app/database/chats.dart';
+import 'package:chat_app/utilities/images.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +14,7 @@ class Chats extends ChangeNotifier {
 
   final List<Chat> _chats = [];
 
-  Chats() {
-    Future.delayed(Duration(seconds: 2)).then((value) => getChats);
-  }
+  Chats() {}
 
   List<Chat> get chats => _chats;
 
@@ -49,8 +51,22 @@ class Chats extends ChangeNotifier {
   void addtoChats(chat) {
     if (_chats.where((element) => element.id == chat.id).isEmpty) {
       _chats.add(chat);
+      ChatsDataBase.instance.create(chat);
       notifyListeners();
-      print(_chats);
+    }
+  }
+
+  Future<void> fetchChats() async {
+    final chatsRead = await ChatsDataBase.instance.readAllChats();
+    ChatsDataBase.instance.readAllChats();
+    _chats.addAll(chatsRead);
+    await populateChildren();
+    return;
+  }
+
+  Future<void> populateChildren() async {
+    for (var c in _chats) {
+      await c.populate(c.id);
     }
   }
 }
@@ -64,6 +80,11 @@ class Chat extends ChangeNotifier {
   String? bio;
   String? email;
 
+  Future<void> populate(id) async {
+    final m = await ChatDataBase.instance.readMessagesFor(id);
+    _messages.addAll(m);
+  }
+
   void add(QueryDocumentSnapshot<Map<String, dynamic>> message) {
     final msg = _messages.firstWhere(
       (element) => element.id == message.id,
@@ -71,15 +92,15 @@ class Chat extends ChangeNotifier {
     );
 
     if (msg.id != null) return;
-    _messages.add(
-      Message(
-        message.id,
-        message.data()['data'],
-        Sender.other,
-        DateTime.parse(message.data()['date']),
-        reciepent: message.data()['senderID'],
-      ),
+    final _message = Message(
+      message.id,
+      message.data()['data'],
+      Sender.other,
+      DateTime.parse(message.data()['date']),
     );
+
+    ChatDataBase.instance.create(_message, id);
+    _messages.add(_message);
 
     notifyListeners();
   }
@@ -91,6 +112,7 @@ class Chat extends ChangeNotifier {
   }
 
   void _sendMessage(Message message, String receiverId) {
+    ChatDataBase.instance.create(message, id);
     FirebaseFirestore.instance.collection('chats/$receiverId/recieved').add({
       'data': message.data,
       'date': message.date.toString(),
@@ -101,6 +123,22 @@ class Chat extends ChangeNotifier {
   }
 
   Chat.fromdata(this.id, this.name, this.email, this.profilePicture, this.bio);
+
+  static Chat fromJson(json) {
+    final dp = json[ChatsFields.profilePicture] == null
+        ? null
+        : File.fromRawPath(
+            json[json.decode(ChatsFields.profilePicture)],
+          );
+
+    return Chat.fromdata(
+      json[ChatsFields.mid].toString(),
+      json[ChatsFields.name],
+      json[ChatsFields.email],
+      dp,
+      json[ChatsFields.bio],
+    );
+  }
 
   Chat.lazy(this.id, callback) {
     FirebaseFirestore.instance
@@ -113,6 +151,19 @@ class Chat extends ChangeNotifier {
       this.name = value.data()!['firstName'];
       callback(this);
     });
+  }
+
+  Map<String, Object?> toJson() {
+    final chat = this;
+    return {
+      ChatsFields.mid: chat.id,
+      ChatsFields.email: chat.email,
+      ChatsFields.name: chat.name!,
+      ChatsFields.bio: chat.bio,
+      ChatsFields.profilePicture: chat.profilePicture != null
+          ? iamgeToString(chat.profilePicture!)
+          : null,
+    };
   }
 
   List<Message> get messages => _messages;
@@ -129,23 +180,37 @@ enum Sender { me, other }
 
 class Message {
   final String? id;
-
-  final String? reciepent;
-
   final String? data;
-
   final Sender? sender;
-
   final DateTime? date;
 
-  Message(this.id, this.data, this.sender, this.date, {this.reciepent});
+  Message(this.id, this.data, this.sender, this.date);
+
+  Message.fromData({this.id, this.data, this.sender, this.date});
+
   Message.empty()
       : id = null,
         data = null,
         date = null,
-        reciepent = null,
         sender = null;
 
-  Message.fromJson(
-      {this.id, this.data, this.sender, this.date, this.reciepent});
+  Map<String, Object?> toJson(senderId) {
+    final message = this;
+    return {
+      ChatFields.mid: senderId,
+      ChatFields.data: message.data,
+      ChatFields.date: message.date!.toIso8601String(),
+      ChatFields.sender: message.sender == Sender.me ? 0 : 1,
+    };
+  }
+
+  static Message fromJson(json) {
+    return Message.fromData(
+      id: json[ChatFields.id].toString(),
+      data: json[ChatFields.data],
+      date: DateTime.parse(json[ChatFields.date]),
+      sender:
+          int.parse(json[ChatFields.sender]) == 0 ? Sender.me : Sender.other,
+    );
+  }
 }
