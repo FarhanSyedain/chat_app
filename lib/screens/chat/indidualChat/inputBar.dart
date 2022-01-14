@@ -76,6 +76,9 @@ class _InputBarState extends State<InputBar> {
                         );
                         _scrollDown(spaceTakenByKeyboard);
                         inputTextController.clear();
+                        setState(() {
+                          showSendButton = false;
+                        });
                       },
                       color: Colors.blue,
                     )
