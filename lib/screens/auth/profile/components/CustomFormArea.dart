@@ -98,6 +98,7 @@ class _CustomFormAreaState extends State<CustomFormArea> {
       (value) {
         widget.changeSpinerVal!(false);
         prefs.setBool('profileSet', true);
+        ref.collection('chats/${_auth.currentUser!.uid}/recieved').add({'kkk':''});
         Navigator.of(context).pushNamedAndRemoveUntil(
           '/wrapper',
           (route) => false,
