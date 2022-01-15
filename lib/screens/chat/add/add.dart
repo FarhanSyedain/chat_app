@@ -1,18 +1,21 @@
-
 import 'dart:io';
 
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
+import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
 import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
 class AddPerson extends StatefulWidget {
+  final Function changeIndex;
+  AddPerson(this.changeIndex);
   @override
   State<AddPerson> createState() => _AddPersonState();
 }
@@ -99,20 +102,27 @@ class _AddPersonState extends State<AddPerson> {
                                 .child('userProfiles')
                                 .child(id)
                                 .getData()
-                                .then((value) {
-                        
-                            }).catchError((error) {
-                  
-                            }).whenComplete(() {
-            
-                              final chat = Chat.fromdata(
-                                  id, name, email, profilePicture, bio);
-                              Provider.of<Chats>(context, listen: false)
-                                  .addtoChats(chat);
-                              setState(() {
-                                isLoading = false;
-                              });
-                            });
+                                .then((value) {})
+                                .catchError((error) {})
+                                .whenComplete(
+                              () {
+                                final chat = Chat.fromdata(
+                                  id,
+                                  name,
+                                  email,
+                                  profilePicture,
+                                  bio,
+                                );
+                                Provider.of<Chats>(context, listen: false)
+                                    .addtoChats(chat);
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                _controller.clear();
+                                SystemChannels.textInput.invokeMethod('TextInput.hide');
+                                widget.changeIndex(2);
+                              },
+                            );
                           }
                         },
                       );
