@@ -5,6 +5,7 @@ import 'package:chat_app/screens/chat/home/components/messageTite.dart';
 import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -17,10 +18,10 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
   }
-
   int _index = 2;
   @override
   Widget build(BuildContext context) {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: buildAppBar(
@@ -52,7 +53,11 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         ],
       ),
       extendBody: true,
-      body: ChatScreenBody(_index),
+      body: ChatScreenBody(_index, (i) {
+        setState(() {
+          _index = i;
+        });
+      }),
       bottomNavigationBar: CurvedNavigationBar(
         items: [
           Icon(Icons.call_sharp),
@@ -84,7 +89,8 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
 class ChatScreenBody extends StatelessWidget {
   final int index;
-  ChatScreenBody(@required this.index);
+  final Function changeIndex;
+  ChatScreenBody(this.index, this.changeIndex);
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Chats>(context);
@@ -126,7 +132,7 @@ class ChatScreenBody extends StatelessWidget {
             ],
           ),
         ),
-        AddPerson(),
+        AddPerson(changeIndex),
       ],
     );
   }
