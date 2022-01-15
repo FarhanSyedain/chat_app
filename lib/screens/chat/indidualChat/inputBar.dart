@@ -96,7 +96,7 @@ class _InputBarState extends State<InputBar> {
 
   void _scrollDown(bottomInset) {
     widget.controller.animateTo(
-      widget.controller.position.maxScrollExtent + 50 + bottomInset,
+      0,
       duration: Duration(milliseconds: 220),
       curve: Curves.fastOutSlowIn,
     );
