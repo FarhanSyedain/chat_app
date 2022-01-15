@@ -29,7 +29,6 @@ class Body extends StatelessWidget {
               controller: controller,
               // itemCount: messages.length,
               itemCount: provider.messages.length,
-              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 // return MessageBubble(messages[index]);
                 return MessageBubble(provider.messages.elementAt(index));
