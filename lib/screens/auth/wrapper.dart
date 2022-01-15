@@ -55,6 +55,7 @@ class Wrapper extends StatelessWidget {
               );
         }
         prefs.setBool('authComplete', true);
+        Provider.of<Chats>(context, listen: false).getChats;
         return ChatScreen();
       }
       return ProfilePageScreen();
