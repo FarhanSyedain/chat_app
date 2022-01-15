@@ -19,9 +19,8 @@ class Chats extends ChangeNotifier {
   void get getChats {
     final ref = FirebaseFirestore.instance;
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    final stream = ref
-        .collection('chats/$userId/recieved')
-        .snapshots();
+    final stream =
+        ref.collection('chats/$userId/recieved').orderBy('date').limit(5).snapshots();
 
     stream.listen((message) {
       handleMessage(message);
@@ -31,9 +30,8 @@ class Chats extends ChangeNotifier {
   void handleMessage(QuerySnapshot<Map<String, dynamic>> messagesSnapShot) {
     final messages = messagesSnapShot.docs;
     for (var message in messages) {
-      if (!message.data().keys.contains('data')) 
-        continue;
-      
+      if (!message.data().keys.contains('data')) continue;
+
       _addMessage(message);
     }
   }
