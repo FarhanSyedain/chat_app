@@ -25,9 +25,11 @@ class Body extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: ListView.builder(
+              reverse: true,
               controller: controller,
               // itemCount: messages.length,
               itemCount: provider.messages.length,
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 // return MessageBubble(messages[index]);
                 return MessageBubble(provider.messages.elementAt(index));
@@ -35,6 +37,7 @@ class Body extends StatelessWidget {
             ),
           ),
         ),
+      
         InputBar(
           provider: provider,
           controller: controller,

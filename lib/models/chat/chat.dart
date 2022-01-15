@@ -167,7 +167,7 @@ class Chat extends ChangeNotifier {
     };
   }
 
-  List<Message> get messages => _messages;
+  List<Message> get messages => _messages.reversed.toList();
   String get title => name ?? 'No name';
   String? get subtitle => _messages.isNotEmpty ? _messages.last.data : null;
   bool get read => true; //implement later
