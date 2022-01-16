@@ -4,7 +4,6 @@ import 'package:chat_app/models/customUserModel.dart';
 import 'package:chat_app/screens/chat/home/home.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/profile.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'additional/confirmEmail.dart';
