@@ -72,7 +72,6 @@ class ChatDataBase {
       orderBy: '${ChatFields.date} ASC',
 
     );
-    print('d');
     return result.map((json) => Message.fromJson(json)).toList();
   }
 

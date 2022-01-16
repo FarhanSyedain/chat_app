@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:chat_app/database/chat.dart';
 import 'package:chat_app/database/chats.dart';
@@ -14,13 +13,28 @@ class Chats extends ChangeNotifier {
 
   final List<Chat> _chats = [];
 
-  List<Chat> get chats => _chats;
+  List<Chat> get chats {
+    final _chatCopy = _chats; // Lists are pointers my bad
+    _chatCopy.sort((a, b) {
+      final DateTime valA = a.messages.length > 0
+          ? a.messages.first.date as DateTime
+          : a.creationTime as DateTime;
+      final DateTime valB = b.messages.length > 0
+          ? b.messages.first.date as DateTime
+          : b.creationTime as DateTime;
+      return -valA.toString().compareTo(valB.toString());
+    });
+    return _chatCopy;
+  }
 
   void get getChats {
     final ref = FirebaseFirestore.instance;
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    final stream =
-        ref.collection('chats/$userId/recieved').orderBy('date').limit(5).snapshots();
+    final stream = ref
+        .collection('chats/$userId/recieved')
+        .orderBy('date')
+        .limit(5)
+        .snapshots();
 
     stream.listen((message) {
       handleMessage(message);
@@ -80,6 +94,7 @@ class Chat extends ChangeNotifier {
   File? profilePicture;
   String? bio;
   String? email;
+  DateTime? creationTime;
 
   Future<void> populate(id) async {
     final m = await ChatDataBase.instance.readMessagesFor(id);
@@ -123,7 +138,8 @@ class Chat extends ChangeNotifier {
     });
   }
 
-  Chat.fromdata(this.id, this.name, this.email, this.profilePicture, this.bio);
+  Chat.fromdata(this.id, this.name, this.email, this.profilePicture, this.bio,
+      this.creationTime);
 
   static Chat fromJson(json) {
     final dp = json[ChatsFields.profilePicture] == null
@@ -138,6 +154,7 @@ class Chat extends ChangeNotifier {
       json[ChatsFields.email],
       dp,
       json[ChatsFields.bio],
+      DateTime.parse(json[ChatsFields.creationTime]),
     );
   }
 
@@ -150,6 +167,7 @@ class Chat extends ChangeNotifier {
       this.email = value.data()!['email'];
       this.bio = value.data()!['bio'];
       this.name = value.data()!['firstName'];
+      this.creationTime = DateTime.now();
       callback(this);
     });
   }
@@ -161,6 +179,7 @@ class Chat extends ChangeNotifier {
       ChatsFields.email: chat.email,
       ChatsFields.name: chat.name!,
       ChatsFields.bio: chat.bio,
+      ChatsFields.creationTime: creationTime.toString(),
       ChatsFields.profilePicture: chat.profilePicture != null
           ? iamgeToString(chat.profilePicture!)
           : null,

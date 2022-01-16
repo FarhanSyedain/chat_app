@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 final String tableNotes = 'chats';
 
 class ChatsFields {
-  static final List<String> values = [id, name, profilePicture, bio, email];
+  static final List<String> values = [id, name, profilePicture, bio, email,creationTime];
 
   static final String id = '_id';
   static final String mid = 'id';
@@ -13,6 +13,8 @@ class ChatsFields {
   static final String profilePicture = 'profilePicture';
   static final String bio = 'bio';
   static final String email = 'email';
+  static final String creationTime = 'creation';
+
 }
 
 class ChatsDataBase {
@@ -48,7 +50,8 @@ class ChatsDataBase {
       ${ChatsFields.name} $textTypeNonNull,
       ${ChatsFields.bio} $textType,
       ${ChatsFields.profilePicture} $textType,
-      ${ChatsFields.email} $textTypeNonNull
+      ${ChatsFields.email} $textTypeNonNull,
+      ${ChatsFields.creationTime} $textTypeNonNull
     )
       ''');
   }

@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
-import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
 import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -112,6 +110,7 @@ class _AddPersonState extends State<AddPerson> {
                                   email,
                                   profilePicture,
                                   bio,
+                                  DateTime.now(),
                                 );
                                 Provider.of<Chats>(context, listen: false)
                                     .addtoChats(chat);
@@ -119,7 +118,8 @@ class _AddPersonState extends State<AddPerson> {
                                   isLoading = false;
                                 });
                                 _controller.clear();
-                                SystemChannels.textInput.invokeMethod('TextInput.hide');
+                                SystemChannels.textInput
+                                    .invokeMethod('TextInput.hide');
                                 widget.changeIndex(2);
                               },
                             );
