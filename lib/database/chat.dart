@@ -69,6 +69,8 @@ class ChatDataBase {
       columns: ChatFields.values,
       where: '${ChatFields.mid} = ?',
       whereArgs: [id],
+      orderBy: '${ChatFields.date} ASC',
+
     );
     print('d');
     return result.map((json) => Message.fromJson(json)).toList();
