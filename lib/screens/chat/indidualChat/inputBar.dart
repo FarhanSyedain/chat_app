@@ -1,6 +1,5 @@
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class InputBar extends StatefulWidget {
   @override
@@ -71,6 +70,7 @@ class _InputBarState extends State<InputBar> {
                             inputTextController.text,
                             Sender.me,
                             DateTime.now(),
+                            DateTime.now().toString() + widget.provider.id,
                           ),
                           widget.provider.id,
                         );

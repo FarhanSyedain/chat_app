@@ -8,6 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+enum Sender { me, other }
+enum DeleteType { local, everywhere }
+
 class Chats extends ChangeNotifier {
   //!Currently does not handle deleted messages and read reciets
 
@@ -44,10 +47,27 @@ class Chats extends ChangeNotifier {
   void handleMessage(QuerySnapshot<Map<String, dynamic>> messagesSnapShot) {
     final messages = messagesSnapShot.docs;
     for (var message in messages) {
-      if (!message.data().keys.contains('data')) continue;
-
-      _addMessage(message);
+      if (message.data().keys.contains('deleteId')) {
+        final senderId = message.data()['senderID'];
+        final messageId = message.data()['deleteId'];
+        _handleDeleteMessageEvent(senderId, messageId);
+        message.reference.delete();
+      } else {
+        if (!message.data().keys.contains('data')) continue;
+        _addMessage(message);
+      }
     }
+  }
+
+  void _handleDeleteMessageEvent(senderId, messageId) {
+    try {
+      final targetedChat =
+          _chats.firstWhere((element) => element.id == senderId);
+
+      targetedChat.deleteMessageInMemory(messageId);
+      targetedChat.deleteMessageLocally(messageId);
+    
+    } catch (e) {}
   }
 
   void _addMessage(QueryDocumentSnapshot<Map<String, dynamic>> message) {
@@ -101,6 +121,11 @@ class Chat extends ChangeNotifier {
     _messages.addAll(m);
   }
 
+  void deleteMessageInMemory(String commonId) {
+    _messages.removeWhere((element) => element.commonId == commonId);
+    notifyListeners();
+  }
+
   void add(QueryDocumentSnapshot<Map<String, dynamic>> message) {
     final msg = _messages.firstWhere(
       (element) => element.id == message.id,
@@ -113,6 +138,7 @@ class Chat extends ChangeNotifier {
       message.data()['data'],
       Sender.other,
       DateTime.parse(message.data()['date']),
+      message.data()['commonID'],
     );
 
     ChatDataBase.instance.create(_message, id);
@@ -133,6 +159,7 @@ class Chat extends ChangeNotifier {
       'data': message.data,
       'date': message.date.toString(),
       'senderID': FirebaseAuth.instance.currentUser!.uid,
+      'commonID': message.commonId,
     }).then((value) {
       //Later on handle delivered markers
     });
@@ -186,6 +213,26 @@ class Chat extends ChangeNotifier {
     };
   }
 
+  Future<void> deleteMessage(
+      String id, String senderId, DeleteType deleteType, String? userId) async {
+    deleteMessageInMemory(id);
+    if (deleteType == DeleteType.everywhere) {
+      await FirebaseFirestore.instance
+          .collection('chats/$userId/recieved')
+          .add({
+        'date': DateTime.now(),
+        'senderID': senderId,
+        'deleteId': id,
+      }).then((value) => deleteMessageLocally(id));
+    } else {
+      deleteMessageLocally(id);
+    }
+  }
+
+  void deleteMessageLocally(String id) async {
+    await ChatDataBase.instance.delete(id);
+  }
+
   List<Message> get messages => _messages.reversed.toList();
   String get title => name ?? 'No name';
   String? get subtitle => _messages.isNotEmpty ? _messages.last.data : null;
@@ -196,28 +243,29 @@ class Chat extends ChangeNotifier {
       : null;
 }
 
-enum Sender { me, other }
-
 class Message {
   final String? id;
   final String? data;
   final Sender? sender;
   final DateTime? date;
+  final String? commonId;
 
-  Message(this.id, this.data, this.sender, this.date);
+  Message(this.id, this.data, this.sender, this.date, this.commonId);
 
-  Message.fromData({this.id, this.data, this.sender, this.date});
+  Message.fromData({this.id, this.data, this.sender, this.date, this.commonId});
 
   Message.empty()
       : id = null,
         data = null,
         date = null,
+        commonId = null,
         sender = null;
 
   Map<String, Object?> toJson(senderId) {
     final message = this;
     return {
       ChatFields.mid: senderId,
+      ChatFields.commonId: commonId,
       ChatFields.data: message.data,
       ChatFields.date: message.date!.toIso8601String(),
       ChatFields.sender: message.sender == Sender.me ? 0 : 1,
@@ -227,6 +275,7 @@ class Message {
   static Message fromJson(json) {
     return Message.fromData(
       id: json[ChatFields.id].toString(),
+      commonId: json[ChatFields.commonId],
       data: json[ChatFields.data],
       date: DateTime.parse(json[ChatFields.date]),
       sender:

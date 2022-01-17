@@ -5,9 +5,10 @@ import 'package:sqflite/sqflite.dart';
 final String tableNotes = 'chat';
 
 class ChatFields {
-  static final List<String> values = [id, date, mid, data, sender];
+  static final List<String> values = [id, date, commonId, mid, data, sender];
   static final String id = '_id';
   static final String mid = 'id';
+  static final String commonId = 'commonId';
   static final String date = 'data';
   static final String data = 'date';
   static final String sender = 'sender';
@@ -42,6 +43,7 @@ class ChatDataBase {
     CREATE TABLE $tableNotes ( 
       ${ChatFields.id} $idType, 
       ${ChatFields.mid} $textTypeNonNull, 
+      ${ChatFields.commonId} $textTypeNonNull, 
       ${ChatFields.data} $textTypeNonNull,
       ${ChatFields.date} $textTypeNonNull,
       ${ChatFields.sender} $textTypeNonNull
@@ -70,7 +72,6 @@ class ChatDataBase {
       where: '${ChatFields.mid} = ?',
       whereArgs: [id],
       orderBy: '${ChatFields.date} ASC',
-
     );
     return result.map((json) => Message.fromJson(json)).toList();
   }
@@ -86,12 +87,11 @@ class ChatDataBase {
     );
   }
 
-  Future<int> delete(int id) async {
+  Future<int> delete(String id) async {
     final db = await instance.database;
-
     return await db.delete(
       tableNotes,
-      where: '${ChatFields.id} = ?',
+      where: '${ChatFields.commonId} = ?',
       whereArgs: [id],
     );
   }
