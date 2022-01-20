@@ -2,6 +2,7 @@ import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/messageBubble.dart';
 import 'package:chat_app/screens/chat/indidualChat/inputBar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class IndidualChatBody extends StatelessWidget {
   final Chat provider;
@@ -31,12 +32,16 @@ class Body extends StatelessWidget {
               itemCount: provider.messages.length,
               itemBuilder: (context, index) {
                 // return MessageBubble(messages[index]);
-                return MessageBubble(provider.messages.elementAt(index));
+                return ChangeNotifierProvider.value(
+                  value: provider.messages.elementAt(index),
+                  builder: (context, child) {
+                    return MessageBubble();
+                  },
+                );
               },
             ),
           ),
         ),
-      
         InputBar(
           provider: provider,
           controller: controller,
