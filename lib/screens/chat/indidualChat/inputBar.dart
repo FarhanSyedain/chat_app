@@ -71,6 +71,7 @@ class _InputBarState extends State<InputBar> {
                             Sender.me,
                             DateTime.now(),
                             DateTime.now().toString() + widget.provider.id,
+                            MessageStatus.sending,
                           ),
                           widget.provider.id,
                         );
