@@ -83,7 +83,9 @@ class MessageBubble extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             child: BubbleNormal(
-              messageStatus: messageProvider.messageStatus,
+              messageStatus: messageProvider.sender == Sender.me
+                  ? messageProvider.messageStatus
+                  : MessageStatus.received,
               text: messageProvider.data!,
               isSender: messageProvider.sender == Sender.me ? true : false,
               color: messageProvider.sender == Sender.me
