@@ -23,23 +23,19 @@ class Body extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: ListView.builder(
-              reverse: true,
-              controller: controller,
-              // itemCount: messages.length,
-              itemCount: provider.messages.length,
-              itemBuilder: (context, index) {
-                // return MessageBubble(messages[index]);
-                return ChangeNotifierProvider.value(
-                  value: provider.messages.elementAt(index),
-                  builder: (context, child) {
-                    return MessageBubble(index-1);
-                  },
-                );
-              },
-            ),
+          child: ListView.builder(
+            reverse: true,
+            padding: EdgeInsets.zero,
+            controller: controller,
+            itemCount: provider.messages.length,
+            itemBuilder: (context, index) {
+              return ChangeNotifierProvider.value(
+                value: provider.messages.elementAt(index),
+                builder: (context, child) {
+                  return MessageBubble(index - 1);
+                },
+              );
+            },
           ),
         ),
         InputBar(

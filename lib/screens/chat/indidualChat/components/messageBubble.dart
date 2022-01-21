@@ -86,9 +86,9 @@ class MessageBubble extends StatelessWidget {
             padding: EdgeInsets.only(
               bottom: lastMessageIndex == -1
                   ? 0
-                  : wasSenderSame(lastMessageIndex, chatProvider)
-                      ? 2
-                      : 20,
+                  : !wasSenderSame(lastMessageIndex, chatProvider)
+                      ? 20
+                      : 0,
               left: 15,
               right: 15,
             ),
@@ -98,9 +98,9 @@ class MessageBubble extends StatelessWidget {
                   : MessageStatus.received,
               text: messageProvider.data!,
               isSender: messageProvider.sender == Sender.me ? true : false,
-              color: messageProvider.sender == Sender.me
-                  ? Theme.of(context).cardColor
-                  : Theme.of(context).colorScheme.secondary,
+              color: messageProvider.sender != Sender.me
+                  ? Color(0xFF446063)
+                  : Color(0XFF355C7D),
               textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontWeight: FontWeight.normal,
                     fontSize: 15.5,

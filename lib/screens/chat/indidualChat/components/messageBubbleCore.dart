@@ -103,25 +103,15 @@ class BubbleNormal extends StatelessWidget {
           constraints:
               BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .8),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 3),
             child: Container(
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(bubbleRadius),
                   topRight: Radius.circular(bubbleRadius),
-                  bottomLeft: Radius.circular(tail
-                      ? isSender
-                          ? bubbleRadius
-                          : 0
-                      : BUBBLE_RADIUS),
-                  bottomRight: Radius.circular(
-                    tail
-                        ? isSender
-                            ? 0
-                            : bubbleRadius
-                        : BUBBLE_RADIUS,
-                  ),
+                  bottomLeft: Radius.circular(BUBBLE_RADIUS),
+                  bottomRight: Radius.circular(BUBBLE_RADIUS),
                 ),
               ),
               child: Stack(
