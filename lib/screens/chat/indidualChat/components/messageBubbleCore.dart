@@ -22,6 +22,7 @@ class BubbleNormal extends StatelessWidget {
   final bool tail;
   final MessageStatus messageStatus;
   final TextStyle textStyle;
+  final String date;
 
   BubbleNormal({
     Key? key,
@@ -35,24 +36,18 @@ class BubbleNormal extends StatelessWidget {
       color: Colors.black87,
       fontSize: 16,
     ),
+    required this.date,
   }) : super(key: key);
 
   ///chat bubble builder method
   @override
   Widget build(BuildContext context) {
-    bool stateTick = false;
     Icon? stateIcon;
 
     if (messageStatus == MessageStatus.delivered) {
-      stateTick = true;
-      stateIcon = Icon(
-        Icons.done_all,
-        size: 16,
-        color: Color(0xFF97AD8E)
-      );
+      stateIcon = Icon(Icons.done_all, size: 16, color: Color(0xFF97AD8E));
     }
     if (messageStatus == MessageStatus.sent) {
-      stateTick = true;
       stateIcon = Icon(
         Icons.done,
         size: 16,
@@ -60,7 +55,6 @@ class BubbleNormal extends StatelessWidget {
       );
     }
     if (messageStatus == MessageStatus.sending) {
-      stateTick = true;
       stateIcon = Icon(
         Icons.access_time_outlined,
         size: 16,
@@ -68,13 +62,33 @@ class BubbleNormal extends StatelessWidget {
       );
     }
     if (messageStatus == MessageStatus.read) {
-      stateTick = true;
       stateIcon = Icon(
         Icons.done_all,
         size: 16,
         color: Colors.green,
       );
     }
+    final suffix = Row(
+      children: [
+        Text(
+          date,
+          style: isSender
+              ? TextStyle(
+                  fontSize: 12,
+                )
+              : TextStyle(
+                  fontSize: 12,
+                  color: Colors.white70,
+                ),
+        ),
+        if (stateIcon != null) ...[
+          SizedBox(
+            width: 1,
+          ),
+          stateIcon
+        ]
+      ],
+    );
     return Row(
       children: <Widget>[
         isSender
@@ -113,24 +127,21 @@ class BubbleNormal extends StatelessWidget {
               child: Stack(
                 children: <Widget>[
                   Padding(
-                    padding: stateTick
-                        ? EdgeInsets.fromLTRB(12, 6, 28, 6)
-                        : EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                    padding: EdgeInsets.fromLTRB(12, 6, isSender ? 54 : 38, 6),
                     child: Text(
                       text,
                       style: textStyle,
                       textAlign: TextAlign.left,
                     ),
                   ),
-                  stateIcon != null && stateTick
-                      ? Positioned(
-                          bottom: 4,
-                          right: 6,
-                          child: stateIcon,
-                        )
-                      : SizedBox(
-                          width: 1,
-                        ),
+                  Positioned(
+                    bottom: 4,
+                    right: 6,
+                    child: suffix,
+                  )
+                  // : SizedBox(
+                  // width: 1,
+                  // ),
                 ],
               ),
             ),
