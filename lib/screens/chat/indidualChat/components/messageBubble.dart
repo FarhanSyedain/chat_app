@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class MessageBubble extends StatelessWidget {
+  final int lastMessageIndex;
+  MessageBubble(this.lastMessageIndex);
   @override
   Widget build(BuildContext context) {
     final chatProvider = Provider.of<Chat>(context, listen: false);
@@ -81,7 +83,15 @@ class MessageBubble extends StatelessWidget {
             : CrossAxisAlignment.end,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            padding: EdgeInsets.only(
+              bottom: lastMessageIndex == -1
+                  ? 0
+                  : wasSenderSame(lastMessageIndex, chatProvider)
+                      ? 2
+                      : 20,
+              left: 15,
+              right: 15,
+            ),
             child: BubbleNormal(
               messageStatus: messageProvider.sender == Sender.me
                   ? messageProvider.messageStatus
@@ -109,7 +119,6 @@ class MessageBubble extends StatelessWidget {
                 onVisibilityChanged: (d) {
                   if (chatProvider.messages.first.commonId !=
                       messageProvider.commonId) return;
-                  print('fdsaf');
                   messageProvider.onMessageRead(
                     chatProvider.id,
                     FirebaseAuth.instance.currentUser!.uid,
@@ -121,4 +130,9 @@ class MessageBubble extends StatelessWidget {
               )
             : visibilityDetector;
   }
+}
+
+bool wasSenderSame(int index, Chat provider) {
+  return provider.messages.elementAt(index).sender ==
+      provider.messages.elementAt(index + 1).sender;
 }

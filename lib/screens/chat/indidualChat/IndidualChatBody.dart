@@ -35,7 +35,7 @@ class Body extends StatelessWidget {
                 return ChangeNotifierProvider.value(
                   value: provider.messages.elementAt(index),
                   builder: (context, child) {
-                    return MessageBubble();
+                    return MessageBubble(index-1);
                   },
                 );
               },
