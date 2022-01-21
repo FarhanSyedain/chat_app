@@ -281,8 +281,13 @@ class Chat extends ChangeNotifier {
   List<Message> get messages => _messages.reversed.toList();
   String get title => name ?? 'No name';
   String? get subtitle => _messages.isNotEmpty ? _messages.last.data : null;
-  bool get read => true; //implement later
-  int get count => 0; //implement later
+  bool get read => count > 0 ? false : true;
+  int get count {
+    return messages
+        .where((element) => element.messageStatus == MessageStatus.received)
+        .length;
+  }
+
   String? get time => _messages.isNotEmpty
       ? DateFormat('EEEEEE', 'en_US').format(_messages.last.date!)
       : null;
