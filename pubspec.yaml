@@ -46,6 +46,7 @@ dependencies:
   fluentui_icons: ^1.0.0
   android_intent: ^2.0.2
   intl: ^0.17.0
+  visibility_detector: ^0.2.2
 
 dev_dependencies:
   flutter_test:

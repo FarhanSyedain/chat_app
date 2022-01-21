@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -5,13 +7,22 @@ import 'package:sqflite/sqflite.dart';
 final String tableNotes = 'chat';
 
 class ChatFields {
-  static final List<String> values = [id, date, commonId, mid, data, sender];
+  static final List<String> values = [
+    id,
+    date,
+    commonId,
+    mid,
+    data,
+    sender,
+    messageStatus
+  ];
   static final String id = '_id';
   static final String mid = 'id';
   static final String commonId = 'commonId';
   static final String date = 'data';
   static final String data = 'date';
   static final String sender = 'sender';
+  static final String messageStatus = 'message_status';
 }
 
 class ChatDataBase {
@@ -46,7 +57,8 @@ class ChatDataBase {
       ${ChatFields.commonId} $textTypeNonNull, 
       ${ChatFields.data} $textTypeNonNull,
       ${ChatFields.date} $textTypeNonNull,
-      ${ChatFields.sender} $textTypeNonNull
+      ${ChatFields.sender} $textTypeNonNull,
+      ${ChatFields.messageStatus} $textTypeNonNull
     )
       ''');
   }
@@ -78,12 +90,23 @@ class ChatDataBase {
 
   Future<int> update(Message note, String senderId) async {
     final db = await instance.database;
-
-    return db.update(
+    return await db.update(
       tableNotes,
       note.toJson(senderId),
-      where: '${ChatFields.id} = ?',
-      whereArgs: [note.id],
+      where: '${ChatFields.commonId} = ?',
+      whereArgs: [note.commonId],
+    );
+  }
+
+  Future<void> updateReadStatus(Message message) async {
+    final db = await instance.database;
+    db.rawUpdate(
+      '''
+    UPDATE $tableNotes 
+    SET ${ChatFields.messageStatus} = ? 
+    WHERE ${ChatFields.commonId} = ?
+    ''',
+      [message.getReadStatus(), message.commonId],
     );
   }
 
