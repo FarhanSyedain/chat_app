@@ -107,9 +107,14 @@ class MessageBubble extends StatelessWidget {
             ? VisibilityDetector(
                 key: Key(messageProvider.commonId.toString()),
                 onVisibilityChanged: (d) {
+                  if (chatProvider.messages.first.commonId !=
+                      messageProvider.commonId) return;
+                  print('fdsaf');
                   messageProvider.onMessageRead(
                     chatProvider.id,
                     FirebaseAuth.instance.currentUser!.uid,
+                    messageProvider.date!,
+                    Provider.of<Chat>(context, listen: false),
                   );
                 },
                 child: visibilityDetector,

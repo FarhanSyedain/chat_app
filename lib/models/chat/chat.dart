@@ -56,7 +56,8 @@ class Chats extends ChangeNotifier {
       } else if (message.data().keys.contains('readId')) {
         final _messageId = message.data()['readId'];
         final senderId = message.data()['senderID'];
-        _handleReadMessageStatus(_messageId, senderId);
+        final _messageDate = message.data()['messageDate'];
+        _handleReadMessageStatus(_messageId, senderId, _messageDate);
         message.reference.delete();
       } else if (message.data().keys.contains('deliveredId')) {
         final _messageId = message.data()['deliveredId'];
@@ -81,14 +82,12 @@ class Chats extends ChangeNotifier {
     } catch (e) {}
   }
 
-  _handleReadMessageStatus(commonId, senderId) async {
+  _handleReadMessageStatus(commonId, senderId, String messageDate) async {
     try {
       final targetedChat =
           _chats.firstWhere((element) => element.id == senderId);
 
-      targetedChat.messages
-          .firstWhere((element) => element.commonId == commonId)
-          .setMessageStatus(MessageStatus.read, senderId);
+      targetedChat.setBulkReadStatus(senderId, commonId, messageDate);
     } catch (e) {
       print(e);
     }
@@ -168,6 +167,18 @@ class Chat extends ChangeNotifier {
   void deleteMessageInMemory(String commonId) {
     _messages.removeWhere((element) => element.commonId == commonId);
     notifyListeners();
+  }
+
+  void setBulkReadStatus(
+      String senderID, String messageID, String messageDate) {
+    DateTime dateTime = DateTime.parse(messageDate);
+    for (var message in messages) {
+      if (message.date!.isBefore(dateTime) ||
+          message.date!.isAtSameMomentAs(dateTime)) {
+        if (message.messageStatus == MessageStatus.read) break;
+        message.setMessageStatus(MessageStatus.read, senderID);
+      }
+    }
   }
 
   void add(QueryDocumentSnapshot<Map<String, dynamic>> message) {
@@ -278,6 +289,26 @@ class Chat extends ChangeNotifier {
     await ChatDataBase.instance.delete(id);
   }
 
+  void updateReadStatusBulkInCache(DateTime dateTime) {
+    for (var message in messages) {
+      if (message.date!.isBefore(dateTime) ||
+          message.date!.isAtSameMomentAs(dateTime)) {
+        if (message.messageStatus == MessageStatus.read) break;
+        message.setMessageStatus(MessageStatus.read, id);
+      }
+    }
+  }
+
+  void updateReadStatusBulkInMemory(DateTime dateTime) {
+    for (var message in messages) {
+      if (message.date!.isBefore(dateTime) ||
+          message.date!.isAtSameMomentAs(dateTime)) {
+        if (message.messageStatus == MessageStatus.read) break;
+        message.setMessageStatusInMemory();
+      }
+    }
+  }
+
   List<Message> get messages => _messages.reversed.toList();
   String get title => name ?? 'No name';
   String? get subtitle => _messages.isNotEmpty ? _messages.last.data : null;
@@ -352,25 +383,31 @@ class Message with ChangeNotifier {
             getMessageStatusForInt(int.parse(json[ChatFields.messageStatus])));
   }
 
-  void setMessageStatus(MessageStatus status, String senderId) {
+  void setMessageStatus(MessageStatus status, String senderId,
+      {cacheOnly = false}) {
     this.messageStatus = status;
-
+    if (cacheOnly) return;
     ChatDataBase.instance.updateReadStatus(this);
     notifyListeners();
   }
 
-  void onMessageRead(String receiverId, String userId) {
+  void setMessageStatusInMemory() {
+    ChatDataBase.instance.updateReadStatus(this);
+  }
+
+  void onMessageRead(String receiverId, String userId, DateTime messageDate,
+      Chat parentProvider) {
     if (this.messageStatus == MessageStatus.read) {
       return;
     }
-    this.messageStatus = MessageStatus.read;
-    notifyListeners();
+    parentProvider.updateReadStatusBulkInCache(messageDate);
     FirebaseFirestore.instance.collection('chats/$receiverId/recieved').add({
       'senderID': userId,
       'readId': commonId,
       'date': DateTime.now(),
+      'messageDate': messageDate.toString(),
     }).then((value) {
-      ChatDataBase.instance.updateReadStatus(this);
+      parentProvider.updateReadStatusBulkInMemory(messageDate);
     });
   }
 
