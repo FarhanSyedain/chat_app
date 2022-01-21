@@ -87,7 +87,7 @@ class MessageBubble extends StatelessWidget {
               bottom: lastMessageIndex == -1
                   ? 0
                   : !wasSenderSame(lastMessageIndex, chatProvider)
-                      ? 20
+                      ? 10
                       : 0,
               left: 15,
               right: 15,
