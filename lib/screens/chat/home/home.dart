@@ -25,13 +25,14 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   int _index = 2;
   @override
   Widget build(BuildContext context) {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+      // backgroundColor: Color(0xff15181C),
       appBar: buildAppBar(
         context,
         elevation: 1.0,
         bgColor: Theme.of(context).backgroundColor,
+        height: 50.0,
         title: 'Messages',
         showBackButton: false,
         paddingTop: 0.0,
@@ -57,36 +58,24 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         ],
       ),
       extendBody: true,
-      body: ChatScreenBody(_index, (i) {
-        setState(() {
-          _index = i;
-        });
-      }, focusNode),
-      bottomNavigationBar: CurvedNavigationBar(
-        items: [
-          Icon(Icons.call_sharp),
-          Icon(Icons.camera_alt),
-          Icon(Icons.home),
-          Icon(Icons.add),
-          Icon(Icons.search),
-        ],
-        color: Theme.of(context).colorScheme.secondary,
-        height: 60,
-        index: _index,
-        onTap: (i) {
-          if (i == 2) {
-            setState(() {
-              _index = 2;
-              focusNode.unfocus();
-            });
-          } else if (i == 3) {
-            setState(() {
-              _index = 3;
-            });
-          }
+      body: ChatScreenBody(
+        _index,
+        (i) {
+          setState(() {
+            _index = i;
+          });
         },
-        backgroundColor: Theme.of(context).backgroundColor,
-        buttonBackgroundColor: Theme.of(context).colorScheme.secondary,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (x)=> AddPerson()));
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.white70,
+        ),
+        // backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
     );
   }
@@ -95,51 +84,44 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 class ChatScreenBody extends StatelessWidget {
   final int index;
   final Function changeIndex;
-  final FocusNode focusNode;
-  ChatScreenBody(this.index, this.changeIndex, this.focusNode);
+  ChatScreenBody(this.index, this.changeIndex);
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Chats>(context);
-    return IndexedStack(
-      index: index == 2 ? 0 : 1,
-      children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final chat = provider.chats.elementAt(index);
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (c) => ChangeNotifierProvider.value(
-                            value: provider.chats
-                                .firstWhere((element) => element.id == chat.id),
-                            builder: (context, child) {
-                              final provider = Provider.of<Chat>(context);
-                              return IndidualChat(provider);
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                    child: MessageTile(chat),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final chat = provider.chats.elementAt(index);
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (c) => ChangeNotifierProvider.value(
+                        value: provider.chats
+                            .firstWhere((element) => element.id == chat.id),
+                        builder: (context, child) {
+                          final provider = Provider.of<Chat>(context);
+                          return IndidualChat(provider);
+                        },
+                      ),
+                    ),
                   );
                 },
-                // itemCount: chats.length,
-                itemCount: provider.chats.length,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+                child: MessageTile(chat),
+              );
+            },
+            // itemCount: chats.length,
+            itemCount: provider.chats.length,
           ),
-        ),
-        AddPerson(changeIndex, focusNode),
-      ],
+          SizedBox(
+            height: 50,
+          ),
+        ],
+      ),
     );
   }
 }

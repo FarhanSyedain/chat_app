@@ -24,12 +24,12 @@ class MessageTileBody extends StatelessWidget {
     final chat = Provider.of<Chat>(context);
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(25),
       ),
       width: double.infinity,
-      height: 90,
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+      height:85,
+      padding: EdgeInsets.only(left: 15,right:2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -49,27 +49,6 @@ class MessageTileBody extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  if (!chat.read)
-                    Positioned(
-                      right: 0,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          chat.count.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(fontSize: 12),
-                        ),
-                        width: 20,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          // color: Theme.of(context).colorScheme.secondary,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    )
                 ],
               ),
               SizedBox(
@@ -107,7 +86,7 @@ class MessageTileBody extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 26.0),
+            padding: const EdgeInsets.only(top: 26),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -119,12 +98,46 @@ class MessageTileBody extends StatelessWidget {
                       if (chat.time != null)
                         Text(
                           chat.time!,
-                          style: chat.read
-                              ? Theme.of(context).textTheme.bodyText2
+                          style: !chat.read
+                              ? Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    // color: Colors.blue,
+                                  )
                               : Theme.of(context)
                                   .textTheme
-                                  .bodyText1
-                                  ?.copyWith(fontSize: 14),
+                                  .bodyText2
+                        ),
+                    ],
+                  ),
+                ),
+                if (!chat.read)
+                Container(
+                  margin: EdgeInsets.only(top: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (chat.time != null)
+                        ClipOval(
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            alignment: Alignment.center,
+                            // color: Colors.blue,
+                            color: Theme.of(context).colorScheme.secondary,
+                            child: Text(
+                              chat.count.toString(),
+                              style: !chat.read
+                                  ? Theme.of(context).textTheme.bodyText2?.copyWith(
+                                        // color:
+                                        //     Theme.of(context).colorScheme.secondary,
+                                        color: Colors.white,
+                                      )
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                            ),
+                          ),
                         ),
                     ],
                   ),

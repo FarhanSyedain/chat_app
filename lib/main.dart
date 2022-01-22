@@ -26,7 +26,7 @@ class Main extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: Colors.black,
+        statusBarColor: Color(0xff15181C),
       ),
     );
     SystemChrome.setPreferredOrientations(
