@@ -37,6 +37,9 @@ class Body extends StatelessWidget {
             },
           ),
         ),
+        SizedBox(
+          height: 5,
+        ),
         InputBar(
           provider: provider,
           controller: controller,

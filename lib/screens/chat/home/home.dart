@@ -37,7 +37,6 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         showBackButton: false,
         paddingTop: 0.0,
         paddingBottom: 10.0,
-        statusBarColor: Theme.of(context).backgroundColor,
         titleStyle: TextStyle(
           fontFamily: 'MontserratB',
           fontSize: 35,
@@ -68,7 +67,8 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (x)=> AddPerson()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (x) => AddPerson()));
         },
         child: Icon(
           Icons.add,
@@ -88,6 +88,12 @@ class ChatScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Chats>(context);
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Color(0xff242D34),
+      ),
+    );
     return SingleChildScrollView(
       child: Column(
         children: [

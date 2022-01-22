@@ -24,7 +24,7 @@ PreferredSize buildAppBar(context,
         bottom: bottom,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
-          statusBarColor: statusBarColor ?? Theme.of(context).backgroundColor,
+          statusBarColor: Theme.of(context).backgroundColor,
         ),
         backgroundColor: bgColor ?? Theme.of(context).backgroundColor,
         leading: showBackButton

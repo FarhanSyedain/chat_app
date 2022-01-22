@@ -70,16 +70,13 @@ class MessageTileBody extends StatelessWidget {
                     if (chat.subtitle != null)
                       Text(
                         chat.subtitle!,
-                        style: chat.read
-                            ? Theme.of(context)
+                        style: 
+                             Theme.of(context)
                                 .textTheme
                                 .bodyText2
                                 ?.copyWith(fontSize: 14)
-                            : Theme.of(context).textTheme.bodyText1?.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                      )
+                        
+                      ),
                   ],
                 ),
               ),

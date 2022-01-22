@@ -10,7 +10,7 @@ class IndidualChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: appBar(context, provider.name),
+      appBar: appBar(context, provider.name!.split(' ')[0]),
       body: IndidualChatBody(provider),
     );
   }
@@ -51,7 +51,8 @@ class IndidualChat extends StatelessWidget {
           )
         ],
       ),
-      bgColor: Theme.of(context).backgroundColor,
+      bgColor: Color(0xFF313A43),
+      statusBarColor: Color(0xFF313A43),
       actions: [
         IconButton(
           onPressed: () {},

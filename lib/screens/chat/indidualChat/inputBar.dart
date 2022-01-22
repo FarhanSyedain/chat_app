@@ -31,7 +31,7 @@ class _InputBarState extends State<InputBar> {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: Theme.of(context).cardColor,
+            color: Colors.black45,
           ),
           child: Row(
             children: [
