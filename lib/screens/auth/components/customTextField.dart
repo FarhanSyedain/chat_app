@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
   final bool focused;
   final TextInputAction textInputAction;
   final IconData? prefixIcon;
+  final FocusNode? focusNode;
 
   CustomTextField(
     this.helperText,
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
     this.focused = false,
     this.textInputAction = TextInputAction.next,
     this.prefixIcon,
+    this.focusNode,
   });
 
   @override
@@ -32,6 +34,7 @@ class CustomTextField extends StatelessWidget {
         TextFormField(
           textInputAction: textInputAction,
           autofocus: focused,
+          focusNode: focusNode,
           controller: controller == null ? null : controller,
           validator: validator,
           obscureText: isPassword,

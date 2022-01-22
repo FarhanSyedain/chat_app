@@ -19,6 +19,9 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
   }
+
+  final focusNode = FocusNode();
+
   int _index = 2;
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         setState(() {
           _index = i;
         });
-      }),
+      }, focusNode),
       bottomNavigationBar: CurvedNavigationBar(
         items: [
           Icon(Icons.call_sharp),
@@ -74,6 +77,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
           if (i == 2) {
             setState(() {
               _index = 2;
+              focusNode.unfocus();
             });
           } else if (i == 3) {
             setState(() {
@@ -91,7 +95,8 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 class ChatScreenBody extends StatelessWidget {
   final int index;
   final Function changeIndex;
-  ChatScreenBody(this.index, this.changeIndex);
+  final FocusNode focusNode;
+  ChatScreenBody(this.index, this.changeIndex, this.focusNode);
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Chats>(context);
@@ -133,7 +138,7 @@ class ChatScreenBody extends StatelessWidget {
             ],
           ),
         ),
-        AddPerson(changeIndex),
+        AddPerson(changeIndex, focusNode),
       ],
     );
   }

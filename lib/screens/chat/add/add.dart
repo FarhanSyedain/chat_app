@@ -14,7 +14,8 @@ import 'package:provider/provider.dart';
 
 class AddPerson extends StatefulWidget {
   final Function changeIndex;
-  AddPerson(this.changeIndex);
+  final FocusNode focusNode;
+  AddPerson(this.changeIndex,this.focusNode);
   @override
   State<AddPerson> createState() => _AddPersonState();
 }
@@ -23,7 +24,6 @@ class _AddPersonState extends State<AddPerson> {
   final TextEditingController _controller = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-
   bool isLoading = false;
   String? errorMessage;
   @override
@@ -64,7 +64,9 @@ class _AddPersonState extends State<AddPerson> {
                   'Email',
                   emailValidator,
                   controller: _controller,
+                  focused: false,
                   errorMessage: errorMessage,
+                  focusNode: widget.focusNode,
                 ),
                 SizedBox(
                   height: 20,
