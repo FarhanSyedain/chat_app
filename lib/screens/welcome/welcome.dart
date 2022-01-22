@@ -1,6 +1,4 @@
-import '/components/customProceedButton.dart';
-
-import '/screens/auth/register/register.dart';
+import 'package:chat_app/screens/auth/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -39,7 +37,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
         onDone: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => RegisterScreen()));
+              MaterialPageRoute(builder: (context) => LoginScreen()));
         },
         next: Container(
           height: 60,
