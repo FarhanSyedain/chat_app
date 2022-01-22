@@ -102,6 +102,9 @@ class Chat extends ChangeNotifier {
       this.email = data['email'];
       this.bio = data['bio'];
       this.name = data['firstName'];
+      final String? lastName = data['lastName'];
+      this.name = name! + ' ' + (lastName ?? '');
+      name = name?.trim();
       this.creationTime = DateTime.now();
       callback(this);
     });

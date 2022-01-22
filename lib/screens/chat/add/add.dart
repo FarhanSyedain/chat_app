@@ -99,7 +99,10 @@ class _AddPersonState extends State<AddPerson> {
                             } else {
                               final id = value.docs.first.id;
                               final data = value.docs.first.data();
-                              final name = data['firstName'];
+                              String? name = data['firstName'];
+                              final lastName = data['lastName'];
+                              name = name! + ' ' + (lastName ?? '');
+                              name = name.trim();
                               final email = data['email'];
                               final bio = data['bio'];
                               File? profilePicture;
