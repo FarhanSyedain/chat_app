@@ -194,5 +194,5 @@ class Chat extends ChangeNotifier {
   //The time of last message of this chat
   String? get time => _messages.isNotEmpty
       ? DateFormat('EEEEEE', 'en_US').format(_messages.last.date!)
-      : null;
+      : DateFormat('EEEEEE', 'en_US').format(creationTime!);
 }
