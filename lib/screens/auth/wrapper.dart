@@ -1,4 +1,5 @@
 import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/chats.dart';
 import 'package:provider/provider.dart';
 import 'package:chat_app/models/customUserModel.dart';
 import 'package:chat_app/screens/chat/home/home.dart';

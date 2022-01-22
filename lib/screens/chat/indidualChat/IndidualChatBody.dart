@@ -25,7 +25,6 @@ class Body extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             reverse: true,
-            padding: EdgeInsets.zero,
             controller: controller,
             itemCount: provider.messages.length,
             itemBuilder: (context, index) {

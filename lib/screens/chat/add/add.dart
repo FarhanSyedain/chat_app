@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/chats.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

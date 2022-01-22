@@ -1,9 +1,12 @@
 import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/message.dart';
+import 'package:chat_app/models/extras/enums.dart';
 import 'package:flutter/material.dart';
 
 class InputBar extends StatefulWidget {
   @override
   _InputBarState createState() => _InputBarState();
+
   final Chat provider;
   final ScrollController controller;
 

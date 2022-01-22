@@ -1,4 +1,5 @@
 import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/chats.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/add/add.dart';
 import 'package:chat_app/screens/chat/home/components/messageTite.dart';

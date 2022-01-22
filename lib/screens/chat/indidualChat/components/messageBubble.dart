@@ -1,6 +1,9 @@
 import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/screens/chat/indidualChat/components/customFancyTextButton.dart';
+import 'package:chat_app/models/chat/message.dart';
+import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/screens/chat/indidualChat/components/alertDilog.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/messageBubbleCore.dart';
+import 'package:chat_app/screens/chat/indidualChat/extras/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,66 +16,54 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final chatProvider = Provider.of<Chat>(context, listen: false);
     final messageProvider = Provider.of<Message>(context);
-    var visibilityDetector = GestureDetector(
+    final core = MessageBubbleCore(
+      chatProvider: chatProvider,
+      messageProvider: messageProvider,
+      lastMessageIndex: lastMessageIndex,
+    );
+    return messageProvider.messageStatus == MessageStatus.read
+        ? core
+        : messageProvider.sender == Sender.other
+            ? VisibilityDetector(
+                key: Key(messageProvider.commonId.toString()),
+                onVisibilityChanged: (d) {
+                  if (chatProvider.messages.first.commonId !=
+                      messageProvider.commonId) return;
+                  messageProvider.onMessageRead(
+                    chatProvider.id,
+                    FirebaseAuth.instance.currentUser!.uid,
+                    messageProvider.date!,
+                    Provider.of<Chat>(context, listen: false),
+                  );
+                },
+                child: core,
+              )
+            : core;
+  }
+}
+
+class MessageBubbleCore extends StatelessWidget {
+  final Chat chatProvider;
+  final Message messageProvider;
+  final int lastMessageIndex;
+
+  const MessageBubbleCore({
+    Key? key,
+    required this.chatProvider,
+    required this.messageProvider,
+    required this.lastMessageIndex,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
       onDoubleTap: () {
         showDialog(
           context: context,
           builder: (context) {
-            return Container(
-              width: 200,
-              height: 300,
-              child: AlertDialog(
-                backgroundColor: Theme.of(context).cardColor,
-                title: Text(
-                  'Do you really wanna delete this message',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                actions: [
-                  Container(
-                    child: GestureDetector(
-                      onTap: () => Navigator.of(context).pop(),
-                      child: CustomFancyTextButton('No'),
-                    ),
-                    width: 70,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      chatProvider.deleteMessage(
-                        messageProvider.commonId!,
-                        FirebaseAuth.instance.currentUser!.uid,
-                        DeleteType.local,
-                        chatProvider.id,
-                      );
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      child: CustomFancyTextButton(
-                        'Only me',
-                        color: Colors.red,
-                      ),
-                      width: 100,
-                    ),
-                  ),
-                  if (messageProvider.sender == Sender.me)
-                    GestureDetector(
-                      onTap: () {
-                        chatProvider.deleteMessage(
-                          messageProvider.commonId!,
-                          FirebaseAuth.instance.currentUser!.uid,
-                          DeleteType.everywhere,
-                          chatProvider.id,
-                        );
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        child: CustomFancyTextButton(
-                          'Everyone',
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+            return DeleteMessageAlertDilog(
+              chatProvider: chatProvider,
+              messageProvider: messageProvider,
             );
           },
         );
@@ -92,7 +83,7 @@ class MessageBubble extends StatelessWidget {
               left: 15,
               right: 15,
             ),
-            child: BubbleNormal(
+            child: BubbleInterior(
               messageStatus: messageProvider.sender == Sender.me
                   ? messageProvider.messageStatus
                   : MessageStatus.received,
@@ -112,56 +103,5 @@ class MessageBubble extends StatelessWidget {
         ],
       ),
     );
-    return messageProvider.messageStatus == MessageStatus.read
-        ? visibilityDetector
-        : messageProvider.sender == Sender.other
-            ? VisibilityDetector(
-                key: Key(messageProvider.commonId.toString()),
-                onVisibilityChanged: (d) {
-                  if (chatProvider.messages.first.commonId !=
-                      messageProvider.commonId) return;
-                  messageProvider.onMessageRead(
-                    chatProvider.id,
-                    FirebaseAuth.instance.currentUser!.uid,
-                    messageProvider.date!,
-                    Provider.of<Chat>(context, listen: false),
-                  );
-                },
-                child: visibilityDetector,
-              )
-            : visibilityDetector;
   }
 }
-
-bool wasSenderSame(int index, Chat provider) {
-  return provider.messages.elementAt(index).sender ==
-      provider.messages.elementAt(index + 1).sender;
-}
-
-String getDate(DateTime dateTime) {
-  String hour = dateTime.hour.toString();
-  if (noBritish.containsKey(hour)) {
-    hour = noBritish[hour]!;
-  }
-
-  String minute = dateTime.minute.toString();
-  if (minute.length < 2) {
-    minute = '0$minute';
-  }
-  return hour + ':' + minute;
-}
-
-Map<String, String> noBritish = {
-  '13': '1',
-  '14': '2',
-  '15': '3',
-  '16': '4',
-  '17': '5',
-  '18': '6',
-  '19': '7',
-  '20': '8',
-  '21': '9',
-  '22': '10',
-  '23': '11',
-  '24': '12',
-};

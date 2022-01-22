@@ -1,4 +1,5 @@
 import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/chats.dart';
 import 'screens/auth/additional/confirmEmail.dart';
 import 'screens/auth/additional/resetEmail.dart';
 import 'screens/auth/additional/resetPassword.dart';

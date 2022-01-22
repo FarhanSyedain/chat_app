@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/message.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
