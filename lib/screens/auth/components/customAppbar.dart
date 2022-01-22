@@ -35,7 +35,11 @@ PreferredSize buildAppBar(context,
                   Icons.arrow_back_ios_outlined,
                   color: Theme.of(context).iconTheme.color,
                 ),
-                onPressed: back,
+                onPressed: back == null
+                    ? () {
+                        Navigator.of(context).pop();
+                      }
+                    : back,
               )
             : leading,
 

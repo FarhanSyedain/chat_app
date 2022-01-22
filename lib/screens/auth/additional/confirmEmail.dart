@@ -111,7 +111,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: buildAppBar(
         context,
         title: 'Verify Email',
