@@ -50,3 +50,4 @@ lib/secrets.dart
 /android/app/google-services.json
 /android/app/build
 /android/app/upload-keystore.jks
+testers.csv
