@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/message.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 final String tableNotes = 'chat';
+final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+final textTypeNonNull = 'TEXT NOT NULL';
 
 class ChatFields {
   static final List<String> values = [
@@ -15,7 +16,8 @@ class ChatFields {
     mid,
     data,
     sender,
-    messageStatus
+    messageStatus,
+    // replyTo,
   ];
   static final String id = '_id';
   static final String mid = 'id';
@@ -23,6 +25,7 @@ class ChatFields {
   static final String date = 'data';
   static final String data = 'date';
   static final String sender = 'sender';
+  // static final String replyTo = 'replyTo';
   static final String messageStatus = 'message_status';
 }
 
@@ -41,27 +44,29 @@ class ChatDataBase {
   }
 
   Future<Database> _initDB(String filePath) async {
+    int nbrMigrationScripts = migrationScripts.length;
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 2, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: nbrMigrationScripts,
+      onCreate: _createDB,
+      onUpgrade: _updateDB,
+    );
   }
 
   Future _createDB(Database db, int version) async {
-    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final textTypeNonNull = 'TEXT NOT NULL';
+    int nbrMigrationScripts = migrationScripts.length;
+    for (int i = 1; i <= nbrMigrationScripts; i++) {
+      await db.execute(migrationScripts[i]!);
+    }
+  }
 
-    await db.execute('''
-    CREATE TABLE $tableNotes ( 
-      ${ChatFields.id} $idType, 
-      ${ChatFields.mid} $textTypeNonNull, 
-      ${ChatFields.commonId} $textTypeNonNull, 
-      ${ChatFields.data} $textTypeNonNull,
-      ${ChatFields.date} $textTypeNonNull,
-      ${ChatFields.sender} $textTypeNonNull,
-      ${ChatFields.messageStatus} $textTypeNonNull
-    )
-      ''');
+  Future _updateDB(Database db, int oldVersion, int newVersion) async {
+    for (int i = oldVersion + 1; i <= newVersion; i++) {
+      await db.execute(migrationScripts[i]!);
+    }
   }
 
   Future<void> create(Message message, String senderId) async {
@@ -125,3 +130,17 @@ class ChatDataBase {
     db.close();
   }
 }
+
+Map<int, String> migrationScripts = {
+  1: '''
+    CREATE TABLE $tableNotes ( 
+      ${ChatFields.id} $idType, 
+      ${ChatFields.mid} $textTypeNonNull, 
+      ${ChatFields.commonId} $textTypeNonNull, 
+      ${ChatFields.data} $textTypeNonNull,
+      ${ChatFields.date} $textTypeNonNull,
+      ${ChatFields.sender} $textTypeNonNull,
+      ${ChatFields.messageStatus} $textTypeNonNull
+    )''',
+  // 2: 'ALTER TABLE $tableNotes ADD replyTo TEXT NOT NULL'
+};
