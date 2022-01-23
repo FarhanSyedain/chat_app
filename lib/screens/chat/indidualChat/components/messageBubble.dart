@@ -84,6 +84,7 @@ class MessageBubbleCore extends StatelessWidget {
               right: 15,
             ),
             child: BubbleInterior(
+              replyTo: messageProvider.replyToMessage(chatProvider),
               messageStatus: messageProvider.sender == Sender.me
                   ? messageProvider.messageStatus
                   : MessageStatus.received,

@@ -1,3 +1,4 @@
+import 'package:chat_app/models/chat/message.dart';
 import 'package:chat_app/models/extras/enums.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class BubbleInterior extends StatelessWidget {
   final MessageStatus messageStatus;
   final TextStyle textStyle;
   final String date;
+  final MessageReply? replyTo;
 
   BubbleInterior({
     Key? key,
@@ -20,6 +22,7 @@ class BubbleInterior extends StatelessWidget {
     this.isSender = true,
     this.color = Colors.white70,
     this.tail = true,
+    this.replyTo,
     this.messageStatus = MessageStatus.sending,
     this.textStyle = const TextStyle(
       color: Colors.black87,
@@ -32,7 +35,6 @@ class BubbleInterior extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Icon? stateIcon;
-
     if (messageStatus == MessageStatus.delivered) {
       stateIcon = Icon(Icons.done_all, size: 16, color: Color(0xFF97AD8E));
     }
@@ -78,50 +80,108 @@ class BubbleInterior extends StatelessWidget {
         ]
       ],
     );
-    return Row(
-      children: <Widget>[
-        isSender
-            ? Expanded(
-                child: SizedBox(
-                  width: 5,
-                ),
-              )
-            : Container(),
-        Container(
-          color: Colors.transparent,
-          constraints:
-              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .8),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 3),
-            child: Container(
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(bubbleRadius),
-                  topRight: Radius.circular(bubbleRadius),
-                  bottomLeft: Radius.circular(BUBBLE_RADIUS),
-                  bottomRight: Radius.circular(BUBBLE_RADIUS),
-                ),
-              ),
-              child: Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(12, 6, isSender ? 54 : 38, 6),
-                    child: Text(
-                      text,
-                      style: textStyle,
-                      textAlign: TextAlign.left,
+    return Column(
+      children: [
+        if (replyTo != null)
+          Row(
+            children: <Widget>[
+              isSender
+                  ? Expanded(
+                      child: SizedBox(
+                        width: 5,
+                      ),
+                    )
+                  : SizedBox(width: 7),
+              Container(
+                color: Colors.transparent,
+                constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * .85),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 3),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(bubbleRadius),
+                        topRight: Radius.circular(bubbleRadius),
+                        bottomLeft: Radius.circular(BUBBLE_RADIUS),
+                        bottomRight: Radius.circular(BUBBLE_RADIUS),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: isSender
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, bottom: 2.0),
+                          child: Text('Replied'),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(12, 7, 15, 7),
+                          child: Text(
+                            replyTo!.data,
+                            style: textStyle.copyWith(color: Colors.white70),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 4,
-                    right: 6,
-                    child: suffix,
+                ),
+              ),
+              if (isSender) SizedBox(width: 7),
+            ],
+          ),
+        Row(
+          children: <Widget>[
+            isSender
+                ? Expanded(
+                    child: SizedBox(
+                      width: 5,
+                    ),
                   )
-                ],
+                : Container(),
+            Container(
+              color: Colors.transparent,
+              constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * .8),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 3),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(bubbleRadius),
+                      topRight: Radius.circular(bubbleRadius),
+                      bottomLeft: Radius.circular(BUBBLE_RADIUS),
+                      bottomRight: Radius.circular(BUBBLE_RADIUS),
+                    ),
+                  ),
+                  child: Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding:
+                            EdgeInsets.fromLTRB(12, 8, isSender ? 54 : 38, 8),
+                        child: Text(
+                          text,
+                          style: textStyle,
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 4,
+                        right: 6,
+                        child: suffix,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ],
     );

@@ -54,6 +54,7 @@ class Chat extends ChangeNotifier {
     if (msg.id != null) return;
 
     final data = message.data();
+    final replyto = data['replyto'];
 
     final _message = Message(
       message.id,
@@ -62,10 +63,14 @@ class Chat extends ChangeNotifier {
       DateTime.parse(data['date']),
       data['commonID'],
       MessageStatus.received,
+      replyto,
     );
 
     ChatDataBase.instance.create(_message, id);
+
+
     _messages.add(_message);
+
     notifyListeners();
   }
 
@@ -168,6 +173,7 @@ class Chat extends ChangeNotifier {
       'date': message.date.toString(),
       'senderID': FirebaseAuth.instance.currentUser!.uid,
       'commonID': message.commonId,
+      'replyto': message.replyTo,
     }).then((value) {
       message.setMessageStatus(MessageStatus.sent, id);
     });

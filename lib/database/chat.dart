@@ -17,7 +17,7 @@ class ChatFields {
     data,
     sender,
     messageStatus,
-    // replyTo,
+    replyTo,
   ];
   static final String id = '_id';
   static final String mid = 'id';
@@ -25,7 +25,7 @@ class ChatFields {
   static final String date = 'data';
   static final String data = 'date';
   static final String sender = 'sender';
-  // static final String replyTo = 'replyTo';
+  static final String replyTo = 'replyTo';
   static final String messageStatus = 'message_status';
 }
 
@@ -142,5 +142,5 @@ Map<int, String> migrationScripts = {
       ${ChatFields.sender} $textTypeNonNull,
       ${ChatFields.messageStatus} $textTypeNonNull
     )''',
-  // 2: 'ALTER TABLE $tableNotes ADD replyTo TEXT NOT NULL'
+  2: 'ALTER TABLE $tableNotes ADD replyTo TEXT',
 };

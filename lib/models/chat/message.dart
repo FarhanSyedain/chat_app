@@ -11,6 +11,7 @@ class Message with ChangeNotifier {
   final Sender? sender;
   final DateTime? date;
   final String? commonId;
+  final String? replyTo;
   MessageStatus messageStatus = MessageStatus.sending;
 
   Message(
@@ -20,6 +21,7 @@ class Message with ChangeNotifier {
     this.date,
     this.commonId,
     this.messageStatus,
+    this.replyTo,
   );
 
   Message.fromData({
@@ -29,6 +31,7 @@ class Message with ChangeNotifier {
     this.date,
     this.commonId,
     required this.messageStatus,
+    this.replyTo,
   });
 
   Message.empty()
@@ -37,6 +40,7 @@ class Message with ChangeNotifier {
         date = null,
         commonId = null,
         messageStatus = MessageStatus.sent,
+        replyTo = null,
         sender = null;
 
   Map<String, Object?> toJson(senderId) {
@@ -47,6 +51,7 @@ class Message with ChangeNotifier {
       ChatFields.data: message.data,
       ChatFields.date: message.date!.toIso8601String(),
       ChatFields.sender: message.sender == Sender.me ? 0 : 1,
+      ChatFields.replyTo: message.replyTo,
       ChatFields.messageStatus:
           getIntForMessageStatus(message.messageStatus).toString(),
     };
@@ -58,6 +63,7 @@ class Message with ChangeNotifier {
         commonId: json[ChatFields.commonId],
         data: json[ChatFields.data],
         date: DateTime.parse(json[ChatFields.date]),
+        replyTo: json[ChatFields.replyTo],
         sender:
             int.parse(json[ChatFields.sender]) == 0 ? Sender.me : Sender.other,
         messageStatus:
@@ -96,4 +102,33 @@ class Message with ChangeNotifier {
   String getReadStatus() {
     return getIntForMessageStatus(this.messageStatus).toString();
   }
+
+  MessageReply? replyToMessage(Chat provider) {
+    if (replyTo == null || replyTo == '') {
+      return null;
+    }
+    try {
+      final providerValues = provider.messages
+          .firstWhere((element) => element.commonId == replyTo);
+      return MessageReply(
+        data: providerValues.data!,
+        sender: providerValues.sender!,
+      );
+    } catch (e) {
+      return MessageReply(
+        data: 'This message could\'nt be found',
+        sender: Sender.me,
+      );
+    }
+  }
+}
+
+class MessageReply {
+  final String data;
+  final Sender sender;
+
+  MessageReply({
+    required this.data,
+    required this.sender,
+  });
 }

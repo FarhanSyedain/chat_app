@@ -1,7 +1,9 @@
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/message.dart';
 import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/models/inputBar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class InputBar extends StatefulWidget {
   @override
@@ -23,6 +25,8 @@ class _InputBarState extends State<InputBar> {
   @override
   Widget build(BuildContext context) {
     final spaceTakenByKeyboard = MediaQuery.of(context).viewInsets.bottom;
+    final InputBarProvider inputBarProvider =
+        Provider.of<InputBarProvider>(context);
     return Column(
       children: [
         Container(
@@ -30,7 +34,12 @@ class _InputBarState extends State<InputBar> {
           height: 50,
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: inputBarProvider.message == null
+                ? BorderRadius.circular(25)
+                : BorderRadius.only(
+                    bottomLeft: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                  ),
             color: Colors.black45,
           ),
           child: Row(
@@ -55,6 +64,7 @@ class _InputBarState extends State<InputBar> {
                     }
                   },
                   keyboardType: TextInputType.multiline,
+                  autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Message',
@@ -75,10 +85,13 @@ class _InputBarState extends State<InputBar> {
                             DateTime.now(),
                             DateTime.now().toString() + widget.provider.id,
                             MessageStatus.sending,
+                            inputBarProvider.message?.commonId,
                           ),
                           widget.provider.id,
                         );
+                        inputBarProvider.resetReplyTo();
                         _scrollDown(spaceTakenByKeyboard);
+
                         inputTextController.clear();
                         setState(() {
                           showSendButton = false;

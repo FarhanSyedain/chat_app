@@ -1,7 +1,9 @@
 import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/inputBar.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/indidualChat/IndidualChatBody.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class IndidualChat extends StatelessWidget {
   final Chat provider;
@@ -11,7 +13,12 @@ class IndidualChat extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: appBar(context, provider.name!.split(' ')[0]),
-      body: IndidualChatBody(provider),
+      body: ChangeNotifierProvider(
+        create: (c) => InputBarProvider(),
+        builder: (context, child) {
+          return IndidualChatBody(provider);
+        },
+      ),
     );
   }
 
@@ -51,8 +58,6 @@ class IndidualChat extends StatelessWidget {
           )
         ],
       ),
-      bgColor: Color(0xFF313A43),
-      statusBarColor: Color(0xFF313A43),
       actions: [
         IconButton(
           onPressed: () {},
