@@ -91,7 +91,6 @@ class ChatScreenBody extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: Color(0xff242D34),
       ),
     );
     return SingleChildScrollView(
