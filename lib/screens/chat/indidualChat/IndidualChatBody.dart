@@ -38,38 +38,34 @@ class _BodyState extends State<Body> {
     return Column(
       children: [
         Expanded(
-          child: Column(
-            children: [
-              ListView.builder(
-                reverse: true,
-                controller: controller,
-                shrinkWrap: true,
-                itemCount: widget.provider.messages.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == widget.provider.messages.length) {
-                    return ChatStartingWidget();
-                  }
-                  return ChangeNotifierProvider.value(
-                    value: widget.provider.messages.elementAt(index),
-                    builder: (context, child) {
-                      return SwipeTo(
-                        child: MessageBubble(index - 1),
-                        onLeftSwipe: () {
-                          inputBarProvider.replyToMessage(
-                            widget.provider.messages.elementAt(index),
-                          );
-                        },
-                        onRightSwipe: () {
-                          inputBarProvider.replyToMessage(
-                            widget.provider.messages.elementAt(index),
-                          );
-                        },
+          child: ListView.builder(
+            reverse: true,
+            controller: controller,
+            // shrinkWrap: true,
+            itemCount: widget.provider.messages.length + 1,
+            itemBuilder: (context, index) {
+              if (index == widget.provider.messages.length) {
+                return ChatStartingWidget();
+              }
+              return ChangeNotifierProvider.value(
+                value: widget.provider.messages.elementAt(index),
+                builder: (context, child) {
+                  return SwipeTo(
+                    child: MessageBubble(index - 1),
+                    onLeftSwipe: () {
+                      inputBarProvider.replyToMessage(
+                        widget.provider.messages.elementAt(index),
+                      );
+                    },
+                    onRightSwipe: () {
+                      inputBarProvider.replyToMessage(
+                        widget.provider.messages.elementAt(index),
                       );
                     },
                   );
                 },
-              ),
-            ],
+              );
+            },
           ),
         ),
         SizedBox(
