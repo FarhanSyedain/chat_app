@@ -34,34 +34,38 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     final InputBarProvider inputBarProvider =
         Provider.of<InputBarProvider>(context);
-
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            reverse: true,
-            controller: controller,
-            itemCount: widget.provider.messages.length,
-            itemBuilder: (context, index) {
-              return ChangeNotifierProvider.value(
-                value: widget.provider.messages.elementAt(index),
-                builder: (context, child) {
-                  return SwipeTo(
-                    child: MessageBubble(index - 1),
-                    onLeftSwipe: () {
-                      inputBarProvider.replyToMessage(
-                        widget.provider.messages.elementAt(index),
-                      );
-                    },
-                    onRightSwipe: () {
-                      inputBarProvider.replyToMessage(
-                        widget.provider.messages.elementAt(index),
+          child: Column(
+            children: [
+              ListView.builder(
+                reverse: true,
+                controller: controller,
+                shrinkWrap: true,
+                itemCount: widget.provider.messages.length,
+                itemBuilder: (context, index) {
+                  return ChangeNotifierProvider.value(
+                    value: widget.provider.messages.elementAt(index),
+                    builder: (context, child) {
+                      return SwipeTo(
+                        child: MessageBubble(index - 1),
+                        onLeftSwipe: () {
+                          inputBarProvider.replyToMessage(
+                            widget.provider.messages.elementAt(index),
+                          );
+                        },
+                        onRightSwipe: () {
+                          inputBarProvider.replyToMessage(
+                            widget.provider.messages.elementAt(index),
+                          );
+                        },
                       );
                     },
                   );
                 },
-              );
-            },
+              ),
+            ],
           ),
         ),
         SizedBox(
