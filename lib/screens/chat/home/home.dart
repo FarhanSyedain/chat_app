@@ -4,9 +4,9 @@ import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/add/add.dart';
 import 'package:chat_app/screens/chat/home/components/messageTite.dart';
 import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -96,32 +96,66 @@ class ChatScreenBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final chat = provider.chats.elementAt(index);
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (c) => ChangeNotifierProvider.value(
-                        value: provider.chats
-                            .firstWhere((element) => element.id == chat.id),
-                        builder: (context, child) {
-                          final provider = Provider.of<Chat>(context);
-                          return IndidualChat(provider);
-                        },
+          provider.chats.length == 0
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 80),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'Nothing Here!',
+                        style: TextStyle(
+                          fontSize: 45,
+                          fontFamily: 'MontserratB',
+                          color: Colors.white70,
+                        ),
                       ),
                     ),
-                  );
-                },
-                child: MessageTile(chat),
-              );
-            },
-            // itemCount: chats.length,
-            itemCount: provider.chats.length,
-          ),
+                    SizedBox(height: 10),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'Click + icon to add a person.',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Montserrat',
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      child: SvgPicture.asset('assets/vectors/loon.svg'),
+                      height: 320,
+                    ),
+                  ],
+                )
+              : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final chat = provider.chats.elementAt(index);
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (c) => ChangeNotifierProvider.value(
+                              value: provider.chats.firstWhere(
+                                  (element) => element.id == chat.id),
+                              builder: (context, child) {
+                                final provider = Provider.of<Chat>(context);
+                                return IndidualChat(provider);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                      child: MessageTile(chat),
+                    );
+                  },
+                  // itemCount: chats.length,
+                  itemCount: provider.chats.length,
+                ),
           SizedBox(
             height: 50,
           ),

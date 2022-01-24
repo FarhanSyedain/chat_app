@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
               .bodyText1
               ?.copyWith(fontSize: 15, height: 1.5),
           decoration: InputDecoration(
-            fillColor: Colors.black,
+            fillColor: Color(0xFF161618), 
             filled: true,
             prefixIcon: prefixIcon == null
                 ? null

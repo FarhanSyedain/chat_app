@@ -1,5 +1,7 @@
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/chats.dart';
+import 'package:chat_app/screens/auth/profile/profile.dart';
+import 'package:chat_app/screens/chat/home/home.dart';
 import 'screens/auth/additional/confirmEmail.dart';
 import 'screens/auth/additional/resetEmail.dart';
 import 'screens/auth/additional/resetPassword.dart';
@@ -26,7 +28,7 @@ class Main extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: Color(0xFF121212),
+        statusBarColor: Color(0x0A0A0A),
       ),
     );
     SystemChrome.setPreferredOrientations(
@@ -61,7 +63,7 @@ class Main extends StatelessWidget {
         routes: {
           '/login': (context) => LoginScreen(),
           '/register': (context) => RegisterScreen(),
-          '/home': (context) => Container(),
+          '/home': (context) => ChatScreen(),
           '/verifyEmail': (context) => ConfirmEmailScreen(),
           '/wrapper': (context) => Wrapper(),
           // '/phoneAuth': (context) => PhoneNumberScreen(),

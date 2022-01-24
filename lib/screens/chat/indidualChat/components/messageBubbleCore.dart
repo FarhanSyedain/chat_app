@@ -167,7 +167,10 @@ class BubbleInterior extends StatelessWidget {
                             EdgeInsets.fromLTRB(12, 8, isSender ? 54 : 38, 8),
                         child: Text(
                           text,
-                          style: textStyle,
+                          style: textStyle.copyWith(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.normal,
+                          ),
                           textAlign: TextAlign.left,
                         ),
                       ),
