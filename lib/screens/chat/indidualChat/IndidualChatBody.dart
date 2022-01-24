@@ -82,15 +82,29 @@ class _BodyState extends State<Body> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                Container(
+                  height: 35,
                   padding: const EdgeInsets.only(left: 15.0, top: 10),
-                  child: Text(
-                    inputBarProvider.message!.sender == Sender.me
-                        ? 'You'
-                        : widget.provider.title,
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        inputBarProvider.message!.sender == Sender.me
+                            ? 'You'
+                            : widget.provider.title,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                      ),
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () => inputBarProvider.resetReplyTo(),
+                        icon: Icon(
+                          Icons.cancel_outlined,
+                          size: 15,
                         ),
+                      ),
+                    ],
                   ),
                 ),
                 Divider(
