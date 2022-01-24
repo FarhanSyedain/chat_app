@@ -1,5 +1,6 @@
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/chats.dart';
+import 'package:chat_app/screens/auth/genderSelectionPage/genderSelectionPage.dart';
 import 'package:provider/provider.dart';
 import 'package:chat_app/models/customUserModel.dart';
 import 'package:chat_app/screens/chat/home/home.dart';
@@ -32,12 +33,12 @@ class Wrapper extends StatelessWidget {
       return WelcomeScreen();
     }
     await _authState!.user?.reload();
-    if (authComplete ?? false) {
-      await Provider.of<Chats>(context, listen: false).fetchChats();
-      Provider.of<Chats>(context, listen: false).getChats;
+    // if (authComplete ?? false) {
+    //   await Provider.of<Chats>(context, listen: false).fetchChats();
+    //   Provider.of<Chats>(context, listen: false).getChats;
 
-      return ChatScreen();
-    }
+    //   return ChatScreen();
+    // }
     //? Socail authe removed so no need, will see later
     // bool emailVerified = _user!.emailVerified;
     // final _provider = _user.providerData[0].providerId;
@@ -47,6 +48,9 @@ class Wrapper extends StatelessWidget {
 
     if (_user!.emailVerified) {
       if (prefs.getBool('profileSet') ?? true) {
+        if (!(prefs.getBool('genderSelected') ?? false)) {
+          return GenderSelectionPage();
+        }
         if (prefs.getBool('profileSet') == null) {
           //Then fetch the profile
           await ProfileService().getProfile(FirebaseAuth.instance).then(
