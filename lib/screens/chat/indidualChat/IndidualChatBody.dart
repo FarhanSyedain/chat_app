@@ -1,6 +1,7 @@
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/extras/enums.dart';
 import 'package:chat_app/models/inputBar.dart';
+import 'package:chat_app/screens/chat/indidualChat/components/ChatStartingWidget.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/messageBubble.dart';
 import 'package:chat_app/screens/chat/indidualChat/inputBar.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +44,11 @@ class _BodyState extends State<Body> {
                 reverse: true,
                 controller: controller,
                 shrinkWrap: true,
-                itemCount: widget.provider.messages.length,
+                itemCount: widget.provider.messages.length + 1,
                 itemBuilder: (context, index) {
+                  if (index == widget.provider.messages.length) {
+                    return ChatStartingWidget();
+                  }
                   return ChangeNotifierProvider.value(
                     value: widget.provider.messages.elementAt(index),
                     builder: (context, child) {
