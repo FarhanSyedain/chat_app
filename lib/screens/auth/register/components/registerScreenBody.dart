@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/chat/loadingOverlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/screens/auth/components/socialAuthRow.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '/components/customProceedButton.dart';
 import 'package:provider/provider.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import '../../components/customTextField.dart';
 
 class RegisterScreenBody extends StatefulWidget {

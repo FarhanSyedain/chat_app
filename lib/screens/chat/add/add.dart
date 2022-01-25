@@ -5,13 +5,12 @@ import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/chats.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
+import 'package:chat_app/screens/chat/loadingOverlay.dart';
 import 'package:chat_app/utilities/validitors/basicFormValiditors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
 class AddPerson extends StatefulWidget {

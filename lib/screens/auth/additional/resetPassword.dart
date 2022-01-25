@@ -1,5 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:loading_overlay/loading_overlay.dart';
+import 'package:chat_app/screens/chat/loadingOverlay.dart';
 import '/components/dilog/awsomeDilog.dart';
 import '/screens/auth/components/customAppbar.dart';
 import '/screens/auth/components/customTextField.dart';
