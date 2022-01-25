@@ -25,6 +25,12 @@ class Wrapper extends StatelessWidget {
       User? _user, AuthState? _authState, BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     final bool? authComplete = prefs.getBool('authComplete');
+    if (authComplete ?? false) {
+      await Provider.of<Chats>(context, listen: false).fetchChats();
+      Provider.of<Chats>(context, listen: false).getChats;
+
+      return ChatScreen();
+    }
 
     await prefs.reload();
     await _user?.reload();
@@ -33,12 +39,7 @@ class Wrapper extends StatelessWidget {
       return WelcomeScreen();
     }
     await _authState!.user?.reload();
-    // if (authComplete ?? false) {
-    //   await Provider.of<Chats>(context, listen: false).fetchChats();
-    //   Provider.of<Chats>(context, listen: false).getChats;
 
-    //   return ChatScreen();
-    // }
     //? Socail authe removed so no need, will see later
     // bool emailVerified = _user!.emailVerified;
     // final _provider = _user.providerData[0].providerId;
@@ -60,6 +61,7 @@ class Wrapper extends StatelessWidget {
         }
         prefs.setBool('authComplete', true);
         Provider.of<Chats>(context, listen: false).getChats;
+
         return ChatScreen();
       }
       return ProfilePageScreen();

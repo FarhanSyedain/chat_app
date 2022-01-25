@@ -40,7 +40,7 @@ class ProfileService {
     }
     final userUid = FirebaseAuth.instance.currentUser!.uid;
     final ref =
-        FirebaseStorage.instance.ref().child('userProfiles').child(userUid);    
+        FirebaseStorage.instance.ref().child('userProfiles').child(userUid);
     final tempDir = await pathProvider.getTemporaryDirectory();
     File file = File('${tempDir.path}/profilePicture');
     await ref.writeToFile(file);
@@ -59,10 +59,14 @@ class ProfileService {
       for (var key in data!.keys) {
         prefs.setString(key, data[key]);
       }
-  
+
       await prefs.setBool('profileSet', true);
     } else {
       await prefs.setBool('profileSet', false);
+    }
+
+    if (prefs.containsKey('gender')) {
+      await prefs.setBool('genderSelected', true);
     }
     await updateProfilePicture();
   }
