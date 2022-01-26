@@ -189,6 +189,10 @@ class Chat extends ChangeNotifier {
     }
   }
 
+  void clearInMemoryData() {
+    messages.clear();
+  }
+
   //The messages of the chat
   List<Message> get messages => _messages.reversed.toList();
   //The name of the recipient

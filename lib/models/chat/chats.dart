@@ -133,8 +133,14 @@ class Chats extends ChangeNotifier {
   }
 
   Future<void> populateChildren() async {
-    for (var c in _chats) {
-      await c.populate(c.id);
-    }
+    _chats.forEach((element) async {
+      await element.populate(element.id);
+    });
+  }
+  void clearInMemoryData() async {
+    _chats.forEach((element) { 
+      element.clearInMemoryData();
+    });
+    _chats.clear();
   }
 }

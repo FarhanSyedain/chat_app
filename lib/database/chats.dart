@@ -94,11 +94,13 @@ class ChatsDataBase {
     );
   }
 
-  Future close() async {
+  static Future close() async {
     final db = await instance.database;
     db.close();
   }
 
-  Future<void> deleteDatabase(String path) =>
-      databaseFactory.deleteDatabase(path);
+  static deleteDataBase() async {
+    final db = await instance.database;
+    await db.delete(tableNotes);
+  }
 }
