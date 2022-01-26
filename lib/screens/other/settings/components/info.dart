@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,7 +27,7 @@ class InfoCard extends StatelessWidget {
               ),
             ),
             Text(
-              'farhansyedain@gmail.com',
+              FirebaseAuth.instance.currentUser!.email!,
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'Montserrat',
