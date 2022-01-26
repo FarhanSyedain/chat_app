@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:chat_app/database/database.dart';
 import 'package:chat_app/models/customUserModel.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 class AuthService with ChangeNotifier {
   StreamController<AuthState> streamController = StreamController();
@@ -29,9 +28,14 @@ class AuthService with ChangeNotifier {
     return stream;
   }
 
-  signOut() async {
-    _auth.signOut();
-    SharedPreferences.getInstance().then((value) => value.clear());
+  Future<void> signOut({BuildContext? context}) async {
+    await _auth.signOut();
+    await SharedPreferences.getInstance().then((value) => value.clear());
+    await DatabaseHelper.deleteDataBases();
+    if (context != null) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/wrapper', (route) => false);
+    }
   }
 
   Future<String> registerUser(String email, String password) async {

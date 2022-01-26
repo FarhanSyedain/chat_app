@@ -5,7 +5,14 @@ import 'package:sqflite/sqflite.dart';
 final String tableNotes = 'chats';
 
 class ChatsFields {
-  static final List<String> values = [id, name, profilePicture, bio, email,creationTime];
+  static final List<String> values = [
+    id,
+    name,
+    profilePicture,
+    bio,
+    email,
+    creationTime
+  ];
 
   static final String id = '_id';
   static final String mid = 'id';
@@ -14,7 +21,6 @@ class ChatsFields {
   static final String bio = 'bio';
   static final String email = 'email';
   static final String creationTime = 'creation';
-
 }
 
 class ChatsDataBase {
@@ -92,4 +98,7 @@ class ChatsDataBase {
     final db = await instance.database;
     db.close();
   }
+
+  Future<void> deleteDatabase(String path) =>
+      databaseFactory.deleteDatabase(path);
 }

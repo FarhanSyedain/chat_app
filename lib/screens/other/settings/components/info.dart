@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class InfoCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          child: SvgPicture.asset(
+            'assets/vectors/male.svg',
+            height: 80,
+            width: 80,
+          ),
+        ),
+        SizedBox(width: 20),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Farhan',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'MontserratB',
+                fontSize: 21,
+              ),
+            ),
+            Text(
+              'farhansyedain@gmail.com',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Montserrat',
+                fontSize: 15,
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+}

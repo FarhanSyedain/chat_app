@@ -2,6 +2,8 @@ import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/chats.dart';
 import 'package:chat_app/screens/auth/profile/profile.dart';
 import 'package:chat_app/screens/chat/home/home.dart';
+import 'package:chat_app/screens/other/account/account.dart';
+import 'package:chat_app/screens/other/settings/settings.dart';
 import 'screens/auth/additional/confirmEmail.dart';
 import 'screens/auth/additional/resetEmail.dart';
 import 'screens/auth/additional/resetPassword.dart';
@@ -69,6 +71,10 @@ class Main extends StatelessWidget {
           // '/phoneAuth': (context) => PhoneNumberScreen(),
           '/resetEmailSend': (context) => ResetEmailSendScreen(),
           '/forgotPassword': (context) => ResetEmailScreen(),
+          '/settingsPage': (context) => SettingsPage(),
+          '/accountPage': (context) => AccountScreen(),
+          '/chatPage': (context) => SettingsPage(),
+          '/themePage': (context) => SettingsPage(),
         },
       ),
     );

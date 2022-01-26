@@ -131,6 +131,9 @@ class ChatDataBase {
   }
 }
 
+Future<void> deleteDatabase(String path) =>
+    databaseFactory.deleteDatabase(path);
+
 Map<int, String> migrationScripts = {
   1: '''
     CREATE TABLE $tableNotes ( 

@@ -42,25 +42,16 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
           fontSize: 35,
         ),
         actions: [
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(
-          //     Icons.search,
-          //   ),
-          //   padding: EdgeInsets.only(bottom: 10),
-          // ),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(
-          //     Icons.person
-          //   ),
-          //   padding: EdgeInsets.only(bottom: 10,right: 3),
-          // ),
-          Container(
-            margin: EdgeInsets.only(bottom: 10, right: 15),
-            height: 35,
-            width: 35,
-            child: SvgPicture.asset('assets/vectors/maleBlack.svg'),
+          GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(bottom: 10, right: 15),
+              height: 35,
+              width: 35,
+              child: SvgPicture.asset('assets/vectors/maleBlack.svg'),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, '/settingsPage');
+            },
           ),
         ],
       ),
