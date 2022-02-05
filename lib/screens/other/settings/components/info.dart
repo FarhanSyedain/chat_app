@@ -7,11 +7,14 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          child: SvgPicture.asset(
-            'assets/vectors/male.svg',
-            height: 80,
-            width: 80,
+        Hero(
+          tag: 'chat-appBar-image',
+          child: Container(
+            child: SvgPicture.asset(
+              'assets/vectors/male.svg',
+              height: 80,
+              width: 80,
+            ),
           ),
         ),
         SizedBox(width: 20),

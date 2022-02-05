@@ -23,7 +23,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final isDarkMode = true;
     return Container(
       child: IntroductionScreen(
-        globalBackgroundColor:  Theme.of(context).backgroundColor,
+        globalBackgroundColor: Theme.of(context).backgroundColor,
         done: Container(
           height: 60,
           child: RotatedBox(
@@ -36,8 +36,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
         ),
         onDone: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => LoginScreen()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+          );
         },
         next: Container(
           height: 60,
@@ -54,7 +58,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           PageViewModel(
             decoration: PageDecoration(
               titleTextStyle: titleStyle,
-              pageColor: isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
+              pageColor:
+                  isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
               imagePadding: EdgeInsets.only(top: 50),
             ),
             title: "Welcome to Spark",
@@ -66,7 +71,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           PageViewModel(
             decoration: PageDecoration(
               titleTextStyle: titleStyle,
-              pageColor: isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
+              pageColor:
+                  isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
               imagePadding: EdgeInsets.only(top: 50),
             ),
             title: "Hybrid Voice Texting",
@@ -79,7 +85,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           PageViewModel(
             decoration: PageDecoration(
               titleTextStyle: titleStyle,
-              pageColor: isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
+              pageColor:
+                  isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
               imagePadding: EdgeInsets.only(top: 50),
             ),
             image: SvgPicture.asset('assets/vectors/getStarted.svg'),

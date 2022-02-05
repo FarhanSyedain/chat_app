@@ -3,6 +3,7 @@ import 'package:chat_app/models/inputBar.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/indidualChat/IndidualChatBody.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class IndidualChat extends StatelessWidget {
@@ -41,19 +42,33 @@ class IndidualChat extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          Container(
-            height: 35,
-            width: 35,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
-            clipBehavior: Clip.hardEdge,
-            child: Image.asset('assets/dummy/profilePicture.jpg'),
+          Hero(
+            tag: 'chat-image',
+            child: Container(
+              height: 35,
+              width: 35,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(100)),
+              clipBehavior: Clip.hardEdge,
+              child: SvgPicture.asset(
+                'assets/vectors/male.svg',
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           SizedBox(width: 8),
-          Text(
-            title,
-            style: TextStyle(
-              fontFamily: 'MontserratB',
-              fontSize: 25,
+          Hero(
+            tag: 'chat-title',
+            child: Material(
+              color: Colors.transparent,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontFamily: 'MontserratB',
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
+              ),
             ),
           )
         ],

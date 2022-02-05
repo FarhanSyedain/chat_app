@@ -127,6 +127,7 @@ class Chats extends ChangeNotifier {
   Future<void> fetchChats() async {
     final chatsRead = await ChatsDataBase.instance.readAllChats();
     ChatsDataBase.instance.readAllChats();
+    _chats.clear();
     _chats.addAll(chatsRead);
     await populateChildren();
     return;

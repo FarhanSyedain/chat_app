@@ -1,5 +1,6 @@
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class MessageTile extends StatelessWidget {
@@ -28,8 +29,8 @@ class MessageTileBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
       ),
       width: double.infinity,
-      height:85,
-      padding: EdgeInsets.only(left: 15,right:2),
+      height: 85,
+      padding: EdgeInsets.only(left: 15, right: 2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -44,9 +45,12 @@ class MessageTileBody extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    child: Image.asset(
-                      'assets/dummy/profilePicture.jpg',
-                      fit: BoxFit.cover,
+                    child: Hero(
+                      tag: 'chat-image',
+                      child: SvgPicture.asset(
+                        'assets/vectors/male.svg',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
@@ -60,23 +64,22 @@ class MessageTileBody extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      chat.title,
-                      style: Theme.of(context).textTheme.bodyText1,
+                    Hero(
+                      tag: 'chat-title',
+                      child: Text(
+                        chat.title,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                     ),
                     SizedBox(
                       height: 7,
                     ),
                     if (chat.subtitle != null)
-                      Text(
-                        chat.subtitle!,
-                        style: 
-                             Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(fontSize: 14)
-                        
-                      ),
+                      Text(chat.subtitle!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(fontSize: 14)),
                   ],
                 ),
               ),
@@ -93,52 +96,51 @@ class MessageTileBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       if (chat.time != null)
-                        Text(
-                          chat.time!,
-                          style: !chat.read
-                              ? Theme.of(context).textTheme.bodyText2?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    // color: Colors.blue,
-                                  )
-                              : Theme.of(context)
-                                  .textTheme
-                                  .bodyText2
-                        ),
+                        Text(chat.time!,
+                            style: !chat.read
+                                ? Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      // color: Colors.blue,
+                                    )
+                                : Theme.of(context).textTheme.bodyText2),
                     ],
                   ),
                 ),
                 if (!chat.read)
-                Container(
-                  margin: EdgeInsets.only(top: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (chat.time != null)
-                        ClipOval(
-                          child: Container(
-                            width: 20,
-                            height: 20,
-                            alignment: Alignment.center,
-                            // color: Colors.blue,
-                            color: Theme.of(context).colorScheme.secondary,
-                            child: Text(
-                              chat.count.toString(),
-                              style: !chat.read
-                                  ? Theme.of(context).textTheme.bodyText2?.copyWith(
-                                        // color:
-                                        //     Theme.of(context).colorScheme.secondary,
-                                        color: Colors.white,
-                                      )
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .bodyText2
+                  Container(
+                    margin: EdgeInsets.only(top: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (chat.time != null)
+                          ClipOval(
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              alignment: Alignment.center,
+                              // color: Colors.blue,
+                              color: Theme.of(context).colorScheme.secondary,
+                              child: Text(chat.count.toString(),
+                                  style: !chat.read
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .bodyText2
+                                          ?.copyWith(
+                                            // color:
+                                            //     Theme.of(context).colorScheme.secondary,
+                                            color: Colors.white,
+                                          )
+                                      : Theme.of(context).textTheme.bodyText2),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           )

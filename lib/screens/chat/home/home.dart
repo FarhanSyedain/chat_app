@@ -4,10 +4,13 @@ import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/add/add.dart';
 import 'package:chat_app/screens/chat/home/components/messageTite.dart';
 import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
+import 'package:chat_app/screens/customPageRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -43,11 +46,14 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         ),
         actions: [
           GestureDetector(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 10, right: 15),
-              height: 35,
-              width: 35,
-              child: SvgPicture.asset('assets/vectors/maleBlack.svg'),
+            child: Hero(
+            tag: 'chat-appBar-image',
+              child: Container(
+                margin: EdgeInsets.only(bottom: 10, right: 15),
+                height: 35,
+                width: 35,
+                child: SvgPicture.asset('assets/vectors/male.svg'),
+              ),
             ),
             onTap: () {
               Navigator.pushNamed(context, '/settingsPage');
@@ -148,6 +154,34 @@ class ChatScreenBody extends StatelessWidget {
                             ),
                           ),
                         );
+                        //   Navigator.push(
+                        //     context,
+                        //     PageTransition(
+                        //       child: ChangeNotifierProvider.value(
+                        //         value: provider.chats.firstWhere(
+                        //             (element) => element.id == chat.id),
+                        //         builder: (context, child) {
+                        //           final provider = Provider.of<Chat>(context);
+                        //           return IndidualChat(provider);
+                        //         },
+                        //       ),
+                        //       type: PageTransitionType.bottomToTop,
+                        //     ),
+                        //   );
+                        // Navigator.push(
+                        //   context,
+                        //   CustomRoute(
+                        //     ChangeNotifierProvider.value(
+                        //       value: provider.chats.firstWhere(
+                        //           (element) => element.id == chat.id),
+                        //       builder: (context, child) {
+                        //         final provider = Provider.of<Chat>(context);
+                        //         return IndidualChat(provider);
+                        //       },
+                        //     ),
+                        //     AxisDirection.left,
+                        //   ),
+                        // );
                       },
                       child: MessageTile(chat),
                     );
