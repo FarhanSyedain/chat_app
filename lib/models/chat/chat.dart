@@ -22,6 +22,7 @@ class Chat extends ChangeNotifier {
 
   Future<void> populate(id) async {
     final m = await ChatDataBase.instance.readMessagesFor(id);
+    _messages.clear();
     _messages.addAll(m);
   }
 
@@ -168,6 +169,7 @@ class Chat extends ChangeNotifier {
     ChatDataBase.instance.create(message, id);
     final firebase =
         FirebaseFirestore.instance.collection('chats/$receiverId/recieved');
+    print('fds');
     firebase.add({
       'data': message.data,
       'date': message.date.toString(),
@@ -175,8 +177,12 @@ class Chat extends ChangeNotifier {
       'commonID': message.commonId,
       'replyto': message.replyTo,
     }).then((value) {
+      print('HI');
       message.setMessageStatus(MessageStatus.sent, id);
+      print('HI two');
+
     });
+    print('fdasjlfs');
   }
 
   void updateReadStatusBulkInMemory(DateTime dateTime) {
