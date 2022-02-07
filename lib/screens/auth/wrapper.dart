@@ -1,6 +1,7 @@
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/chats.dart';
 import 'package:chat_app/screens/auth/genderSelectionPage/genderSelectionPage.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:chat_app/models/customUserModel.dart';
 import 'package:chat_app/screens/chat/home/home.dart';
@@ -77,9 +78,10 @@ class Wrapper extends StatelessWidget {
     return FutureBuilder(
       initialData: CustomProsgressScreen(),
       builder: (context, data) {
+        // return CustomProsgressScreen();
         return data.data == null
-            ? CustomProsgressScreen()
-            : data.data as Widget;
+        ? CustomProsgressScreen()
+        : data.data as Widget;
       },
       future: init(_user, _authState, context),
     );
@@ -97,13 +99,24 @@ class CustomProsgressScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         child: Center(
-          child: Container(
-            width: 50,
-            height: 50,
-            child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.secondary,
-              strokeWidth: 4,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 200,
+                height: 200,
+                child: Lottie.network(
+                  'https://assets2.lottiefiles.com/packages/lf20_tqvrzfnf.json',
+                ),
+              ),
+              // Container(
+              //   width: 200,
+              //   height: 200,
+              //   child: Lottie.network(
+              //     'https://assets4.lottiefiles.com/packages/lf20_sxhnff0a.json',
+              //   ),
+              // ),
+            ],
           ),
         ),
       ),

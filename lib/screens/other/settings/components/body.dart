@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import './info.dart';
 import './listTite.dart';
@@ -29,6 +30,7 @@ class Body extends StatelessWidget {
           Icons.chat_bubble,
           screenRoute: '/chatPage',
         ),
+
       ],
     );
   }

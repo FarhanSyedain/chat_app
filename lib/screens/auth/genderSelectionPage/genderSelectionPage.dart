@@ -1,3 +1,4 @@
+import 'package:chat_app/components/background.dart';
 import 'package:chat_app/components/customProceedButton.dart';
 import 'package:chat_app/components/radio.dart';
 import 'package:chat_app/screens/chat/loadingOverlay.dart';
@@ -16,56 +17,58 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 60),
-              Text(
-                'Select Your Gender',
-                style: TextStyle(
-                  fontSize: 50,
-                  fontFamily: 'MontserratB',
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 15),
-              Text(
-                'This will be used to generate an avatar',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontFamily: 'Montserrat',
-                ),
-              ),
-              SizedBox(height: 60),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyRadioListTile<int>(
-                    value: 1,
-                    groupValue: _value,
-                    leading: 'Boy',
-                    onChanged: (value) => setState(() => _value = value!),
+    return BackgroundWrapper(
+      child: LoadingOverlay(
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 60),
+                Text(
+                  'Select Your Gender',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontFamily: 'MontserratB',
+                    color: Colors.white,
                   ),
-                  MyRadioListTile<int>(
-                    value: 2,
-                    groupValue: _value,
-                    leading: 'Girl',
-                    onChanged: (value) => setState(() => _value = value!),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'This will be used to generate an avatar',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Montserrat',
                   ),
-                ],
-              ),
-              SizedBox(height: 60),
-              GestureDetector(
-                child: CustomProceedButton('Next'),
-                onTap: () => setGender(_value),
-              ),
-            ],
+                ),
+                SizedBox(height: 60),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyRadioListTile<int>(
+                      value: 1,
+                      groupValue: _value,
+                      leading: 'Boy',
+                      onChanged: (value) => setState(() => _value = value!),
+                    ),
+                    MyRadioListTile<int>(
+                      value: 2,
+                      groupValue: _value,
+                      leading: 'Girl',
+                      onChanged: (value) => setState(() => _value = value!),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 60),
+                GestureDetector(
+                  child: CustomProceedButton('Next'),
+                  onTap: () => setGender(_value),
+                ),
+              ],
+            ),
           ),
         ),
       ),

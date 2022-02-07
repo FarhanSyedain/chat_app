@@ -15,7 +15,12 @@ class SettingsPage extends StatelessWidget {
         title: 'Profile',
         showBackButton: true,
       ),
-      body: Body(),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Body(),
+        color: Colors.black,
+      ),
     );
   }
 }

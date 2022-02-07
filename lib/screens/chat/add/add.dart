@@ -28,117 +28,123 @@ class _AddPersonState extends State<AddPerson> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+
       appBar: buildAppBar(
         context,
         title: 'Search',
       ),
-      body: LoadingOverlay(
-        isLoading: isLoading,
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    'assets/vectors/phoneAuth.svg',
-                    height: 200,
-                  ),
-                  Text(
-                    'Add',
-                    style: TextStyle(
-                      fontFamily: 'MontserratB',
-                      fontSize: 50,
-                      color: Colors.white,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.black,
+        child: LoadingOverlay(
+          isLoading: isLoading,
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/vectors/phoneAuth.svg',
+                      height: 200,
                     ),
-                  ),
-                  Text(
-                    'Enter a valid email',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 30,
+                    Text(
+                      'Add',
+                      style: TextStyle(
+                        fontFamily: 'MontserratB',
+                        fontSize: 50,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  CustomTextField(
-                    'Email',
-                    emailValidator,
-                    controller: _controller,
-                    focused: false,
-                    errorMessage: errorMessage,
-                    textInputAction: TextInputAction.done,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    child: CustomProceedButton('Add Person'),
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        final email = _controller.text;
-                        setState(() {
-                          isLoading = true;
-                          errorMessage = '';
-                        });
-                        FirebaseFirestore.instance
-                            .collection('users')
-                            .where('email', isEqualTo: email)
-                            .get()
-                            .then(
-                          (value) {
-                            if (value.docs.isEmpty) {
-                              setState(() {
-                                isLoading = false;
-                                errorMessage = 'No user with this email exists';
-                              });
-                            } else {
-                              final id = value.docs.first.id;
-                              final data = value.docs.first.data();
-                              String? name = data['firstName'];
-                              final lastName = data['lastName'];
-                              name = name! + ' ' + (lastName ?? '');
-                              name = name.trim();
-                              final email = data['email'];
-                              final bio = data['bio'];
-                              File? profilePicture;
-                              FirebaseStorage.instance
-                                  .ref()
-                                  .child('userProfiles')
-                                  .child(id)
-                                  .getData()
-                                  .then((value) {})
-                                  .catchError((error) {})
-                                  .whenComplete(
-                                () {
-                                  final chat = Chat.fromdata(
-                                    id,
-                                    name,
-                                    email,
-                                    profilePicture,
-                                    bio,
-                                    DateTime.now(),
-                                  );
-                                  Provider.of<Chats>(context, listen: false)
-                                      .addtoChats(chat);
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                  _controller.clear();
-                                  Navigator.of(context).pop();
-                                },
-                              );
-                            }
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ],
+                    Text(
+                      'Enter a valid email',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 30,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    CustomTextField(
+                      'Email',
+                      emailValidator,
+                      controller: _controller,
+                      focused: false,
+                      errorMessage: errorMessage,
+                      textInputAction: TextInputAction.done,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      child: CustomProceedButton('Add Person'),
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          final email = _controller.text;
+                          setState(() {
+                            isLoading = true;
+                            errorMessage = '';
+                          });
+                          FirebaseFirestore.instance
+                              .collection('users')
+                              .where('email', isEqualTo: email)
+                              .get()
+                              .then(
+                            (value) {
+                              if (value.docs.isEmpty) {
+                                setState(() {
+                                  isLoading = false;
+                                  errorMessage = 'No user with this email exists';
+                                });
+                              } else {
+                                final id = value.docs.first.id;
+                                final data = value.docs.first.data();
+                                String? name = data['firstName'];
+                                final lastName = data['lastName'];
+                                name = name! + ' ' + (lastName ?? '');
+                                name = name.trim();
+                                final email = data['email'];
+                                final bio = data['bio'];
+                                File? profilePicture;
+                                FirebaseStorage.instance
+                                    .ref()
+                                    .child('userProfiles')
+                                    .child(id)
+                                    .getData()
+                                    .then((value) {})
+                                    .catchError((error) {})
+                                    .whenComplete(
+                                  () {
+                                    final chat = Chat.fromdata(
+                                      id,
+                                      name,
+                                      email,
+                                      profilePicture,
+                                      bio,
+                                      DateTime.now(),
+                                    );
+                                    Provider.of<Chats>(context, listen: false)
+                                        .addtoChats(chat);
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    _controller.clear();
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              }
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

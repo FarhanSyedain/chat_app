@@ -46,7 +46,7 @@ dependencies:
   android_intent: ^2.0.2
   intl: ^0.17.0
   visibility_detector: ^0.2.2
-  page_transition: ^2.0.5
+  lottie: ^1.2.2
 
 dev_dependencies:
   flutter_test:

@@ -4,13 +4,13 @@ import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/add/add.dart';
 import 'package:chat_app/screens/chat/home/components/messageTite.dart';
 import 'package:chat_app/screens/chat/indidualChat/indidualChat.dart';
-import 'package:chat_app/screens/customPageRoute.dart';
+import 'package:chat_app/screens/other/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqlite_api.dart';
+import 'package:chat_app/animations/animations.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -47,7 +47,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         actions: [
           GestureDetector(
             child: Hero(
-            tag: 'chat-appBar-image',
+              tag: 'chat-appBar-image',
               child: Container(
                 margin: EdgeInsets.only(bottom: 10, right: 15),
                 height: 35,
@@ -56,24 +56,38 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, '/settingsPage');
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: SettingsPage(),
+                  type: PageTransitionType.fromRight,
+                ),
+              );
             },
           ),
         ],
       ),
       extendBody: true,
-      body: ChatScreenBody(
-        _index,
-        (i) {
-          setState(() {
-            _index = i;
-          });
-        },
+      body: FadeAnimation(
+        
+        child: ChatScreenBody(
+          _index,
+          (i) {
+            setState(() {
+              _index = i;
+            });
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (x) => AddPerson()));
+            context,
+            PageTransition(
+              child: AddPerson(),
+              type: PageTransitionType.fromBottom,
+            ),
+          );
         },
         child: Icon(
           Icons.add,
@@ -130,7 +144,10 @@ class ChatScreenBody extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 15),
-                      child: SvgPicture.asset('assets/vectors/loon.svg'),
+                      // child: SvgPicture.asset('assets/vectors/loon.svg'),
+                      child: Lottie.network(
+                        'https://assets8.lottiefiles.com/packages/lf20_ocrcnofw.json',
+                      ),
                       height: 320,
                     ),
                   ],

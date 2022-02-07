@@ -23,7 +23,12 @@ class _AccountScreenState extends State<AccountScreen> {
           context,
           title: 'Account',
         ),
-        body: Body(changeIsLoading),
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.black,
+          child: Body(changeIsLoading),
+        ),
       ),
     );
   }

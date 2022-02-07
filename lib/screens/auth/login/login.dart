@@ -1,3 +1,4 @@
+import 'package:chat_app/components/background.dart';
 import 'package:flutter/material.dart';
 
 import '../components/customAppbar.dart';
@@ -14,7 +15,7 @@ class LoginScreen extends StatelessWidget {
           Navigator.of(context).pop();
         },
       ),
-      body: LoginScreenBody(),
+      body: BackgroundWrapper(child: LoginScreenBody()),
     );
   }
 }

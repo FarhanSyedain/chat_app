@@ -1,3 +1,4 @@
+import 'package:chat_app/animations/animations.dart';
 import 'package:chat_app/models/chat/chat.dart';
 import 'package:chat_app/models/chat/chats.dart';
 import 'package:chat_app/screens/auth/profile/profile.dart';
@@ -72,10 +73,23 @@ class Main extends StatelessWidget {
           '/resetEmailSend': (context) => ResetEmailSendScreen(),
           '/forgotPassword': (context) => ResetEmailScreen(),
           '/settingsPage': (context) => SettingsPage(),
-          '/accountPage': (context) => AccountScreen(),
+          // '/accountPage': (context) => AccountScreen(),
           '/chatPage': (context) => SettingsPage(),
           '/themePage': (context) => SettingsPage(),
         },
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/accountPage':
+              return PageTransition(
+                child: AccountScreen(),
+                type: PageTransitionType.fromBottom,
+              );
+
+            default:
+          }
+        },
+        title: 'Spark',
+        color: Colors.green,
       ),
     );
   }

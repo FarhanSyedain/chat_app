@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chat_app/components/background.dart';
 import 'package:chat_app/screens/chat/loadingOverlay.dart';
 
 import '/screens/auth/components/customAppbar.dart';
@@ -56,33 +57,35 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: buildAppBar(
-        context,
-        title: 'Profile',
-        showBackButton: false,
-      ),
-      body: FutureBuilder(
-        future: init(),
-        builder: (context, data) => LoadingOverlay(
-          // progressIndicator: ,
-          isLoading: showSpiner,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 30),
-                ProfileArea(
-                  currentImage: _currentImage,
-                  pickedImage: _pickedImage,
-                  changeSpinerval: changeSpinerVal,
-                ),
-                SizedBox(height: 40,),
-                Padding(
-                  padding: EdgeInsets.all(15),
-                  child: CustomFormArea(changeSpinerVal),
-                )
-              ],
+    return BackgroundWrapper(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: buildAppBar(
+          context,
+          title: 'Profile',
+          showBackButton: false,
+        ),
+        body: FutureBuilder(
+          future: init(),
+          builder: (context, data) => LoadingOverlay(
+            // progressIndicator: ,
+            isLoading: showSpiner,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 30),
+                  ProfileArea(
+                    currentImage: _currentImage,
+                    pickedImage: _pickedImage,
+                    changeSpinerval: changeSpinerVal,
+                  ),
+                  SizedBox(height: 40,),
+                  Padding(
+                    padding: EdgeInsets.all(15),
+                    child: CustomFormArea(changeSpinerVal),
+                  )
+                ],
+              ),
             ),
           ),
         ),
