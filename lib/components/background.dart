@@ -9,6 +9,7 @@ class BackgroundWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: child,
+      color: Colors.black,
       width: double.infinity,
       height: double.infinity,
     );

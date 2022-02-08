@@ -1,3 +1,4 @@
+import 'package:chat_app/animations/animations.dart';
 import 'package:chat_app/screens/auth/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,8 +39,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         onDone: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => LoginScreen(),
+            PageTransition(
+              child: LoginScreen(),
+              type: PageTransitionType.fromRight,
             ),
           );
         },

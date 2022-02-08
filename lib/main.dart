@@ -64,8 +64,6 @@ class Main extends StatelessWidget {
         theme: lightTheme,
         themeMode: ThemeMode.dark,
         routes: {
-          '/login': (context) => LoginScreen(),
-          '/register': (context) => RegisterScreen(),
           '/home': (context) => ChatScreen(),
           '/verifyEmail': (context) => ConfirmEmailScreen(),
           '/wrapper': (context) => Wrapper(),
@@ -83,6 +81,16 @@ class Main extends StatelessWidget {
               return PageTransition(
                 child: AccountScreen(),
                 type: PageTransitionType.fromBottom,
+              );
+            case '/login':
+              return PageTransition(
+                child: LoginScreen(),
+                type: PageTransitionType.fromRight,
+              );
+            case '/register':
+              return PageTransition(
+                child: RegisterScreen(),
+                type: PageTransitionType.fromRight,
               );
 
             default:

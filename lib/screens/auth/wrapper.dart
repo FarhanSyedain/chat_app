@@ -109,13 +109,6 @@ class CustomProsgressScreen extends StatelessWidget {
                   'https://assets2.lottiefiles.com/packages/lf20_tqvrzfnf.json',
                 ),
               ),
-              // Container(
-              //   width: 200,
-              //   height: 200,
-              //   child: Lottie.network(
-              //     'https://assets4.lottiefiles.com/packages/lf20_sxhnff0a.json',
-              //   ),
-              // ),
             ],
           ),
         ),
