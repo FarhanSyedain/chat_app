@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:chat_app/components/background.dart';
 import 'package:chat_app/screens/chat/loadingOverlay.dart';
 import '/components/dilog/awsomeDilog.dart';
 import '/screens/auth/components/customAppbar.dart';
@@ -30,61 +31,65 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
         appBar: buildAppBar(context, back: () {
           Navigator.of(context).pop();
         }),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20),
-                  Center(
-                    child: Text(
-                      'Forgot your password?',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Center(
-                    child: Text(
-                      'Enter the email associated with your account, so that we could send you instructions.',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  Center(
-                    child: SvgPicture.asset(
-                      'assets/vectors/emailReset.svg',
-                      height: 200,
-                    ),
-                  ),
-                  SizedBox(height: 25),
-                  Center(
-                    child: Form(
-                      key: _formKey,
-                      child: CustomTextField(
-                        'Email',
-                        emailValidator,
-                        controller: _textEditingController,
-                        prefixIcon: Icons.email,
-                        errorMessage: _invalidEmail
-                            ? 'Invalid Email'
-                            : _noUserAssociated
-                                ? 'No user associated with this email'
-                                : null,
+        body: BackgroundWrapper(
+          child: SingleChildScrollView(
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20),
+                    Center(
+                      child: Text(
+                        'Forgot your password?',
+                        style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10,),
-                  SizedBox(height: 15),
-                  Center(
-                    child: GestureDetector(
-                      child: CustomProceedButton('Send Email'),
-                      onTap: sendEmail,
+                    SizedBox(height: 15),
+                    Center(
+                      child: Text(
+                        'Enter the email associated with your account, so that we could send you instructions.',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 30),
+                    Center(
+                      child: SvgPicture.asset(
+                        'assets/vectors/emailReset.svg',
+                        height: 200,
+                      ),
+                    ),
+                    SizedBox(height: 25),
+                    Center(
+                      child: Form(
+                        key: _formKey,
+                        child: CustomTextField(
+                          'Email',
+                          emailValidator,
+                          controller: _textEditingController,
+                          prefixIcon: Icons.email,
+                          errorMessage: _invalidEmail
+                              ? 'Invalid Email'
+                              : _noUserAssociated
+                                  ? 'No user associated with this email'
+                                  : null,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(height: 15),
+                    Center(
+                      child: GestureDetector(
+                        child: CustomProceedButton('Send Email'),
+                        onTap: sendEmail,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

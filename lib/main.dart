@@ -67,11 +67,7 @@ class Main extends StatelessWidget {
           '/home': (context) => ChatScreen(),
           '/verifyEmail': (context) => ConfirmEmailScreen(),
           '/wrapper': (context) => Wrapper(),
-          // '/phoneAuth': (context) => PhoneNumberScreen(),
-          '/resetEmailSend': (context) => ResetEmailSendScreen(),
-          '/forgotPassword': (context) => ResetEmailScreen(),
           '/settingsPage': (context) => SettingsPage(),
-          // '/accountPage': (context) => AccountScreen(),
           '/chatPage': (context) => SettingsPage(),
           '/themePage': (context) => SettingsPage(),
         },
@@ -91,6 +87,17 @@ class Main extends StatelessWidget {
               return PageTransition(
                 child: RegisterScreen(),
                 type: PageTransitionType.fromRight,
+              );
+            case '/forgotPassword':
+              return PageTransition(
+                child: ResetEmailScreen(),
+                type: PageTransitionType.fromBottom,
+              );
+
+            case '/resetEmailSend':
+              return PageTransition(
+                child: ResetEmailSendScreen(),
+                type: PageTransitionType.fromBottom,
               );
 
             default:
