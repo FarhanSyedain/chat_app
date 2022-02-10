@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 
 class Wrapper extends StatelessWidget {
   final bool? profileSet;
-  const Wrapper({this.profileSet = false});
+  Wrapper({this.profileSet = false});
   Future<void> sign() async {
     FirebaseAuth.instance.signOut();
   }
@@ -37,7 +37,7 @@ class Wrapper extends StatelessWidget {
     await _user?.reload();
 
     if (_authState?.user == null) {
-      return const WelcomeScreen();
+      return WelcomeScreen();
     }
     await _authState!.user?.reload();
 
@@ -67,7 +67,7 @@ class Wrapper extends StatelessWidget {
       }
       return ProfilePageScreen();
     } else {
-      return const ConfirmEmailScreen();
+      return ConfirmEmailScreen();
     }
   }
 
@@ -76,11 +76,11 @@ class Wrapper extends StatelessWidget {
     final _user = Provider.of<User?>(context, listen: false);
     final _authState = Provider.of<AuthState?>(context);
     return FutureBuilder(
-      initialData: const CustomProsgressScreen(),
+      initialData: CustomProsgressScreen(),
       builder: (context, data) {
         // return CustomProsgressScreen();
         return data.data == null
-        ? const CustomProsgressScreen()
+        ? CustomProsgressScreen()
         : data.data as Widget;
       },
       future: init(_user, _authState, context),
@@ -95,14 +95,14 @@ class CustomProsgressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: SizedBox(
+      body: Container(
         width: double.infinity,
         height: double.infinity,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
+              Container(
                 width: 200,
                 height: 200,
                 child: Lottie.network(

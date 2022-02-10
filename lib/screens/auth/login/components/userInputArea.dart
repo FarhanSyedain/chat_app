@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class UserInputArea extends StatefulWidget {
   final Function(bool) changeVal;
-  const UserInputArea(this.changeVal);
+  UserInputArea(this.changeVal);
 
   @override
   _UserInputAreaState createState() => _UserInputAreaState();
@@ -21,8 +21,8 @@ class UserInputArea extends StatefulWidget {
 class _UserInputAreaState extends State<UserInputArea> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _emailControler = TextEditingController();
-  final TextEditingController _passwordControler = TextEditingController();
+  TextEditingController _emailControler = TextEditingController();
+  TextEditingController _passwordControler = TextEditingController();
   bool userNotFound = false;
   bool incorrectPassword = false;
   @override
@@ -45,7 +45,7 @@ class _UserInputAreaState extends State<UserInputArea> {
                         : null,
                     prefixIcon: Icons.email,
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   CustomTextField(
                     'Password',
                     passwordValidator,
@@ -61,7 +61,7 @@ class _UserInputAreaState extends State<UserInputArea> {
               ),
 
               // ),
-              const SizedBox(height: 55),
+              SizedBox(height: 55),
               GestureDetector(
                 child: CustomProceedButton('Log In'),
                 onTap: () => login(context),

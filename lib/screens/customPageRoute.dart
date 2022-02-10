@@ -6,7 +6,7 @@ class CustomRoute extends PageRouteBuilder {
 
   CustomRoute(this.child, this.direction)
       : super(
-          transitionDuration: const Duration(milliseconds: 300),
+          transitionDuration: Duration(milliseconds: 300),
           pageBuilder: (context, animation, secondaryAnimation) => child,
         );
 
@@ -25,13 +25,13 @@ class CustomRoute extends PageRouteBuilder {
   Offset get getOffset {
     switch (direction) {
       case AxisDirection.up:
-        return const Offset(0, 1);
+        return Offset(0, 1);
       case AxisDirection.down:
-        return const Offset(0, -1);
+        return Offset(0, -1);
       case AxisDirection.left:
-        return const Offset(-1, 0);
+        return Offset(-1, 0);
       case AxisDirection.right:
-        return const Offset(1, 0);
+        return Offset(1, 0);
     }
   }
 }

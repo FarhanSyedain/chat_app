@@ -4,7 +4,7 @@ import '../components/socialMediaLoginButton.dart';
 class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
   final Function(dynamic) changeVal;
   final String uniqueText;
-  const SocialMediaRowWithPhoneNumberSwitch(
+  SocialMediaRowWithPhoneNumberSwitch(
     this.changeVal,
     this.uniqueText,
   );
@@ -13,8 +13,8 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 30),
-        const Text(
+        SizedBox(height: 30),
+        Text(
           'Chat Freely!',
           style: TextStyle(
             fontFamily: 'MontserratB',
@@ -22,7 +22,7 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        const Text(
+        Text(
           'Welcome,',
           style: TextStyle(
             fontFamily: 'Montserrat',
@@ -31,12 +31,12 @@ class SocialMediaRowWithPhoneNumberSwitch extends StatelessWidget {
         ),
         Text(
           'Sign $uniqueText below',
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Montserrat',
             fontSize: 30,
           ),
         ),
-        const SizedBox(
+        SizedBox(
           height: 40,
         ),
         // Text(

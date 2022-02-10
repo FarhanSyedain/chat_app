@@ -23,7 +23,7 @@ class MyRadioListTile<T> extends StatelessWidget {
       onTap: () => onChanged(value),
       child: Container(
         height: 150,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
             _customRadioButton(context),
@@ -38,7 +38,7 @@ class MyRadioListTile<T> extends StatelessWidget {
   Widget _customRadioButton(context) {
     final isSelected = value == groupValue;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color:
             isSelected ? Theme.of(context).colorScheme.secondary : Colors.white,
@@ -60,7 +60,7 @@ class MyRadioListTile<T> extends StatelessWidget {
               fontSize: 18,
             ),
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5),
           SvgPicture.asset(
             value == 1
                 ? 'assets/vectors/male.svg'

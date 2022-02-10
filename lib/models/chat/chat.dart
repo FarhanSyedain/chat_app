@@ -102,16 +102,16 @@ class Chat extends ChangeNotifier {
   }
 
   Chat.lazy(this.id, callback) {
-    final firebase = FirebaseFirestore.instance.collection('users').doc(id);
+    final firebase = FirebaseFirestore.instance.collection('users').doc('$id');
     firebase.get().then((value) {
       final data = value.data()!;
-      email = data['email'];
-      bio = data['bio'];
-      name = data['firstName'];
+      this.email = data['email'];
+      this.bio = data['bio'];
+      this.name = data['firstName'];
       final String? lastName = data['lastName'];
-      name = name! + ' ' + (lastName ?? '');
+      this.name = name! + ' ' + (lastName ?? '');
       name = name?.trim();
-      creationTime = DateTime.now();
+      this.creationTime = DateTime.now();
       callback(this);
     });
   }

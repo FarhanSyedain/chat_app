@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomFormArea extends StatefulWidget {
   final Function(bool)? changeSpinerVal;
-  const CustomFormArea(this.changeSpinerVal);
+  CustomFormArea(this.changeSpinerVal);
 
   @override
   _CustomFormAreaState createState() => _CustomFormAreaState();
@@ -15,9 +15,9 @@ class CustomFormArea extends StatefulWidget {
 
 class _CustomFormAreaState extends State<CustomFormArea> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _bioController = TextEditingController();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _bioController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,7 +33,7 @@ class _CustomFormAreaState extends State<CustomFormArea> {
                   if (value == null) {
                     return 'Please enter a name';
                   }
-                  if (value.trim().isEmpty) {
+                  if (value.trim().length == 0) {
                     return 'Please enter a name';
                   }
                   if (value.trim().length > 20) {
@@ -43,14 +43,14 @@ class _CustomFormAreaState extends State<CustomFormArea> {
                 prefixIcon: Icons.person_outline,
                 controller: _firstNameController,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               CustomTextField(
                 'Last Name',
                 null,
                 prefixIcon: Icons.person,
                 controller: _lastNameController,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               // Todo : Add a multiline option for CustomTextField and impliment that on bio
               CustomTextField(
                 'About',
@@ -59,7 +59,7 @@ class _CustomFormAreaState extends State<CustomFormArea> {
                 controller: _bioController,
                 textInputAction: TextInputAction.done,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
             ],
           ),
         ),

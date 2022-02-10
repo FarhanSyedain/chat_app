@@ -22,20 +22,20 @@ class ResetEmailSendScreen extends StatelessWidget {
                   'Email has been sent!',
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: 25),
                 Text(
                   'Please check your inbox. We\'ve sent you an email to reset your password.',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
-                const SizedBox(height: 60),
+                SizedBox(height: 60),
                 Center(
                   child: SvgPicture.asset(
                     'assets/vectors/emailReset.svg',
                     height: 200,
                   ),
                 ),
-                const SizedBox(height: 80),
+                SizedBox(height: 80),
                 GestureDetector(
                   child: CustomProceedButton('Login'),
                   onTap: () {

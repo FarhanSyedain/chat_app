@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomProceedButton extends StatelessWidget {
   final String buttonText;
   final bool disabled;
-  const CustomProceedButton(
+  CustomProceedButton(
     this.buttonText, {
     this.disabled = false,
   });

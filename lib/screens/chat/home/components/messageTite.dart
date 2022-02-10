@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class MessageTile extends StatelessWidget {
-  const MessageTile(this.chatProviderVal);
+  MessageTile(this.chatProviderVal);
 
   final Chat chatProviderVal;
 
@@ -30,7 +30,7 @@ class MessageTileBody extends StatelessWidget {
       ),
       width: double.infinity,
       height: 85,
-      padding: const EdgeInsets.only(left: 15, right: 2),
+      padding: EdgeInsets.only(left: 15, right: 2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -55,11 +55,11 @@ class MessageTileBody extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
+              SizedBox(
                 width: 10,
               ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 6),
+                padding: EdgeInsets.symmetric(vertical: 6),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class MessageTileBody extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 7,
                     ),
                     if (chat.subtitle != null)
@@ -91,7 +91,7 @@ class MessageTileBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(right: 20),
+                  margin: EdgeInsets.only(right: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -113,7 +113,7 @@ class MessageTileBody extends StatelessWidget {
                 ),
                 if (!chat.read)
                   Container(
-                    margin: const EdgeInsets.only(top: 5),
+                    margin: EdgeInsets.only(top: 5),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [

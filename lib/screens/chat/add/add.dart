@@ -52,7 +52,7 @@ class _AddPersonState extends State<AddPerson> {
                       'assets/vectors/phoneAuth.svg',
                       height: 200,
                     ),
-                    const Text(
+                    Text(
                       'Add',
                       style: TextStyle(
                         fontFamily: 'MontserratB',
@@ -60,14 +60,14 @@ class _AddPersonState extends State<AddPerson> {
                         color: Colors.white,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Enter a valid email',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 30,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 50,
                     ),
                     CustomTextField(
@@ -78,7 +78,7 @@ class _AddPersonState extends State<AddPerson> {
                       errorMessage: errorMessage,
                       textInputAction: TextInputAction.done,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 20,
                     ),
                     GestureDetector(

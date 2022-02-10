@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 OutlineInputBorder unFocusedBorder(c, {isError = false}) => OutlineInputBorder(
       borderSide: BorderSide(
-        color: isError ? Colors.red : const Color(0xFF161618),
+        color: isError ? Colors.red : Color(0xFF161618),
 
         width: 3,
       ),
@@ -10,7 +10,7 @@ OutlineInputBorder unFocusedBorder(c, {isError = false}) => OutlineInputBorder(
     );
 
 OutlineInputBorder focusedBorder(c) => OutlineInputBorder(
-      borderSide: const BorderSide(
+      borderSide: BorderSide(
         color: Color(0xFF161618),
         width: 2,
       ),

@@ -12,10 +12,10 @@ class Chats extends ChangeNotifier {
   List<Chat> get chats {
     final _chatCopy = _chats; // Lists are pointers my bad
     _chatCopy.sort((a, b) {
-      final DateTime valA = a.messages.isNotEmpty
+      final DateTime valA = a.messages.length > 0
           ? a.messages.first.date as DateTime
           : a.creationTime as DateTime;
-      final DateTime valB = b.messages.isNotEmpty
+      final DateTime valB = b.messages.length > 0
           ? b.messages.first.date as DateTime
           : b.creationTime as DateTime;
       return -valA.toString().compareTo(valB.toString());
@@ -134,15 +134,14 @@ class Chats extends ChangeNotifier {
   }
 
   Future<void> populateChildren() async {
-    for (var element in _chats) {
+    _chats.forEach((element) async {
       await element.populate(element.id);
-    }
+    });
   }
-
   void clearInMemoryData() async {
-    for (var element in _chats) {
+    _chats.forEach((element) { 
       element.clearInMemoryData();
-    }
+    });
     _chats.clear();
   }
 }

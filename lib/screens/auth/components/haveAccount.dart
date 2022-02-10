@@ -5,7 +5,7 @@ class HaveOrHaveNotAnAccount extends StatelessWidget {
   final String? route;
   final String? title;
   final String? pageName;
-  const HaveOrHaveNotAnAccount({this.route, this.title, this.pageName});
+  HaveOrHaveNotAnAccount({this.route, this.title, this.pageName});
   @override
   Widget build(BuildContext context) {
     return Center(

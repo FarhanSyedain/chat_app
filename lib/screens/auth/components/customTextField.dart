@@ -13,7 +13,7 @@ class CustomTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final FocusNode? focusNode;
 
-  const CustomTextField(
+  CustomTextField(
     this.helperText,
     this.validator, {
     this.controller,
@@ -35,7 +35,7 @@ class CustomTextField extends StatelessWidget {
           textInputAction: textInputAction,
           autofocus: focused,
           focusNode: focusNode,
-          controller: controller ?? null,
+          controller: controller == null ? null : controller,
           validator: validator,
           obscureText: isPassword,
           style: Theme.of(context)
@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
               .bodyText1
               ?.copyWith(fontSize: 15, height: 1.5),
           decoration: InputDecoration(
-            fillColor: const Color(0xFF161618), 
+            fillColor: Color(0xFF161618), 
             filled: true,
             prefixIcon: prefixIcon == null
                 ? null
@@ -53,7 +53,7 @@ class CustomTextField extends StatelessWidget {
                   ),
             enabled: !disabled,
             disabledBorder: unFocusedBorder(context),
-            errorText: errorMessage ?? null,
+            errorText: errorMessage == null ? null : errorMessage,
             focusedErrorBorder: focusedBorder(context),
             errorBorder: unFocusedBorder(context),
             focusedBorder: focusedBorder(context),

@@ -23,12 +23,12 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 60),
-                const Text(
+                SizedBox(height: 60),
+                Text(
                   'Select Your Gender',
                   style: TextStyle(
                     fontSize: 50,
@@ -36,15 +36,15 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 15),
-                const Text(
+                SizedBox(height: 15),
+                Text(
                   'This will be used to generate an avatar',
                   style: TextStyle(
                     fontSize: 15,
                     fontFamily: 'Montserrat',
                   ),
                 ),
-                const SizedBox(height: 60),
+                SizedBox(height: 60),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -62,7 +62,7 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 60),
+                SizedBox(height: 60),
                 GestureDetector(
                   child: CustomProceedButton('Next'),
                   onTap: () => setGender(_value),
@@ -84,7 +84,7 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
     FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
-        .update({'gender': gender}).then((value) async {
+        .update({'gender': '$gender'}).then((value) async {
       final prefs = await SharedPreferences.getInstance();
       prefs.setBool('genderSelected', true);
     }).whenComplete(

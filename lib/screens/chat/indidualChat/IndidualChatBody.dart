@@ -10,7 +10,7 @@ import 'package:swipe_to/swipe_to.dart';
 
 class IndidualChatBody extends StatelessWidget {
   final Chat provider;
-  const IndidualChatBody(this.provider);
+  IndidualChatBody(this.provider);
   @override
   Widget build(BuildContext context) {
     return Body(provider);
@@ -20,7 +20,7 @@ class IndidualChatBody extends StatelessWidget {
 class Body extends StatefulWidget {
   final Chat provider;
 
-  const Body(this.provider);
+  Body(this.provider);
 
   @override
   State<Body> createState() => _BodyState();
@@ -45,7 +45,7 @@ class _BodyState extends State<Body> {
             itemCount: widget.provider.messages.length + 1,
             itemBuilder: (context, index) {
               if (index == widget.provider.messages.length) {
-                return const ChatStartingWidget();
+                return ChatStartingWidget();
               }
               return ChangeNotifierProvider.value(
                 value: widget.provider.messages.elementAt(index),
@@ -68,15 +68,15 @@ class _BodyState extends State<Body> {
             },
           ),
         ),
-        const SizedBox(
+        SizedBox(
           height: 5,
         ),
         if (inputBarProvider.message != null)
           Container(
             height: 60,
-            margin: const EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(left: 10, right: 10),
             width: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(25),
                 topRight: Radius.circular(25),
@@ -103,7 +103,7 @@ class _BodyState extends State<Body> {
                       IconButton(
                         padding: EdgeInsets.zero,
                         onPressed: () => inputBarProvider.resetReplyTo(),
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.cancel_outlined,
                           size: 15,
                         ),
@@ -111,7 +111,7 @@ class _BodyState extends State<Body> {
                     ],
                   ),
                 ),
-                const Divider(
+                Divider(
                   color: Colors.white,
                   height: 8,
                 ),

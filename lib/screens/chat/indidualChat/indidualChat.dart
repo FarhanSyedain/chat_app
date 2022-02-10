@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class IndidualChat extends StatelessWidget {
   final Chat provider;
-  const IndidualChat(this.provider);
+  IndidualChat(this.provider);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +32,14 @@ class IndidualChat extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
-            padding: const EdgeInsets.only(top: 0.0),
+            padding: EdgeInsets.only(top: 0.0),
             icon: Icon(
               Icons.arrow_back_ios_outlined,
               color: Theme.of(context).iconTheme.color,
             ),
             onPressed: () {},
           ),
-          const SizedBox(
+          SizedBox(
             width: 5,
           ),
           Hero(
@@ -56,14 +56,14 @@ class IndidualChat extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Hero(
             tag: 'chat-title',
             child: Material(
               color: Colors.transparent,
               child: Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'MontserratB',
                   fontSize: 25,
                   color: Colors.white,
@@ -76,12 +76,12 @@ class IndidualChat extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.video_call),
+          icon: Icon(Icons.video_call),
           padding: EdgeInsets.zero,
         ),
         IconButton(
           onPressed: () {},
-          icon: const Icon(
+          icon: Icon(
             Icons.call,
           ),
           padding: EdgeInsets.zero,

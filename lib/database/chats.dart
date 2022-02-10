@@ -2,7 +2,7 @@ import 'package:chat_app/models/chat/chat.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-const String tableNotes = 'chats';
+final String tableNotes = 'chats';
 
 class ChatsFields {
   static final List<String> values = [
@@ -14,13 +14,13 @@ class ChatsFields {
     creationTime
   ];
 
-  static const String id = '_id';
-  static const String mid = 'id';
-  static const String name = 'name';
-  static const String profilePicture = 'profilePicture';
-  static const String bio = 'bio';
-  static const String email = 'email';
-  static const String creationTime = 'creation';
+  static final String id = '_id';
+  static final String mid = 'id';
+  static final String name = 'name';
+  static final String profilePicture = 'profilePicture';
+  static final String bio = 'bio';
+  static final String email = 'email';
+  static final String creationTime = 'creation';
 }
 
 class ChatsDataBase {
@@ -45,9 +45,9 @@ class ChatsDataBase {
   }
 
   Future _createDB(Database db, int version) async {
-    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    const textType = 'TEXT';
-    const textTypeNonNull = 'TEXT NOT NULL';
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final textType = 'TEXT';
+    final textTypeNonNull = 'TEXT NOT NULL';
 
     await db.execute('''
     CREATE TABLE $tableNotes ( 

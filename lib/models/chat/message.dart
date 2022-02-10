@@ -72,7 +72,7 @@ class Message with ChangeNotifier {
 
   void setMessageStatus(MessageStatus status, String senderId,
       {cacheOnly = false}) {
-    messageStatus = status;
+    this.messageStatus = status;
     if (cacheOnly) return;
     ChatDataBase.instance.updateReadStatus(this);
     notifyListeners();
@@ -84,7 +84,7 @@ class Message with ChangeNotifier {
 
   void onMessageRead(String receiverId, String userId, DateTime messageDate,
       Chat parentProvider) {
-    if (messageStatus == MessageStatus.read) {
+    if (this.messageStatus == MessageStatus.read) {
       return;
     }
     parentProvider.updateReadStatusBulkInCache(messageDate);
@@ -100,7 +100,7 @@ class Message with ChangeNotifier {
   }
 
   String getReadStatus() {
-    return getIntForMessageStatus(messageStatus).toString();
+    return getIntForMessageStatus(this.messageStatus).toString();
   }
 
   MessageReply? replyToMessage(Chat provider) {

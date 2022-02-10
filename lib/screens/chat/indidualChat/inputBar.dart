@@ -12,7 +12,7 @@ class InputBar extends StatefulWidget {
   final Chat provider;
   final ScrollController controller;
 
-  const InputBar({
+  InputBar({
     required this.controller,
     required this.provider,
   });
@@ -30,13 +30,13 @@ class _InputBarState extends State<InputBar> {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+          margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
           height: 50,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: inputBarProvider.message == null
                 ? BorderRadius.circular(25)
-                : const BorderRadius.only(
+                : BorderRadius.only(
                     bottomLeft: Radius.circular(25),
                     bottomRight: Radius.circular(25),
                   ),
@@ -45,7 +45,7 @@ class _InputBarState extends State<InputBar> {
           child: Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.camera_alt),
+                icon: Icon(Icons.camera_alt),
                 onPressed: () {},
                 color: Colors.blue,
               ),
@@ -53,7 +53,7 @@ class _InputBarState extends State<InputBar> {
                 child: TextField(
                   controller: inputTextController,
                   onChanged: (e) {
-                    if (e.trim().isEmpty && showSendButton) {
+                    if (e.trim().length == 0 && showSendButton) {
                       setState(() {
                         showSendButton = false;
                       });
@@ -75,7 +75,7 @@ class _InputBarState extends State<InputBar> {
               ),
               showSendButton
                   ? IconButton(
-                      icon: const Icon(Icons.send),
+                      icon: Icon(Icons.send),
                       onPressed: () {
                         widget.provider.send(
                           Message(
@@ -100,7 +100,7 @@ class _InputBarState extends State<InputBar> {
                       color: Colors.blue,
                     )
                   : IconButton(
-                      icon: const Icon(Icons.mic),
+                      icon: Icon(Icons.mic),
                       onPressed: () {},
                       color: Colors.white,
                     ),
@@ -114,7 +114,7 @@ class _InputBarState extends State<InputBar> {
   void _scrollDown(bottomInset) {
     widget.controller.animateTo(
       0,
-      duration: const Duration(milliseconds: 220),
+      duration: Duration(milliseconds: 220),
       curve: Curves.fastOutSlowIn,
     );
   }
