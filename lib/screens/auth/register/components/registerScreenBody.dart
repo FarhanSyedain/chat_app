@@ -27,7 +27,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
       isLoading: loading,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 30.0),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -53,7 +53,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       disabled: loading,
                       prefixIcon: Icons.email,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     CustomTextField(
                       'Passowrd',
                       passwordValidator,
@@ -62,7 +62,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       isPassword: true,
                       prefixIcon: Icons.lock_open,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     CustomTextField(
                       'Confirm password',
                       (value) => confirmPasswordValidator(
@@ -77,7 +77,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   ],
                 ),
               ),
-              SizedBox(height: 55),
+              const SizedBox(height: 55),
               loading
                   ? CustomProceedButton('Signin in..')
                   : GestureDetector(
@@ -96,7 +96,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                         'Sign Up',
                       ),
                     ), // Login Button Here
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Center(
                 child: Text.rich(
                   TextSpan(

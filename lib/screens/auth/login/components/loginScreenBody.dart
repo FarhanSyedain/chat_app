@@ -26,23 +26,23 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
       isLoading: loading,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SocialMediaRowWithPhoneNumberSwitch(changeVal,'in'),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               UserInputArea(changeVal),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               HaveOrHaveNotAnAccount(
                 pageName: 'Sign Up',
                 title: 'Don\'t have an account?  ',
                 route: '/register',
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.only(left: 10, top: 5),
+                padding: const EdgeInsets.only(left: 10, top: 5),
                 child: Center(
                   child: Text.rich(
                     TextSpan(

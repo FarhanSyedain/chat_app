@@ -35,11 +35,10 @@ PreferredSize buildAppBar(context,
                   Icons.arrow_back_ios_outlined,
                   color: Theme.of(context).iconTheme.color,
                 ),
-                onPressed: back == null
-                    ? () {
-                        Navigator.of(context).pop();
-                      }
-                    : back,
+                onPressed: back ??
+                    () {
+                      Navigator.of(context).pop();
+                    },
               )
             : leading,
 
@@ -48,18 +47,15 @@ PreferredSize buildAppBar(context,
         toolbarHeight: height,
         elevation: 0,
         shadowColor: Theme.of(context).cardColor,
-        title: titleWidget != null
-            ? titleWidget
-            : title != null
-                ? Padding(
-                    padding:
-                        EdgeInsets.only(top: paddingTop, bottom: paddingBottom),
-                    child: Text(
-                      title,
-                      style:
-                          titleStyle ?? Theme.of(context).textTheme.headline1,
-                    ),
-                  )
-                : null,
+        title: titleWidget ?? title != null
+            ? Padding(
+                padding:
+                    EdgeInsets.only(top: paddingTop, bottom: paddingBottom),
+                child: Text(
+                  title!,
+                  style: titleStyle ?? Theme.of(context).textTheme.headline1,
+                ),
+              )
+            : null,
       ),
     );

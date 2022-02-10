@@ -8,7 +8,7 @@ class CustomListTile extends StatelessWidget {
   final Color? iconColor;
   final Color? titleColor;
   final void Function()? onTapHandler;
-  CustomListTile(
+  const CustomListTile(
     this.title,
     this.icon, {
     this.screenRoute,
@@ -25,7 +25,7 @@ class CustomListTile extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF242526),
+          color: const Color(0xFF242526),
           borderRadius: BorderRadius.circular(5),
         ),
         padding: EdgeInsets.symmetric(
@@ -38,7 +38,7 @@ class CustomListTile extends StatelessWidget {
               icon,
               color: iconColor ?? Theme.of(context).colorScheme.secondary,
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Text(
               title,
               style: TextStyle(
@@ -48,12 +48,12 @@ class CustomListTile extends StatelessWidget {
                 color: titleColor ?? Colors.white,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             if (showTrailingArrow)
               IconButton(
                 onPressed: () {},
-                padding: EdgeInsets.all(0),
-                icon: Icon(
+                padding: const EdgeInsets.all(0),
+                icon: const Icon(
                   Icons.arrow_forward_ios,
                 ),
                 color: Theme.of(context).colorScheme.secondary,

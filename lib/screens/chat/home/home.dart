@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         showBackButton: false,
         paddingTop: 0.0,
         paddingBottom: 10.0,
-        titleStyle: TextStyle(
+        titleStyle: const TextStyle(
           fontFamily: 'MontserratB',
           fontSize: 35,
         ),
@@ -49,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             child: Hero(
               tag: 'chat-appBar-image',
               child: Container(
-                margin: EdgeInsets.only(bottom: 10, right: 15),
+                margin: const EdgeInsets.only(bottom: 10, right: 15),
                 height: 35,
                 width: 35,
                 child: SvgPicture.asset('assets/vectors/male.svg'),
@@ -59,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               Navigator.push(
                 context,
                 PageTransition(
-                  child: SettingsPage(),
+                  child: const SettingsPage(),
                   type: PageTransitionType.fromRight,
                 ),
               );
@@ -89,7 +89,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             ),
           );
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white70,
         ),
@@ -103,26 +103,26 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 class ChatScreenBody extends StatelessWidget {
   final int index;
   final Function changeIndex;
-  ChatScreenBody(this.index, this.changeIndex);
+  const ChatScreenBody(this.index, this.changeIndex);
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Chats>(context);
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
       ),
     );
     return SingleChildScrollView(
       child: Column(
         children: [
-          provider.chats.length == 0
+          provider.chats.isEmpty
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 80),
+                    const SizedBox(height: 80),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: const Text(
                         'Nothing Here!',
                         style: TextStyle(
                           fontSize: 45,
@@ -131,10 +131,10 @@ class ChatScreenBody extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: const Text(
                         'Click + icon to add a person.',
                         style: TextStyle(
                           fontSize: 20,
@@ -143,7 +143,7 @@ class ChatScreenBody extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
                       // child: SvgPicture.asset('assets/vectors/loon.svg'),
                       child: Lottie.network(
                         'https://assets8.lottiefiles.com/packages/lf20_ocrcnofw.json',
@@ -153,7 +153,7 @@ class ChatScreenBody extends StatelessWidget {
                   ],
                 )
               : ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     final chat = provider.chats.elementAt(index);
@@ -206,7 +206,7 @@ class ChatScreenBody extends StatelessWidget {
                   // itemCount: chats.length,
                   itemCount: provider.chats.length,
                 ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
         ],

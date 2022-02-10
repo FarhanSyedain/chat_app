@@ -39,14 +39,14 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Center(
                       child: Text(
                         'Forgot your password?',
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Center(
                       child: Text(
                         'Enter the email associated with your account, so that we could send you instructions.',
@@ -54,14 +54,14 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Center(
                       child: SvgPicture.asset(
                         'assets/vectors/emailReset.svg',
                         height: 200,
                       ),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     Center(
                       child: Form(
                         key: _formKey,
@@ -78,10 +78,10 @@ class _ResetEmailScreenState extends State<ResetEmailScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Center(
                       child: GestureDetector(
                         child: CustomProceedButton('Send Email'),

@@ -27,11 +27,12 @@ Future<void> main() async {
 }
 
 class Main extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: Color(0x0A0A0A),
+        statusBarColor: Color(0x000a0a0a),
       ),
     );
     SystemChrome.setPreferredOrientations(
@@ -65,17 +66,17 @@ class Main extends StatelessWidget {
         themeMode: ThemeMode.dark,
         routes: {
           '/home': (context) => ChatScreen(),
-          '/verifyEmail': (context) => ConfirmEmailScreen(),
+          '/verifyEmail': (context) => const ConfirmEmailScreen(),
           '/wrapper': (context) => Wrapper(),
-          '/settingsPage': (context) => SettingsPage(),
-          '/chatPage': (context) => SettingsPage(),
-          '/themePage': (context) => SettingsPage(),
+          '/settingsPage': (context) => const SettingsPage(),
+          '/chatPage': (context) => const SettingsPage(),
+          '/themePage': (context) => const SettingsPage(),
         },
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/accountPage':
               return PageTransition(
-                child: AccountScreen(),
+                child: const AccountScreen(),
                 type: PageTransitionType.fromBottom,
               );
             case '/login':
@@ -85,7 +86,7 @@ class Main extends StatelessWidget {
               );
             case '/register':
               return PageTransition(
-                child: RegisterScreen(),
+                child: const RegisterScreen(),
                 type: PageTransitionType.fromRight,
               );
             case '/forgotPassword':

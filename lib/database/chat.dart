@@ -4,9 +4,9 @@ import 'package:chat_app/models/chat/message.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-final String tableNotes = 'chat';
-final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-final textTypeNonNull = 'TEXT NOT NULL';
+const String tableNotes = 'chat';
+const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+const textTypeNonNull = 'TEXT NOT NULL';
 
 class ChatFields {
   static final List<String> values = [
@@ -19,14 +19,14 @@ class ChatFields {
     messageStatus,
     replyTo,
   ];
-  static final String id = '_id';
-  static final String mid = 'id';
-  static final String commonId = 'commonId';
-  static final String date = 'data';
-  static final String data = 'date';
-  static final String sender = 'sender';
-  static final String replyTo = 'replyTo';
-  static final String messageStatus = 'message_status';
+  static const String id = '_id';
+  static const String mid = 'id';
+  static const String commonId = 'commonId';
+  static const String date = 'data';
+  static const String data = 'date';
+  static const String sender = 'sender';
+  static const String replyTo = 'replyTo';
+  static const String messageStatus = 'message_status';
 }
 
 class ChatDataBase {

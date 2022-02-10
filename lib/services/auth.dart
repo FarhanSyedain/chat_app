@@ -112,7 +112,7 @@ class AuthService with ChangeNotifier {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       return e;
-    } catch (e) {}
+    }
     return null;
   }
 }

@@ -15,13 +15,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ConfirmEmailScreen extends StatefulWidget {
+  const ConfirmEmailScreen({Key? key}) : super(key: key);
+
   @override
   _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState();
 }
 
 class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   final _user = FirebaseAuth.instance.currentUser;
-  var timer;
+  late Timer timer;
   int timeLeft = 60;
   int previousTimeLeft = 60;
   bool sendingEmail = false;
@@ -29,7 +31,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   Timer? timeLeftTimer;
 
   void openDefaultMail() {
-    AndroidIntent intent = AndroidIntent(
+    AndroidIntent intent = const AndroidIntent(
       action: 'android.intent.action.MAIN',
       category: 'android.intent.category.APP_EMAIL',
       flags: [Flag.FLAG_ACTIVITY_NEW_TASK],
@@ -41,13 +43,13 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   void initState() {
     _user?.sendEmailVerification().catchError((e) {});
     timer = Timer.periodic(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       (_) {
         checkIfVerified();
       },
     );
     timeLeftTimer = Timer.periodic(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       (timer) {
         setState(() {
           timeLeft--;
@@ -77,6 +79,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
     }
   }
 
+  @override
   void dispose() {
     timer.cancel();
     timeLeftTimer?.cancel();
@@ -93,7 +96,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
     timeLeft = previousTimeLeft * 3;
     previousTimeLeft = timeLeft;
     timeLeftTimer = Timer.periodic(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       (timer) {
         setState(() {
           timeLeft--;
@@ -122,10 +125,10 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                   builder: (_) {
                     return AlertDialog(
                       backgroundColor: Theme.of(context).cardColor,
-                      title: Text('Logout ?'),
+                      title: const Text('Logout ?'),
                       actions: [
                         TextButton(
-                          child: Text('No'),
+                          child: const Text('No'),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
@@ -149,7 +152,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                     );
                   });
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.logout,
               color: Colors.white,
             ),
@@ -159,14 +162,14 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
       body: BackgroundWrapper(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
                 SvgPicture.asset(
                   'assets/vectors/emailSent.svg',
                   height: 300,
                 ),
-                Center(
+                const Center(
                   child: Text(
                     'Verification link sent',
                     style: TextStyle(
@@ -177,11 +180,11 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Center(
                   child: Text(
                     'We\'ve sent you a verification link on your email $emailAdress.',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey,
@@ -197,7 +200,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                     openDefaultMail();
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Center(
                   child: Text.rich(
                     TextSpan(
@@ -233,7 +236,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),

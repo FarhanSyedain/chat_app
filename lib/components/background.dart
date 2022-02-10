@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BackgroundWrapper extends StatelessWidget {
   final Widget child;
 
-  BackgroundWrapper({required this.child});
+  const BackgroundWrapper({required this.child});
 
   @override
   Widget build(BuildContext context) {

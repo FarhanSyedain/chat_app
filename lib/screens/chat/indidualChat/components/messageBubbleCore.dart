@@ -15,7 +15,7 @@ class BubbleInterior extends StatelessWidget {
   final String date;
   final MessageReply? replyTo;
 
-  BubbleInterior({
+  const BubbleInterior({
     Key? key,
     required this.text,
     this.bubbleRadius = BUBBLE_RADIUS,
@@ -36,24 +36,24 @@ class BubbleInterior extends StatelessWidget {
   Widget build(BuildContext context) {
     Icon? stateIcon;
     if (messageStatus == MessageStatus.delivered) {
-      stateIcon = Icon(Icons.done_all, size: 16, color: Color(0xFF97AD8E));
+      stateIcon = const Icon(Icons.done_all, size: 16, color: Color(0xFF97AD8E));
     }
     if (messageStatus == MessageStatus.sent) {
-      stateIcon = Icon(
+      stateIcon = const Icon(
         Icons.done,
         size: 16,
         color: Color(0xFF97AD8E),
       );
     }
     if (messageStatus == MessageStatus.sending) {
-      stateIcon = Icon(
+      stateIcon = const Icon(
         Icons.access_time_outlined,
         size: 16,
         color: Color(0xFF97AD8E),
       );
     }
     if (messageStatus == MessageStatus.read) {
-      stateIcon = Icon(
+      stateIcon = const Icon(
         Icons.done_all,
         size: 16,
         color: Colors.green,
@@ -64,16 +64,16 @@ class BubbleInterior extends StatelessWidget {
         Text(
           date,
           style: isSender
-              ? TextStyle(
+              ? const TextStyle(
                   fontSize: 12,
                 )
-              : TextStyle(
+              : const TextStyle(
                   fontSize: 12,
                   color: Colors.white70,
                 ),
         ),
         if (stateIcon != null) ...[
-          SizedBox(
+          const SizedBox(
             width: 1,
           ),
           stateIcon
@@ -86,12 +86,12 @@ class BubbleInterior extends StatelessWidget {
           Row(
             children: <Widget>[
               isSender
-                  ? Expanded(
+                  ? const Expanded(
                       child: SizedBox(
                         width: 5,
                       ),
                     )
-                  : SizedBox(width: 7),
+                  : const SizedBox(width: 7),
               Container(
                 color: Colors.transparent,
                 constraints: BoxConstraints(
@@ -105,8 +105,8 @@ class BubbleInterior extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(bubbleRadius),
                         topRight: Radius.circular(bubbleRadius),
-                        bottomLeft: Radius.circular(BUBBLE_RADIUS),
-                        bottomRight: Radius.circular(BUBBLE_RADIUS),
+                        bottomLeft: const Radius.circular(BUBBLE_RADIUS),
+                        bottomRight: const Radius.circular(BUBBLE_RADIUS),
                       ),
                     ),
                     child: Column(
@@ -114,13 +114,13 @@ class BubbleInterior extends StatelessWidget {
                           ? CrossAxisAlignment.end
                           : CrossAxisAlignment.start,
                       children: <Widget>[
-                        Padding(
+                        const Padding(
                           padding:
-                              const EdgeInsets.only(top: 12.0, bottom: 2.0),
+                              EdgeInsets.only(top: 12.0, bottom: 2.0),
                           child: Text('Replied'),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(12, 7, 15, 7),
+                          padding: const EdgeInsets.fromLTRB(12, 7, 15, 7),
                           child: Text(
                             replyTo!.data,
                             style: textStyle.copyWith(color: Colors.white70),
@@ -132,13 +132,13 @@ class BubbleInterior extends StatelessWidget {
                   ),
                 ),
               ),
-              if (isSender) SizedBox(width: 7),
+              if (isSender) const SizedBox(width: 7),
             ],
           ),
         Row(
           children: <Widget>[
             isSender
-                ? Expanded(
+                ? const Expanded(
                     child: SizedBox(
                       width: 5,
                     ),
@@ -156,8 +156,8 @@ class BubbleInterior extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(bubbleRadius),
                       topRight: Radius.circular(bubbleRadius),
-                      bottomLeft: Radius.circular(BUBBLE_RADIUS),
-                      bottomRight: Radius.circular(BUBBLE_RADIUS),
+                      bottomLeft: const Radius.circular(BUBBLE_RADIUS),
+                      bottomRight: const Radius.circular(BUBBLE_RADIUS),
                     ),
                   ),
                   child: Stack(

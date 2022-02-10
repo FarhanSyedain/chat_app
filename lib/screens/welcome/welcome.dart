@@ -16,18 +16,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     // var brightness = MediaQuery.of(context).platformBrightness;
     // // final isDarkMode = brightness == Brightness.dark;
-    var titleStyle = TextStyle(
+    var titleStyle = const TextStyle(
       fontSize: 20,
       color: Colors.white,
       fontWeight: FontWeight.bold,
     );
-    final isDarkMode = true;
+    const isDarkMode = true;
     return Container(
       child: IntroductionScreen(
         globalBackgroundColor: Theme.of(context).backgroundColor,
-        done: Container(
+        done: SizedBox(
           height: 60,
-          child: RotatedBox(
+          child: const RotatedBox(
             child: Icon(
               Icons.arrow_back_ios,
               size: 30,
@@ -45,9 +45,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           );
         },
-        next: Container(
+        next: SizedBox(
           height: 60,
-          child: RotatedBox(
+          child: const RotatedBox(
             child: Icon(
               Icons.arrow_back_ios,
               size: 30,
@@ -62,7 +62,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               titleTextStyle: titleStyle,
               pageColor:
                   isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
-              imagePadding: EdgeInsets.only(top: 50),
+              imagePadding: const EdgeInsets.only(top: 50),
             ),
             title: "Welcome to Spark",
             body: "A brand new way to connect with people you care about.",
@@ -75,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               titleTextStyle: titleStyle,
               pageColor:
                   isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
-              imagePadding: EdgeInsets.only(top: 50),
+              imagePadding: const EdgeInsets.only(top: 50),
             ),
             title: "Hybrid Voice Texting",
             body:
@@ -89,7 +89,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               titleTextStyle: titleStyle,
               pageColor:
                   isDarkMode ? Theme.of(context).backgroundColor : Colors.white,
-              imagePadding: EdgeInsets.only(top: 50),
+              imagePadding: const EdgeInsets.only(top: 50),
             ),
             image: SvgPicture.asset('assets/vectors/getStarted.svg'),
             title: "Get started",

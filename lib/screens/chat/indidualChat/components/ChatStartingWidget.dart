@@ -14,8 +14,8 @@ class ChatStartingWidget extends StatelessWidget {
             'assets/vectors/male.svg',
             height: 100,
           ),
-          SizedBox(height: 5),
-          Text(
+          const SizedBox(height: 5),
+          const Text(
             'Farhan Syedain',
             style: TextStyle(
               fontFamily: 'MontserratB',
@@ -23,8 +23,8 @@ class ChatStartingWidget extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 5),
-          Center(
+          const SizedBox(height: 5),
+          const Center(
             child: Text(
               'This is my chapri bio. Lemnmne try to make it longer',
               textAlign: TextAlign.center,

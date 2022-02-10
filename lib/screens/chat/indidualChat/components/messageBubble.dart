@@ -11,7 +11,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class MessageBubble extends StatelessWidget {
   final int lastMessageIndex;
-  MessageBubble(this.lastMessageIndex);
+  const MessageBubble(this.lastMessageIndex);
   @override
   Widget build(BuildContext context) {
     final chatProvider = Provider.of<Chat>(context, listen: false);
@@ -91,8 +91,8 @@ class MessageBubbleCore extends StatelessWidget {
               text: messageProvider.data!,
               isSender: messageProvider.sender == Sender.me ? true : false,
               color: messageProvider.sender != Sender.me
-                  ? Color(0xFF446063)
-                  : Color(0XFF355C7D),
+                  ? const Color(0xFF446063)
+                  : const Color(0XFF355C7D),
               textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontWeight: FontWeight.normal,
                     fontSize: 15.5,

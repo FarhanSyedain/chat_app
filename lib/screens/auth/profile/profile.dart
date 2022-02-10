@@ -73,15 +73,15 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   ProfileArea(
                     currentImage: _currentImage,
                     pickedImage: _pickedImage,
                     changeSpinerval: changeSpinerVal,
                   ),
-                  SizedBox(height: 40,),
+                  const SizedBox(height: 40,),
                   Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: CustomFormArea(changeSpinerVal),
                   )
                 ],
