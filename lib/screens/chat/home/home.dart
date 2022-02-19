@@ -69,7 +69,6 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       ),
       extendBody: true,
       body: FadeAnimation(
-        
         child: ChatScreenBody(
           _index,
           (i) {
@@ -160,8 +159,8 @@ class ChatScreenBody extends StatelessWidget {
                     return GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (c) => ChangeNotifierProvider.value(
+                          PageTransition(
+                            child: ChangeNotifierProvider.value(
                               value: provider.chats.firstWhere(
                                   (element) => element.id == chat.id),
                               builder: (context, child) {
@@ -169,6 +168,7 @@ class ChatScreenBody extends StatelessWidget {
                                 return IndidualChat(provider);
                               },
                             ),
+                            type: PageTransitionType.fromRight,
                           ),
                         );
                         //   Navigator.push(
