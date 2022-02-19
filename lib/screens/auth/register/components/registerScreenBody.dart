@@ -1,4 +1,5 @@
 import 'package:chat_app/screens/chat/loadingOverlay.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/screens/auth/components/socialAuthRow.dart';
@@ -16,6 +17,20 @@ class RegisterScreenBody extends StatefulWidget {
 }
 
 class _RegisterScreenBodyState extends State<RegisterScreenBody> {
+  bool keyboardVisivle = false;
+  @override
+  void initState() {
+    super.initState();
+
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          keyboardVisivle = visible;
+        });
+      },
+    );
+  }
+
   var emailAlreadyInUse = false;
   var loading = false;
   final passwordTextFieldControler = TextEditingController();
@@ -27,18 +42,28 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
       isLoading: loading,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 30.0),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SocialMediaRowWithPhoneNumberSwitch(
-                (v) {
-                  setState(() {
-                    loading = v;
-                  });
-                },
-                'Up',
-              ),
+              if (!keyboardVisivle)
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 400),
+                  child: SocialMediaRowWithPhoneNumberSwitch((v) {}, 'Up'),
+                ),
+              if (keyboardVisivle) ...[
+                const Center(
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      fontFamily: 'MontserratB',
+                      fontSize: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
               Form(
                 key: _formKey,
                 child: Column(

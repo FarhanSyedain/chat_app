@@ -1,5 +1,6 @@
 import 'package:chat_app/screens/chat/loadingOverlay.dart';
 import 'package:flutter/gestures.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 import '../../components/haveAccount.dart';
 import '../../components/socialAuthRow.dart';
@@ -13,11 +14,24 @@ class LoginScreenBody extends StatefulWidget {
 
 class _LoginScreenBodyState extends State<LoginScreenBody> {
   bool loading = false;
-
+  bool keyboardVisivle = false;
   void changeVal(v) {
     setState(() {
       loading = v;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          keyboardVisivle = visible;
+        });
+      },
+    );
   }
 
   @override
@@ -30,7 +44,24 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SocialMediaRowWithPhoneNumberSwitch(changeVal,'in'),
+              if (!keyboardVisivle)
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 400),
+                  child: SocialMediaRowWithPhoneNumberSwitch(changeVal, 'in'),
+                ),
+              if (keyboardVisivle) ...[
+                Center(
+                  child: Text(
+                    'Sign In',
+                    style: TextStyle(
+                      fontFamily: 'MontserratB',
+                      fontSize: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+              ],
               SizedBox(height: 5),
               UserInputArea(changeVal),
               SizedBox(height: 15),
@@ -47,7 +78,8 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                   child: Text.rich(
                     TextSpan(
                       text: 'Forgot Password?',
-                      recognizer: TapGestureRecognizer()..onTap = forgotPassword,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = forgotPassword,
                     ),
                     style: Theme.of(context).textTheme.subtitle2,
                   ),

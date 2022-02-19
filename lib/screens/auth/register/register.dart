@@ -19,7 +19,7 @@ class RegisterScreen extends StatelessWidget {
           Navigator.of(context).pushReplacement(
             PageTransition(
               child: LoginScreen(),
-              type: PageTransitionType.fromLeft,
+              type: PageTransitionType.fromRight,
             ),
           );
         },
@@ -30,7 +30,7 @@ class RegisterScreen extends StatelessWidget {
             Navigator.of(context).pushReplacement(
               PageTransition(
                 child: LoginScreen(),
-                type: PageTransitionType.fromLeft,
+                type: PageTransitionType.fromRight,
               ),
             );
             return true;
