@@ -1,4 +1,6 @@
+import 'package:chat_app/animations/animations.dart';
 import 'package:chat_app/components/background.dart';
+import 'package:chat_app/screens/auth/login/login.dart';
 import 'package:flutter/material.dart';
 
 import '../components/customAppbar.dart';
@@ -14,10 +16,28 @@ class RegisterScreen extends StatelessWidget {
       appBar: buildAppBar(
         context,
         back: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacement(
+            PageTransition(
+              child: LoginScreen(),
+              type: PageTransitionType.fromLeft,
+            ),
+          );
         },
       ),
-      body: BackgroundWrapper(child: RegisterScreenBody()),
+      body: BackgroundWrapper(
+        child: WillPopScope(
+          onWillPop: () async {
+            Navigator.of(context).pushReplacement(
+              PageTransition(
+                child: LoginScreen(),
+                type: PageTransitionType.fromLeft,
+              ),
+            );
+            return true;
+          },
+          child: RegisterScreenBody(),
+        ),
+      ),
     );
   }
 }
