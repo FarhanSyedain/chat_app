@@ -95,7 +95,8 @@ class Chats extends ChangeNotifier {
 
   void _addMessage(QueryDocumentSnapshot<Map<String, dynamic>> message) {
     final senderID = message.data()['senderID'];
-    _messageDelivered(message.data()['commonID'], senderID);
+    //! Cancel this till you different approach since it reduces speed
+    // _messageDelivered(message.data()['commonID'], senderID);
     final _chat = _chats.firstWhere(
       (element) => element.id == senderID,
       orElse: () => Chat.lazy(
@@ -138,8 +139,9 @@ class Chats extends ChangeNotifier {
       await element.populate(element.id);
     });
   }
+
   void clearInMemoryData() async {
-    _chats.forEach((element) { 
+    _chats.forEach((element) {
       element.clearInMemoryData();
     });
     _chats.clear();
