@@ -69,7 +69,6 @@ class Chat extends ChangeNotifier {
 
     ChatDataBase.instance.create(_message, id);
 
-
     _messages.add(_message);
 
     notifyListeners();
@@ -105,13 +104,13 @@ class Chat extends ChangeNotifier {
     final firebase = FirebaseFirestore.instance.collection('users').doc('$id');
     firebase.get().then((value) {
       final data = value.data()!;
-      this.email = data['email'];
-      this.bio = data['bio'];
-      this.name = data['firstName'];
+      email = data['email'];
+      bio = data['bio'];
+      name = data['firstName'];
       final String? lastName = data['lastName'];
-      this.name = name! + ' ' + (lastName ?? '');
+      name = name! + ' ' + (lastName ?? '');
       name = name?.trim();
-      this.creationTime = DateTime.now();
+      creationTime = DateTime.now();
       callback(this);
     });
   }
@@ -169,7 +168,6 @@ class Chat extends ChangeNotifier {
     ChatDataBase.instance.create(message, id);
     final firebase =
         FirebaseFirestore.instance.collection('chats/$receiverId/recieved');
-    print('fds');
     firebase.add({
       'data': message.data,
       'date': message.date.toString(),
@@ -177,12 +175,8 @@ class Chat extends ChangeNotifier {
       'commonID': message.commonId,
       'replyto': message.replyTo,
     }).then((value) {
-      print('HI');
       message.setMessageStatus(MessageStatus.sent, id);
-      print('HI two');
-
     });
-    print('fdasjlfs');
   }
 
   void updateReadStatusBulkInMemory(DateTime dateTime) {
@@ -208,8 +202,16 @@ class Chat extends ChangeNotifier {
   //Weather all messages are read by user
   bool get read => count > 0 ? false : true;
   //Number of unread messages
-  int get count =>
-      messages.where((e) => e.messageStatus == MessageStatus.received).length;
+  int get count {
+    final c =
+        messages.where((e) => e.messageStatus == MessageStatus.received).length;
+    for (var m in messages) {
+      print('Who ${m.sender} is ${m.messageStatus}');
+    }
+    print(c);
+    return c;
+  }
+
   //The time of last message of this chat
   String? get time => _messages.isNotEmpty
       ? DateFormat('EEEEEE', 'en_US').format(_messages.last.date!)
