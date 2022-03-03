@@ -90,9 +90,9 @@ class MessageBubbleCore extends StatelessWidget {
                   : MessageStatus.received,
               text: messageProvider.data!,
               isSender: messageProvider.sender == Sender.me ? true : false,
-              color: messageProvider.sender != Sender.me
-                  ? Color(0xFF446063)
-                  : Color(0XFF355C7D),
+              color: messageProvider.sender == Sender.me
+                  ? const Color(0xFF0B0A11)
+                  : Theme.of(context).colorScheme.secondary,
               textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontWeight: FontWeight.normal,
                     fontSize: 15.5,

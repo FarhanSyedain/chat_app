@@ -3,29 +3,30 @@ import 'package:flutter/material.dart';
 //We'll add light mode later
 //Let's stick to dark mode for now
 
-var kDarkBackgroundColor = Color.fromRGBO(0, 0, 0, 1);
-var kDarkCardColor = Color.fromRGBO(25, 39, 52, 1);
-var kDarkHoverColor = Color.fromRGBO(34, 48, 60, 1);
-var kDarkPrimaryColor = Color.fromRGBO(255, 255, 255, 1);
+var kDarkBackgroundColor = const Color.fromRGBO(0, 0, 0, 1);
+var kDarkCardColor = const Color.fromRGBO(25, 39, 52, 1);
+var kDarkHoverColor = const Color.fromRGBO(34, 48, 60, 1);
+var kDarkPrimaryColor = const Color.fromRGBO(255, 255, 255, 1);
 var kDarkSecondaryColor = Colors.grey;
-var kLightBackgroundColor = Color.fromRGBO(255, 255, 255, 1);
-var kLightCardColor = Color.fromRGBO(236, 236, 236, 1);
-var kLightHoverColor = Color.fromRGBO(255, 255, 255, 1);
-var kLightPrimaryColor = Color.fromRGBO(0, 0, 0, 1);
+var kLightBackgroundColor = const Color.fromRGBO(255, 255, 255, 1);
+var kLightCardColor = const Color.fromRGBO(236, 236, 236, 1);
+var kLightHoverColor = const Color.fromRGBO(255, 255, 255, 1);
+var kLightPrimaryColor = const Color.fromRGBO(0, 0, 0, 1);
 var kLightSecondaryColor = Colors.grey[850];
 
 var darkTheme = ThemeData(
   primaryColor: kDarkBackgroundColor.withAlpha(200),
-  backgroundColor: Color(0x0A0A0A),
+  backgroundColor: const Color(0xFF0A0A0A),
   // backgroundColor: Color.fromRGBO(21, 32, 44, 1),
   cardColor: kDarkCardColor,
-  canvasColor: Color(0xff121212),
-  iconTheme: IconThemeData(
+  canvasColor: const Color(0xff121212),
+  iconTheme: const IconThemeData(
     color: Colors.white,
   ),
-  colorScheme: ColorScheme.dark().copyWith(
-    secondary: Color(0xff5D9187),
-    primary: Color(0xff5D9187),
+  colorScheme: const ColorScheme.dark().copyWith(
+    // secondary: Color(0xff5D9187),
+    secondary: const Color(0xFF475997),
+    primary: const Color(0xff5D9187),
   ),
   hoverColor: kDarkHoverColor,
   textTheme: TextTheme(
@@ -35,7 +36,7 @@ var darkTheme = ThemeData(
       fontFamily: 'Montserrat',
       fontWeight: FontWeight.w800,
     ),
-    caption: TextStyle(color: Colors.grey),
+    caption: const TextStyle(color: Colors.grey),
     headline2: TextStyle(
       color: kDarkPrimaryColor,
       fontFamily: 'Sans',
@@ -54,11 +55,11 @@ var darkTheme = ThemeData(
       color: kDarkPrimaryColor.withAlpha(220),
       fontSize: 14,
     ),
-    subtitle2: TextStyle(
+    subtitle2: const TextStyle(
       color: Colors.blue,
       fontSize: 12,
     ),
-    headline4: TextStyle(
+    headline4: const TextStyle(
       fontSize: 25,
       color: Colors.white,
       fontFamily: 'Owl',
@@ -67,7 +68,7 @@ var darkTheme = ThemeData(
       fontSize: 20,
       color: kDarkPrimaryColor.withAlpha(220),
     ),
-    headline6: TextStyle(
+    headline6: const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
       color: Colors.white,
@@ -80,8 +81,8 @@ var lightTheme = ThemeData(
   backgroundColor: kLightBackgroundColor,
   cardColor: kLightCardColor,
   hoverColor: kLightHoverColor,
-  colorScheme: ColorScheme.dark().copyWith(
-    secondary: Color(0xff5D9187),
+  colorScheme: const ColorScheme.dark().copyWith(
+    secondary: const Color(0xff5D9187),
   ),
   textTheme: TextTheme(
     headline1: TextStyle(
@@ -102,11 +103,11 @@ var lightTheme = ThemeData(
       color: kLightPrimaryColor.withAlpha(220),
       fontSize: 16,
     ),
-    subtitle2: TextStyle(
+    subtitle2: const TextStyle(
       color: Colors.blue,
       fontSize: 12,
     ),
-    headline4: TextStyle(
+    headline4: const TextStyle(
       fontSize: 25,
       color: Colors.white,
       fontFamily: 'Owl',
