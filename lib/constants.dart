@@ -15,11 +15,11 @@ var kLightPrimaryColor = const Color.fromRGBO(0, 0, 0, 1);
 var kLightSecondaryColor = Colors.grey[850];
 
 var darkTheme = ThemeData(
-  primaryColor: kDarkBackgroundColor.withAlpha(200),
-  backgroundColor: const Color(0xFF0A0A0A),
-  // backgroundColor: Color.fromRGBO(21, 32, 44, 1),
+  primaryColor: kDarkBackgroundColor,
+  backgroundColor: kDarkBackgroundColor,
   cardColor: kDarkCardColor,
   canvasColor: const Color(0xff121212),
+  scaffoldBackgroundColor: kDarkBackgroundColor,
   iconTheme: const IconThemeData(
     color: Colors.white,
   ),
