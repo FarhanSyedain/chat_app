@@ -8,6 +8,8 @@ String? emailValidator(value) {
   if (!validateEmail(value)) {
     return 'Enter a valid email';
   }
+  return null;
+  
 }
 
 String? passwordValidator(value) {
@@ -17,6 +19,7 @@ String? passwordValidator(value) {
   if (!validatePassword(value)) {
     return 'Password must be atleast 6 charecters';
   }
+  return null;
 }
 
 String? confirmPasswordValidator(value, passwordTextFieldController) {
@@ -25,4 +28,5 @@ String? confirmPasswordValidator(value, passwordTextFieldController) {
   if (password != value) {
     return 'Passwords don\'t match';
   }
+  return null;
 }
