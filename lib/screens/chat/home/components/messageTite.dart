@@ -30,7 +30,7 @@ class MessageTileBody extends StatelessWidget {
       ),
       width: double.infinity,
       height: 85,
-      padding: EdgeInsets.only(left: 15, right: 2),
+      padding: const EdgeInsets.only(left: 15, right: 2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -55,11 +55,9 @@ class MessageTileBody extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 6),
+                padding: const EdgeInsets.symmetric(vertical: 6),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,15 +69,15 @@ class MessageTileBody extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
-                    SizedBox(
-                      height: 7,
-                    ),
+                    const SizedBox(height: 7),
                     if (chat.subtitle != null)
-                      Text(chat.subtitle!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(fontSize: 14)),
+                      Text(
+                        chat.subtitle!,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            ?.copyWith(fontSize: 14),
+                      ),
                   ],
                 ),
               ),
@@ -91,29 +89,27 @@ class MessageTileBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(right: 20),
+                  margin: const EdgeInsets.only(right: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       if (chat.time != null)
-                        Text(chat.time!,
-                            style: !chat.read
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      // color: Colors.blue,
-                                    )
-                                : Theme.of(context).textTheme.bodyText2),
+                        Text(
+                          chat.time!,
+                          style: !chat.read
+                              ? Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    // color: Colors.blue,
+                                  )
+                              : Theme.of(context).textTheme.bodyText2,
+                        ),
                     ],
                   ),
                 ),
                 if (!chat.read)
                   Container(
-                    margin: EdgeInsets.only(top: 5),
+                    margin: const EdgeInsets.only(top: 5),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -125,17 +121,15 @@ class MessageTileBody extends StatelessWidget {
                               alignment: Alignment.center,
                               // color: Colors.blue,
                               color: Theme.of(context).colorScheme.secondary,
-                              child: Text(chat.count.toString(),
-                                  style: !chat.read
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .bodyText2
-                                          ?.copyWith(
-                                            // color:
-                                            //     Theme.of(context).colorScheme.secondary,
-                                            color: Colors.white,
-                                          )
-                                      : Theme.of(context).textTheme.bodyText2),
+                              child: Text(
+                                chat.count.toString(),
+                                style: !chat.read
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        ?.copyWith(color: Colors.white)
+                                    : Theme.of(context).textTheme.bodyText2,
+                              ),
                             ),
                           ),
                       ],

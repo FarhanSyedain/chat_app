@@ -24,6 +24,7 @@ class Chat extends ChangeNotifier {
     final m = await ChatDataBase.instance.readMessagesFor(id);
     _messages.clear();
     _messages.addAll(m);
+    print(_messages);
   }
 
   void deleteMessageInMemory(String commonId) {
@@ -194,23 +195,24 @@ class Chat extends ChangeNotifier {
   }
 
   //The messages of the chat
-  List<Message> get messages => _messages.reversed.toList();
+  List<Message> get messages {
+    return _messages.reversed.toList();
+  }
+
   //The name of the recipient
   String get title => name ?? 'No name';
   //Subtitle for the chatTile
-  String? get subtitle => _messages.isNotEmpty ? _messages.last.data : null;
+  // String? get subtitle => _messages.isNotEmpty ? _messages.last.data : null;
+  String? get subtitle {
+    print(_messages);
+    return _messages.isNotEmpty ? _messages.last.data : null;
+  }
+
   //Weather all messages are read by user
   bool get read => count > 0 ? false : true;
   //Number of unread messages
-  int get count {
-    final c =
-        messages.where((e) => e.messageStatus == MessageStatus.received).length;
-    for (var m in messages) {
-      print('Who ${m.sender} is ${m.messageStatus}');
-    }
-    print(c);
-    return c;
-  }
+  int get count =>
+      messages.where((e) => e.messageStatus == MessageStatus.received).length;
 
   //The time of last message of this chat
   String? get time => _messages.isNotEmpty

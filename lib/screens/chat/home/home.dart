@@ -120,7 +120,7 @@ class ChatScreenBody extends StatelessWidget {
                   children: [
                     SizedBox(height: 80),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
                         'Nothing Here!',
                         style: TextStyle(
@@ -130,10 +130,10 @@ class ChatScreenBody extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: const Text(
                         'Click + icon to add a person.',
                         style: TextStyle(
                           fontSize: 20,
@@ -142,7 +142,7 @@ class ChatScreenBody extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
                       // child: SvgPicture.asset('assets/vectors/loon.svg'),
                       child: Lottie.network(
                         'https://assets8.lottiefiles.com/packages/lf20_ocrcnofw.json',
@@ -152,7 +152,7 @@ class ChatScreenBody extends StatelessWidget {
                   ],
                 )
               : ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     final chat = provider.chats.elementAt(index);
@@ -171,34 +171,6 @@ class ChatScreenBody extends StatelessWidget {
                             type: PageTransitionType.fromRight,
                           ),
                         );
-                        //   Navigator.push(
-                        //     context,
-                        //     PageTransition(
-                        //       child: ChangeNotifierProvider.value(
-                        //         value: provider.chats.firstWhere(
-                        //             (element) => element.id == chat.id),
-                        //         builder: (context, child) {
-                        //           final provider = Provider.of<Chat>(context);
-                        //           return IndidualChat(provider);
-                        //         },
-                        //       ),
-                        //       type: PageTransitionType.bottomToTop,
-                        //     ),
-                        //   );
-                        // Navigator.push(
-                        //   context,
-                        //   CustomRoute(
-                        //     ChangeNotifierProvider.value(
-                        //       value: provider.chats.firstWhere(
-                        //           (element) => element.id == chat.id),
-                        //       builder: (context, child) {
-                        //         final provider = Provider.of<Chat>(context);
-                        //         return IndidualChat(provider);
-                        //       },
-                        //     ),
-                        //     AxisDirection.left,
-                        //   ),
-                        // );
                       },
                       child: MessageTile(chat),
                     );
@@ -206,9 +178,7 @@ class ChatScreenBody extends StatelessWidget {
                   // itemCount: chats.length,
                   itemCount: provider.chats.length,
                 ),
-          SizedBox(
-            height: 50,
-          ),
+          const SizedBox(height: 50),
         ],
       ),
     );

@@ -43,11 +43,10 @@ class _BodyState extends State<Body> {
             child: ListView.builder(
               reverse: true,
               controller: controller,
-              // shrinkWrap: true,
               itemCount: widget.provider.messages.length + 1,
               itemBuilder: (context, index) {
                 if (index == widget.provider.messages.length) {
-                  return ChatStartingWidget();
+                  return const ChatStartingWidget();
                 }
                 return ChangeNotifierProvider.value(
                   value: widget.provider.messages.elementAt(index),
@@ -70,15 +69,13 @@ class _BodyState extends State<Body> {
               },
             ),
           ),
-          SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           if (inputBarProvider.message != null)
             Container(
               height: 60,
-              margin: EdgeInsets.only(left: 10, right: 10),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),
@@ -102,13 +99,13 @@ class _BodyState extends State<Body> {
                               .textTheme
                               .bodyText1!
                               .copyWith(
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
                         ),
                         IconButton(
                           padding: EdgeInsets.zero,
                           onPressed: () => inputBarProvider.resetReplyTo(),
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.cancel_outlined,
                             size: 15,
                           ),
@@ -116,7 +113,7 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.white,
                     height: 8,
                   ),

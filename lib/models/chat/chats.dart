@@ -12,10 +12,10 @@ class Chats extends ChangeNotifier {
   List<Chat> get chats {
     final _chatCopy = _chats; // Lists are pointers my bad
     _chatCopy.sort((a, b) {
-      final DateTime valA = a.messages.length > 0
+      final DateTime valA = a.messages.isNotEmpty
           ? a.messages.first.date as DateTime
           : a.creationTime as DateTime;
-      final DateTime valB = b.messages.length > 0
+      final DateTime valB = b.messages.isNotEmpty
           ? b.messages.first.date as DateTime
           : b.creationTime as DateTime;
       return -valA.toString().compareTo(valB.toString());
