@@ -1,5 +1,5 @@
 
-import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
 
 int getIntForMessageStatus(MessageStatus status) {
   switch (status) {

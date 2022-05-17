@@ -1,5 +1,5 @@
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/chat/chats.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/chat/old_chats.dart';
 import 'package:chat_app/screens/auth/genderSelectionPage/genderSelectionPage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 
 class Wrapper extends StatelessWidget {
   final bool? profileSet;
-  Wrapper({this.profileSet = false});
+  const Wrapper({this.profileSet = false});
   Future<void> sign() async {
     FirebaseAuth.instance.signOut();
   }
@@ -57,7 +57,7 @@ class Wrapper extends StatelessWidget {
           //Then fetch the profile
           await ProfileService().getProfile(FirebaseAuth.instance).then(
                 (value) =>
-                    Wrapper(), //Now that the value of profileSet would be a bool
+                    const Wrapper(), //Now that the value of profileSet would be a bool
               );
         }
         prefs.setBool('authComplete', true);
@@ -76,11 +76,11 @@ class Wrapper extends StatelessWidget {
     final _user = Provider.of<User?>(context, listen: false);
     final _authState = Provider.of<AuthState?>(context);
     return FutureBuilder(
-      initialData: CustomProsgressScreen(),
+      initialData: const CustomProsgressScreen(),
       builder: (context, data) {
         // return CustomProsgressScreen();
         return data.data == null
-        ? CustomProsgressScreen()
+        ? const CustomProsgressScreen()
         : data.data as Widget;
       },
       future: init(_user, _authState, context),
@@ -95,14 +95,14 @@ class CustomProsgressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: 200,
                 height: 200,
                 child: Lottie.network(

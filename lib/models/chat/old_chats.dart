@@ -1,6 +1,6 @@
-import 'package:chat_app/database/chats.dart';
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/database/old_chats.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -135,15 +135,15 @@ class Chats extends ChangeNotifier {
   }
 
   Future<void> populateChildren() async {
-    _chats.forEach((element) async {
+    for (var element in _chats) {
       await element.populate(element.id);
-    });
+    }
   }
 
   void clearInMemoryData() async {
-    _chats.forEach((element) {
+    for (var element in _chats) {
       element.clearInMemoryData();
-    });
+    }
     _chats.clear();
   }
 }

@@ -1,6 +1,6 @@
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/chat/message.dart';
-import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/chat/old_message.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/alertDilog.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/messageBubbleCore.dart';
 import 'package:chat_app/screens/chat/indidualChat/extras/utils.dart';
@@ -11,7 +11,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class MessageBubble extends StatelessWidget {
   final int lastMessageIndex;
-  MessageBubble(this.lastMessageIndex);
+  const MessageBubble(this.lastMessageIndex);
   @override
   Widget build(BuildContext context) {
     final chatProvider = Provider.of<Chat>(context, listen: false);

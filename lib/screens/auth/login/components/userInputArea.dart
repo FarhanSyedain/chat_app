@@ -6,13 +6,12 @@ import '/screens/auth/components/customTextField.dart';
 import '/services/auth.dart';
 import '/utilities/validitors/basicFormValiditors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserInputArea extends StatefulWidget {
   final Function(bool) changeVal;
-  UserInputArea(this.changeVal);
+  const UserInputArea(this.changeVal);
 
   @override
   _UserInputAreaState createState() => _UserInputAreaState();
@@ -21,8 +20,8 @@ class UserInputArea extends StatefulWidget {
 class _UserInputAreaState extends State<UserInputArea> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailControler = TextEditingController();
-  TextEditingController _passwordControler = TextEditingController();
+  final TextEditingController _emailControler = TextEditingController();
+  final TextEditingController _passwordControler = TextEditingController();
   bool userNotFound = false;
   bool incorrectPassword = false;
   @override
@@ -45,7 +44,7 @@ class _UserInputAreaState extends State<UserInputArea> {
                         : null,
                     prefixIcon: Icons.email,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   CustomTextField(
                     'Password',
                     passwordValidator,
@@ -61,7 +60,7 @@ class _UserInputAreaState extends State<UserInputArea> {
               ),
 
               // ),
-              SizedBox(height: 55),
+              const SizedBox(height: 55),
               GestureDetector(
                 child: CustomProceedButton('Log In'),
                 onTap: () => login(context),

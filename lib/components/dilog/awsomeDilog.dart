@@ -10,7 +10,7 @@ void showAwsomeDilog(
   AwesomeDialog(
     context: context,
     dialogType: type,
-    autoHide: Duration(seconds: 5),
+    autoHide: const Duration(seconds: 5),
     body: Container(
       child: Column(
         children: [
@@ -18,9 +18,9 @@ void showAwsomeDilog(
             title,
             style: Theme.of(context).textTheme.bodyText1,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(desc),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
         ],
       ),
     ),

@@ -1,6 +1,6 @@
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/chat/message.dart';
-import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/chat/old_message.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/customFancyTextButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class DeleteMessageAlertDilog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 200,
       height: 300,
       child: AlertDialog(
@@ -27,7 +27,7 @@ class DeleteMessageAlertDilog extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyText1,
         ),
         actions: [
-          Container(
+          SizedBox(
             child: GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               child: CustomFancyTextButton('No'),
@@ -44,7 +44,7 @@ class DeleteMessageAlertDilog extends StatelessWidget {
               );
               Navigator.of(context).pop();
             },
-            child: Container(
+            child: SizedBox(
               child: CustomFancyTextButton(
                 'Only me',
                 color: Colors.red,

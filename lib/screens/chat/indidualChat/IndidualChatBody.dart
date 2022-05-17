@@ -1,6 +1,6 @@
 import 'package:chat_app/components/background.dart';
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
 import 'package:chat_app/models/inputBar.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/ChatStartingWidget.dart';
 import 'package:chat_app/screens/chat/indidualChat/components/messageBubble.dart';
@@ -11,7 +11,7 @@ import 'package:swipe_to/swipe_to.dart';
 
 class IndidualChatBody extends StatelessWidget {
   final Chat provider;
-  IndidualChatBody(this.provider);
+  const IndidualChatBody(this.provider);
   @override
   Widget build(BuildContext context) {
     return Body(provider);
@@ -21,7 +21,7 @@ class IndidualChatBody extends StatelessWidget {
 class Body extends StatefulWidget {
   final Chat provider;
 
-  Body(this.provider);
+  const Body(this.provider);
 
   @override
   State<Body> createState() => _BodyState();

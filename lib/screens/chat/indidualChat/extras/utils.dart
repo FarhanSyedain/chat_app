@@ -1,5 +1,5 @@
 
-import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
 
 bool wasSenderSame(int index, Chat provider) {
   return provider.messages.elementAt(index).sender ==

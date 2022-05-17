@@ -1,10 +1,10 @@
-import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class MessageTile extends StatelessWidget {
-  MessageTile(this.chatProviderVal);
+  const MessageTile(this.chatProviderVal);
 
   final Chat chatProviderVal;
 

@@ -1,5 +1,5 @@
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/chat/chats.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/chat/old_chats.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/add/add.dart';
 import 'package:chat_app/screens/chat/home/components/messageTite.dart';
@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         showBackButton: false,
         paddingTop: 0.0,
         paddingBottom: 10.0,
-        titleStyle: TextStyle(
+        titleStyle: const TextStyle(
           fontFamily: 'MontserratB',
           fontSize: 35,
         ),
@@ -49,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             child: Hero(
               tag: 'chat-appBar-image',
               child: Container(
-                margin: EdgeInsets.only(bottom: 10, right: 15),
+                margin: const EdgeInsets.only(bottom: 10, right: 15),
                 height: 35,
                 width: 35,
                 child: SvgPicture.asset('assets/vectors/male.svg'),
@@ -88,7 +88,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             ),
           );
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white70,
         ),
@@ -102,12 +102,12 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 class ChatScreenBody extends StatelessWidget {
   final int index;
   final Function changeIndex;
-  ChatScreenBody(this.index, this.changeIndex);
+  const ChatScreenBody(this.index, this.changeIndex);
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Chats>(context);
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
       ),
     );
@@ -118,10 +118,10 @@ class ChatScreenBody extends StatelessWidget {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 80),
+                    const SizedBox(height: 80),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
+                      child: const Text(
                         'Nothing Here!',
                         style: TextStyle(
                           fontSize: 45,

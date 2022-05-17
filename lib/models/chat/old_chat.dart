@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:chat_app/database/chat.dart';
-import 'package:chat_app/database/chats.dart';
-import 'package:chat_app/models/chat/message.dart';
-import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/database/old_chat.dart';
+import 'package:chat_app/database/old_chats.dart';
+import 'package:chat_app/models/chat/old_message.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
 import 'package:chat_app/utilities/images.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,7 +102,7 @@ class Chat extends ChangeNotifier {
   }
 
   Chat.lazy(this.id, callback) {
-    final firebase = FirebaseFirestore.instance.collection('users').doc('$id');
+    final firebase = FirebaseFirestore.instance.collection('users').doc(id);
     firebase.get().then((value) {
       final data = value.data()!;
       email = data['email'];

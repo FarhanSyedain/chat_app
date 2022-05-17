@@ -1,4 +1,4 @@
-import 'package:chat_app/models/chat/chat.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
 import 'package:chat_app/models/inputBar.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/chat/indidualChat/IndidualChatBody.dart';
@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class IndidualChat extends StatelessWidget {
   final Chat provider;
-  IndidualChat(this.provider);
+  const IndidualChat(this.provider);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

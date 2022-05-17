@@ -1,6 +1,6 @@
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/chat/message.dart';
-import 'package:chat_app/models/extras/enums.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/chat/old_message.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
 import 'package:chat_app/models/inputBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,7 @@ class InputBar extends StatefulWidget {
   final Chat provider;
   final ScrollController controller;
 
-  InputBar({
+  const InputBar({
     required this.controller,
     required this.provider,
   });
@@ -87,6 +87,7 @@ class _InputBarState extends State<InputBar> {
                             MessageStatus.sending,
                             inputBarProvider.message?.commonId,
                           ),
+                          
                           widget.provider.id,
                         );
                         inputBarProvider.resetReplyTo();

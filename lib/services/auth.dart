@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:chat_app/database/database.dart';
-import 'package:chat_app/models/chat/chats.dart';
+import 'package:chat_app/database/old_database.dart';
+import 'package:chat_app/models/chat/old_chats.dart';
 import 'package:chat_app/models/customUserModel.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -112,7 +112,7 @@ class AuthService with ChangeNotifier {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       return e;
-    } catch (e) {}
+    }
     return null;
   }
 }

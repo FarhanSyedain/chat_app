@@ -1,7 +1,7 @@
-import 'package:chat_app/database/chat.dart';
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/extras/enums.dart';
-import 'package:chat_app/models/extras/utils.dart';
+import 'package:chat_app/database/old_chat.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/extras/old_enums.dart';
+import 'package:chat_app/models/extras/old_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +72,7 @@ class Message with ChangeNotifier {
 
   void setMessageStatus(MessageStatus status, String senderId,
       {cacheOnly = false}) {
-    this.messageStatus = status;
+    messageStatus = status;
     if (cacheOnly) return;
     ChatDataBase.instance.updateReadStatus(this);
     notifyListeners();
@@ -84,7 +84,7 @@ class Message with ChangeNotifier {
 
   void onMessageRead(String receiverId, String userId, DateTime messageDate,
       Chat parentProvider) {
-    if (this.messageStatus == MessageStatus.read) {
+    if (messageStatus == MessageStatus.read) {
       return;
     }
     parentProvider.updateReadStatusBulkInCache(messageDate);
@@ -100,7 +100,7 @@ class Message with ChangeNotifier {
   }
 
   String getReadStatus() {
-    return getIntForMessageStatus(this.messageStatus).toString();
+    return getIntForMessageStatus(messageStatus).toString();
   }
 
   MessageReply? replyToMessage(Chat provider) {

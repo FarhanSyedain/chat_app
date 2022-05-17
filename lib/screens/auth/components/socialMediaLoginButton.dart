@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SocialMediaLoginButton extends StatelessWidget {
   final String svgPath;
-  SocialMediaLoginButton(this.svgPath);
+  const SocialMediaLoginButton(this.svgPath);
   @override
   Widget build(BuildContext context) {
     return Container(

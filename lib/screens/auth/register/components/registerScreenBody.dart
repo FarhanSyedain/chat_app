@@ -78,7 +78,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       disabled: loading,
                       prefixIcon: Icons.email,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     CustomTextField(
                       'Passowrd',
                       passwordValidator,
@@ -87,7 +87,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                       isPassword: true,
                       prefixIcon: Icons.lock_open,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     CustomTextField(
                       'Confirm password',
                       (value) => confirmPasswordValidator(
@@ -102,7 +102,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                   ],
                 ),
               ),
-              SizedBox(height: 55),
+              const SizedBox(height: 55),
               loading
                   ? CustomProceedButton('Signin in..')
                   : GestureDetector(
@@ -121,7 +121,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
                         'Sign Up',
                       ),
                     ), // Login Button Here
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Center(
                 child: Text.rich(
                   TextSpan(

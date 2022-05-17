@@ -17,11 +17,11 @@ class InfoCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Farhan',
               style: TextStyle(
                 color: Colors.white,
@@ -31,7 +31,7 @@ class InfoCard extends StatelessWidget {
             ),
             Text(
               FirebaseAuth.instance.currentUser!.email!,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontFamily: 'Montserrat',
                 fontSize: 15,

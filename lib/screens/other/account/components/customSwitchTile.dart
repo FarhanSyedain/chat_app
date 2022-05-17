@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomSwitchTile extends StatefulWidget {
   final String title;
-  CustomSwitchTile(this.title);
+  const CustomSwitchTile(this.title);
   @override
   State<CustomSwitchTile> createState() => _CustomSwitchTileState();
 }
@@ -13,15 +13,15 @@ class _CustomSwitchTileState extends State<CustomSwitchTile> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF242526),
+        color: const Color(0xFF242526),
         borderRadius: BorderRadius.circular(5),
       ),
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Row(
         children: [
           Text(
             widget.title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w600,
@@ -29,7 +29,7 @@ class _CustomSwitchTileState extends State<CustomSwitchTile> {
               // fontWeight: FontWeight.w600,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Switch(
             value: switchVal,
             onChanged: (v) {

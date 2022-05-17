@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:chat_app/components/customProceedButton.dart';
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/chat/chats.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/chat/old_chats.dart';
 import 'package:chat_app/screens/auth/components/customAppbar.dart';
 import 'package:chat_app/screens/auth/components/customTextField.dart';
 import 'package:chat_app/screens/chat/loadingOverlay.dart';
@@ -52,7 +52,7 @@ class _AddPersonState extends State<AddPerson> {
                       'assets/vectors/phoneAuth.svg',
                       height: 200,
                     ),
-                    Text(
+                    const Text(
                       'Add',
                       style: TextStyle(
                         fontFamily: 'MontserratB',
@@ -60,14 +60,14 @@ class _AddPersonState extends State<AddPerson> {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Enter a valid email',
                       style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 30,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     CustomTextField(
@@ -78,7 +78,7 @@ class _AddPersonState extends State<AddPerson> {
                       errorMessage: errorMessage,
                       textInputAction: TextInputAction.done,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     GestureDetector(

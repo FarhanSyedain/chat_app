@@ -1,6 +1,6 @@
 import 'package:chat_app/animations/animations.dart';
-import 'package:chat_app/models/chat/chat.dart';
-import 'package:chat_app/models/chat/chats.dart';
+import 'package:chat_app/models/chat/old_chat.dart';
+import 'package:chat_app/models/chat/old_chats.dart';
 import 'package:chat_app/screens/auth/profile/profile.dart';
 import 'package:chat_app/screens/chat/home/home.dart';
 import 'package:chat_app/screens/other/account/account.dart';
@@ -27,11 +27,12 @@ Future<void> main() async {
 }
 
 class Main extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: Color(0x0A0A0A),
+        statusBarColor: Color(0x000a0a0a),
       ),
     );
     SystemChrome.setPreferredOrientations(
@@ -85,7 +86,7 @@ class Main extends StatelessWidget {
               );
             case '/register':
               return PageTransition(
-                child: RegisterScreen(),
+                child: const RegisterScreen(),
                 type: PageTransitionType.fromRight,
               );
             case '/forgotPassword':
@@ -102,6 +103,7 @@ class Main extends StatelessWidget {
 
             default:
           }
+          return null;
         },
         title: 'Spark',
         color: Colors.green,

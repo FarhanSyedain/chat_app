@@ -11,7 +11,7 @@ class ProfileArea extends StatefulWidget {
   final XFile? pickedImage;
   final File? currentImage;
   final Function(bool)? changeSpinerval;
-  ProfileArea({this.pickedImage, this.currentImage, this.changeSpinerval});
+  const ProfileArea({this.pickedImage, this.currentImage, this.changeSpinerval});
   @override
   _ProfileAreaState createState() => _ProfileAreaState();
 }
@@ -33,7 +33,7 @@ class _ProfileAreaState extends State<ProfileArea> {
       children: [
         Center(
           child: Container(
-            padding: EdgeInsets.all(3),
+            padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               color: Colors.blue,
@@ -47,7 +47,7 @@ class _ProfileAreaState extends State<ProfileArea> {
                   fit: BoxFit.fill,
                   image: _currentImage != null
                       ? FileImage(_currentImage!) as ImageProvider
-                      : AssetImage(
+                      : const AssetImage(
                           'assets/dummy/profilePicture.jpg',
                         ),
                 ),
@@ -55,7 +55,7 @@ class _ProfileAreaState extends State<ProfileArea> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Center(
           child: Text.rich(
             TextSpan(
@@ -130,7 +130,7 @@ class _ProfileAreaState extends State<ProfileArea> {
                   onTap: () {
                     _pickImage(ImageSource.gallery);
                   },
-                  child: ListTile(
+                  child: const ListTile(
                     title: Text(
                       'Gallery',
                     ),
@@ -142,7 +142,7 @@ class _ProfileAreaState extends State<ProfileArea> {
                 ),
                 GestureDetector(
                   onTap: () => _pickImage(ImageSource.camera),
-                  child: ListTile(
+                  child: const ListTile(
                     title: Text(
                       'Camera',
                     ),
@@ -155,7 +155,7 @@ class _ProfileAreaState extends State<ProfileArea> {
                 if (_currentImage != null)
                   GestureDetector(
                     onTap: () => _pickImage(null),
-                    child: ListTile(
+                    child: const ListTile(
                       title: Text(
                         'Remove Profile Picture',
                       ),
