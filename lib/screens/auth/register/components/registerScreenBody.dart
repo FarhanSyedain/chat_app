@@ -1,5 +1,4 @@
 import 'package:chat_app/screens/chat/loadingOverlay.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/screens/auth/components/socialAuthRow.dart';
@@ -22,7 +21,7 @@ class _RegisterScreenBodyState extends State<RegisterScreenBody> {
   void initState() {
     super.initState();
 
-    KeyboardVisibilityNotification().addNewListener(
+    KeyboardVisibilityNotificatin().addNewListener(
       onChange: (bool visible) {
         setState(() {
           keyboardVisivle = visible;
